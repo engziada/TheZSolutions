@@ -85,7 +85,7 @@ git restore --source=checkpoint-7 .
 ## Installation and Setup
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/TheZSolutions.git
+git clone https://github.com/engziada/TheZSolutions.git
 cd TheZSolutions
 ```
 
