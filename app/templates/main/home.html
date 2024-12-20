@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="bg-navy text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h1 class="text-4xl font-bold mb-4">Where Code Meets Custom</h1>
+            <p class="text-xl mb-8">Your Vision, Precisely Coded</p>
+            <div class="flex justify-center gap-4">
+                <a href="{{ url_for('main.contact') }}" class="bg-indigo hover:bg-blue px-6 py-3 rounded-md text-white font-medium">Get Started</a>
+                <a href="{{ url_for('main.services') }}" class="border border-white hover:bg-blue px-6 py-3 rounded-md text-white font-medium">Our Services</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Overview -->
+<section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center mb-12">Our Services</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-bold mb-4">Web Development</h3>
+                <p class="text-gray-600">Custom web applications tailored to your business needs</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-bold mb-4">Desktop Applications</h3>
+                <p class="text-gray-600">Powerful desktop solutions for enhanced productivity</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-bold mb-4">Mobile Development</h3>
+                <p class="text-gray-600">Cross-platform mobile apps for modern businesses</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Recent Projects -->
+<section class="bg-gray-50 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center mb-12">Recent Projects</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Project cards will be dynamically populated -->
+        </div>
+    </div>
+</section>
+
+<!-- Client Testimonials -->
+<section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center mb-12">What Our Clients Say</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Testimonial cards will be dynamically populated -->
+        </div>
+    </div>
+</section>
+
+<!-- Team Highlights -->
+<section class="bg-gray-50 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center mb-12">Our Team</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <!-- Team member cards will be dynamically populated -->
+        </div>
+    </div>
+</section>
+{% endblock %}

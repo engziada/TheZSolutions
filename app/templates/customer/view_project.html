@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <!-- Project Header -->
+    <div class="md:flex md:items-center md:justify-between">
+        <div class="flex-1 min-w-0">
+            <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+                {{ project.title }}
+            </h2>
+            <div class="mt-1 flex flex-col sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-6">
+                <div class="mt-2 flex items-center text-sm text-gray-500">
+                    <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    Created: {{ project.created_at.strftime('%Y-%m-%d') }}
+                </div>
+                <div class="mt-2 flex items-center text-sm text-gray-500">
+                    <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                    Category: {{ project.category|title }}
+                </div>
+                <div class="mt-2 flex items-center text-sm text-gray-500">
+                    <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Budget: ${{ "%.2f"|format(project.budget_min) }} - ${{ "%.2f"|format(project.budget_max) }}
+                </div>
+            </div>
+        </div>
+        <div class="mt-4 flex md:mt-0 md:ml-4">
+            <a href="{{ url_for('customer.edit_project', project_id=project.id) }}"
+                class="ml-3 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo hover:bg-blue focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo">
+                Edit Project
+            </a>
+        </div>
+    </div>
+
+    <div class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <!-- Project Details -->
+        <div class="lg:col-span-2">
+            <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                        Project Details
+                    </h3>
+                </div>
+                <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+                    <div class="text-sm text-gray-900">
+                        {{ project.description }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Requirements -->
+            <div class="mt-6 bg-white shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                        Requirements
+                    </h3>
+                </div>
+                <div class="border-t border-gray-200">
+                    <ul class="divide-y divide-gray-200">
+                        {% for req in project.requirements %}
+                        <li class="px-4 py-4 sm:px-6">
+                            <div class="flex items-center justify-between">
+                                <div class="text-sm font-medium text-gray-900">
+                                    {{ req.title }}
+                                </div>
+                                <div class="ml-2 flex-shrink-0 flex">
+                                    <p class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                                        {% if req.priority == 'high' %}
+                                            bg-red-100 text-red-800
+                                        {% elif req.priority == 'medium' %}
+                                            bg-yellow-100 text-yellow-800
+                                        {% else %}
+                                            bg-green-100 text-green-800
+                                        {% endif %}">
+                                        {{ req.priority|title }}
+                                    </p>
+                                </div>
+                            </div>
+                            {% if req.description %}
+                            <div class="mt-2 text-sm text-gray-500">
+                                {{ req.description }}
+                            </div>
+                            {% endif %}
+                        </li>
+                        {% else %}
+                        <li class="px-4 py-4 sm:px-6">
+                            <p class="text-sm text-gray-500">No requirements specified.</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Files -->
+        <div class="lg:col-span-1">
+            <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                        Project Files
+                    </h3>
+                </div>
+                <div class="border-t border-gray-200">
+                    <!-- File Upload Form -->
+                    <div class="px-4 py-4 sm:px-6">
+                        <form action="{{ url_for('customer.upload_file', project_id=project.id) }}" method="POST"
+                            enctype="multipart/form-data" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">
+                                    Upload New File
+                                </label>
+                                <div class="mt-1 flex items-center">
+                                    <input type="file" name="file" required
+                                        class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo file:text-white hover:file:bg-blue">
+                                </div>
+                            </div>
+                            <button type="submit"
+                                class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo hover:bg-blue focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo">
+                                Upload
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- File List -->
+                    <ul class="divide-y divide-gray-200">
+                        {% for file in project.files %}
+                        <li class="px-4 py-4 sm:px-6">
+                            <div class="flex items-center justify-between">
+                                <div class="text-sm font-medium text-indigo hover:text-blue">
+                                    <a href="#" class="hover:underline">{{ file.filename }}</a>
+                                </div>
+                                <div class="ml-2 flex-shrink-0 flex">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+                                        {{ file.file_type|upper }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="mt-2 text-xs text-gray-500">
+                                Uploaded {{ file.uploaded_at.strftime('%Y-%m-%d %H:%M') }}
+                            </div>
+                        </li>
+                        {% else %}
+                        <li class="px-4 py-4 sm:px-6">
+                            <p class="text-sm text-gray-500">No files uploaded yet.</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

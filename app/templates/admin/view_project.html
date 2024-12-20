@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <!-- Project Header -->
+    <div class="md:flex md:items-center md:justify-between">
+        <div class="flex-1 min-w-0">
+            <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+                {{ project.title }}
+            </h2>
+            <div class="mt-1 flex flex-col sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-6">
+                <div class="mt-2 flex items-center text-sm text-gray-500">
+                    <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    Created: {{ project.created_at.strftime('%Y-%m-%d') }}
+                </div>
+                <div class="mt-2 flex items-center text-sm text-gray-500">
+                    <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                    Category: {{ project.category|title }}
+                </div>
+                <div class="mt-2 flex items-center text-sm text-gray-500">
+                    <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Budget: ${{ "%.2f"|format(project.budget_min) }} - ${{ "%.2f"|format(project.budget_max) }}
+                </div>
+            </div>
+        </div>
+        <div class="mt-4 flex md:mt-0 md:ml-4">
+            {% if project.status == 'pending' %}
+            <button type="button" onclick="document.getElementById('assign-modal').classList.remove('hidden')"
+                class="ml-3 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo hover:bg-blue focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo">
+                Assign Developer
+            </button>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <!-- Project Details -->
+        <div class="lg:col-span-2">
+            <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                        Project Details
+                    </h3>
+                </div>
+                <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+                    <div class="text-sm text-gray-900">
+                        {{ project.description }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Requirements -->
+            <div class="mt-6 bg-white shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                        Requirements
+                    </h3>
+                </div>
+                <div class="border-t border-gray-200">
+                    <ul class="divide-y divide-gray-200">
+                        {% for req in project.requirements %}
+                        <li class="px-4 py-4 sm:px-6">
+                            <div class="flex items-center justify-between">
+                                <div class="text-sm font-medium text-gray-900">
+                                    {{ req.title }}
+                                </div>
+                                <div class="ml-2 flex-shrink-0 flex">
+                                    <p class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                                        {% if req.priority == 'high' %}
+                                            bg-red-100 text-red-800
+                                        {% elif req.priority == 'medium' %}
+                                            bg-yellow-100 text-yellow-800
+                                        {% else %}
+                                            bg-green-100 text-green-800
+                                        {% endif %}">
+                                        {{ req.priority|title }}
+                                    </p>
+                                </div>
+                            </div>
+                            {% if req.description %}
+                            <div class="mt-2 text-sm text-gray-500">
+                                {{ req.description }}
+                            </div>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Milestones -->
+            <div class="mt-6 bg-white shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                        Milestones
+                    </h3>
+                </div>
+                <div class="border-t border-gray-200">
+                    <ul class="divide-y divide-gray-200">
+                        {% for milestone in project.milestones %}
+                        <li class="px-4 py-4 sm:px-6">
+                            <div class="flex items-center justify-between">
+                                <div class="text-sm font-medium text-gray-900">
+                                    {{ milestone.title }}
+                                </div>
+                                <div class="ml-2 flex-shrink-0 flex">
+                                    <p class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                                        {% if milestone.status == 'completed' %}
+                                            bg-green-100 text-green-800
+                                        {% elif milestone.status == 'in_progress' %}
+                                            bg-blue-100 text-blue-800
+                                        {% else %}
+                                            bg-yellow-100 text-yellow-800
+                                        {% endif %}">
+                                        {{ milestone.status|replace('_', ' ')|title }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-500">
+                                {{ milestone.description }}
+                            </div>
+                            <div class="mt-2 text-xs text-gray-500">
+                                Due: {{ milestone.due_date.strftime('%Y-%m-%d') }}
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="lg:col-span-1">
+            <!-- Customer Info -->
+            <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                        Customer Information
+                    </h3>
+                </div>
+                <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+                    <div class="text-sm">
+                        <div class="font-medium text-gray-900">{{ project.customer.username }}</div>
+                        <div class="text-gray-500">{{ project.customer.email }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Assigned Developers -->
+            <div class="mt-6 bg-white shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                        Assigned Developers
+                    </h3>
+                </div>
+                <div class="border-t border-gray-200">
+                    <ul class="divide-y divide-gray-200">
+                        {% for dev in project.developers %}
+                        <li class="px-4 py-4 sm:px-6">
+                            <div class="text-sm">
+                                <div class="font-medium text-gray-900">{{ dev.user.username }}</div>
+                                <div class="text-gray-500">{{ dev.user.email }}</div>
+                            </div>
+                        </li>
+                        {% else %}
+                        <li class="px-4 py-4 sm:px-6">
+                            <p class="text-sm text-gray-500">No developers assigned yet.</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Project Files -->
+            <div class="mt-6 bg-white shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                        Project Files
+                    </h3>
+                </div>
+                <div class="border-t border-gray-200">
+                    <ul class="divide-y divide-gray-200">
+                        {% for file in project.files %}
+                        <li class="px-4 py-4 sm:px-6">
+                            <div class="flex items-center justify-between">
+                                <div class="text-sm font-medium text-indigo hover:text-blue">
+                                    <a href="#" class="hover:underline">{{ file.filename }}</a>
+                                </div>
+                                <div class="ml-2 flex-shrink-0 flex">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+                                        {{ file.file_type|upper }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="mt-2 text-xs text-gray-500">
+                                Uploaded {{ file.uploaded_at.strftime('%Y-%m-%d %H:%M') }}
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Assign Developer Modal -->
+<div id="assign-modal" class="hidden fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
+    aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+        <div
+            class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+            <div>
+                <div class="mt-3 text-center sm:mt-5">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                        Assign Developer
+                    </h3>
+                    <div class="mt-2">
+                        <form action="{{ url_for('admin.assign_developer', project_id=project.id) }}" method="POST">
+                            <div class="mt-4">
+                                <select id="developer_id" name="developer_id"
+                                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo focus:border-indigo sm:text-sm">
+                                    <option value="">Select a developer</option>
+                                    {% for dev in available_developers %}
+                                    <option value="{{ dev.id }}">{{ dev.user.username }} ({{ dev.user.email }})</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
+                                <button type="submit"
+                                    class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo text-base font-medium text-white hover:bg-blue focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo sm:col-start-2 sm:text-sm">
+                                    Assign
+                                </button>
+                                <button type="button" onclick="document.getElementById('assign-modal').classList.add('hidden')"
+                                    class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo sm:mt-0 sm:col-start-1 sm:text-sm">
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

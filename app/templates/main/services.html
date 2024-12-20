@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="bg-white">
+    <!-- Hero Section -->
+    <div class="relative bg-indigo-800">
+        <div class="absolute inset-0">
+            <img class="w-full h-full object-cover" src="{{ url_for('static', filename='images/services-hero.jpg') }}"
+                alt="Services background">
+            <div class="absolute inset-0 bg-indigo-800 mix-blend-multiply" aria-hidden="true"></div>
+        </div>
+        <div class="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+            <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">Our Services</h1>
+            <p class="mt-6 text-xl text-indigo-100 max-w-3xl">
+                We provide comprehensive software solutions tailored to your business needs. From web applications to desktop
+                software, we deliver quality and innovation.
+            </p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:py-24 lg:px-8">
+        <!-- Core Services Section -->
+        <div class="mb-20">
+            <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                Core Services
+            </h2>
+            <div class="mt-12 grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                <!-- Web Development -->
+                <div class="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200">
+                    <div>
+                        <span class="rounded-lg inline-flex p-3 bg-indigo-50 text-indigo-700 ring-4 ring-white">
+                            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="mt-8">
+                        <h3 class="text-lg font-medium">
+                            <a href="#" class="focus:outline-none">
+                                <span class="absolute inset-0" aria-hidden="true"></span>
+                                Web Development
+                            </a>
+                        </h3>
+                        <p class="mt-2 text-sm text-gray-500">
+                            Custom web applications, responsive websites, and e-commerce solutions using modern technologies
+                            and frameworks.
+                        </p>
+                    </div>
+                    <span class="pointer-events-none absolute top-6 right-6 text-gray-300 group-hover:text-gray-400"
+                        aria-hidden="true">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
+                        </svg>
+                    </span>
+                </div>
+
+                <!-- Desktop Applications -->
+                <div class="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200">
+                    <div>
+                        <span class="rounded-lg inline-flex p-3 bg-indigo-50 text-indigo-700 ring-4 ring-white">
+                            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="mt-8">
+                        <h3 class="text-lg font-medium">
+                            <a href="#" class="focus:outline-none">
+                                <span class="absolute inset-0" aria-hidden="true"></span>
+                                Desktop Applications
+                            </a>
+                        </h3>
+                        <p class="mt-2 text-sm text-gray-500">
+                            Powerful desktop software solutions for Windows, macOS, and Linux, built with modern frameworks
+                            and tools.
+                        </p>
+                    </div>
+                    <span class="pointer-events-none absolute top-6 right-6 text-gray-300 group-hover:text-gray-400"
+                        aria-hidden="true">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
+                        </svg>
+                    </span>
+                </div>
+
+                <!-- Mobile Development -->
+                <div class="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200">
+                    <div>
+                        <span class="rounded-lg inline-flex p-3 bg-indigo-50 text-indigo-700 ring-4 ring-white">
+                            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="mt-8">
+                        <h3 class="text-lg font-medium">
+                            <a href="#" class="focus:outline-none">
+                                <span class="absolute inset-0" aria-hidden="true"></span>
+                                Mobile Development
+                            </a>
+                        </h3>
+                        <p class="mt-2 text-sm text-gray-500">
+                            Native and cross-platform mobile applications for iOS and Android, delivering seamless user
+                            experiences.
+                        </p>
+                    </div>
+                    <span class="pointer-events-none absolute top-6 right-6 text-gray-300 group-hover:text-gray-400"
+                        aria-hidden="true">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
+                        </svg>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Services Section -->
+        <div class="mt-20">
+            <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                Additional Services
+            </h2>
+            <div class="mt-12 grid gap-8 grid-cols-1 lg:grid-cols-2">
+                <!-- Consulting -->
+                <div class="bg-white overflow-hidden shadow rounded-lg">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
+                                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                </svg>
+                            </div>
+                            <div class="ml-5">
+                                <h3 class="text-lg font-medium text-gray-900">IT Consulting</h3>
+                                <p class="mt-2 text-sm text-gray-500">
+                                    Strategic technology consulting to help businesses leverage the right tools and
+                                    technologies for growth.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Maintenance -->
+                <div class="bg-white overflow-hidden shadow rounded-lg">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
+                                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </div>
+                            <div class="ml-5">
+                                <h3 class="text-lg font-medium text-gray-900">Maintenance & Support</h3>
+                                <p class="mt-2 text-sm text-gray-500">
+                                    Ongoing maintenance, updates, and technical support to keep your systems running smoothly.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="mt-20">
+            <div class="bg-indigo-700 rounded-lg shadow-xl overflow-hidden">
+                <div class="pt-10 pb-12 px-6 sm:pt-16 sm:px-16 lg:py-16 lg:pr-0 xl:py-20 xl:px-20">
+                    <div class="lg:self-center">
+                        <h2 class="text-3xl font-extrabold text-white sm:text-4xl">
+                            <span class="block">Ready to get started?</span>
+                        </h2>
+                        <p class="mt-4 text-lg leading-6 text-indigo-200">
+                            Let's discuss how we can help your business grow with our software solutions.
+                        </p>
+                        <a href="{{ url_for('main.contact') }}"
+                            class="mt-8 bg-white border border-transparent rounded-md shadow px-6 py-3 inline-flex items-center text-base font-medium text-indigo-600 hover:bg-indigo-50">
+                            Contact Us
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

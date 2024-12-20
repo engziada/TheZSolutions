@@ -1,0 +1,93 @@
+{% extends "email/base_email.html" %}
+
+{% block content %}
+<h2 style="color: #4f46e5; font-size: 24px; font-weight: bold; margin: 0; margin-bottom: 15px;">Project Completed!</h2>
+
+<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
+    Great news! The following project has been successfully completed:
+</p>
+
+<div style="background-color: #f8fafc; border-radius: 5px; padding: 15px; margin-bottom: 15px;">
+    <h3 style="color: #1f2937; font-size: 18px; font-weight: bold; margin: 0; margin-bottom: 10px;">
+        {{ project.title }}
+    </h3>
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 10px;">
+        <strong>Category:</strong> {{ project.category|title }}
+    </p>
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 10px;">
+        <strong>Completion Date:</strong> {{ project.updated_at.strftime('%Y-%m-%d') }}
+    </p>
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0;">
+        <strong>Duration:</strong> {{ (project.updated_at - project.created_at).days }} days
+    </p>
+</div>
+
+<h4 style="color: #1f2937; font-size: 16px; font-weight: bold; margin: 0; margin-bottom: 10px;">Project Milestones:</h4>
+<div style="margin-bottom: 15px;">
+    {% for milestone in project.milestones %}
+    <div style="margin-bottom: 10px; padding: 10px; border-left: 4px solid #22c55e;">
+        <p style="margin: 0; font-size: 14px;">
+            <strong>{{ milestone.title }}</strong><br>
+            <span style="color: #6b7280; font-size: 13px;">
+                Completed on: {{ milestone.completed_at.strftime('%Y-%m-%d') }}
+            </span>
+        </p>
+    </div>
+    {% endfor %}
+</div>
+
+{% if project.developers %}
+<h4 style="color: #1f2937; font-size: 16px; font-weight: bold; margin: 0; margin-bottom: 10px;">Project Team:</h4>
+<ul style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px; padding-left: 20px;">
+    {% for dev in project.developers %}
+    <li style="margin-bottom: 5px;">{{ dev.user.username }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<div style="background-color: #dbeafe; border-radius: 5px; padding: 15px; margin-bottom: 15px;">
+    <h4 style="color: #1e40af; font-size: 16px; font-weight: bold; margin: 0; margin-bottom: 10px;">Next Steps:</h4>
+    <ul style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; padding-left: 20px; color: #1e40af;">
+        <li style="margin-bottom: 5px;">Review the completed project deliverables</li>
+        <li style="margin-bottom: 5px;">Download any relevant documentation</li>
+        <li style="margin-bottom: 5px;">Provide feedback on your experience</li>
+        <li style="margin-bottom: 5px;">Consider future collaboration opportunities</li>
+    </ul>
+</div>
+
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary"
+    style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; box-sizing: border-box; width: 100%;"
+    width="100%">
+    <tbody>
+        <tr>
+            <td align="center"
+                style="font-family: sans-serif; font-size: 14px; vertical-align: top; padding-bottom: 15px;"
+                valign="top">
+                <table role="presentation" border="0" cellpadding="0" cellspacing="0"
+                    style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
+                    <tbody>
+                        <tr>
+                            <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; border-radius: 5px; text-align: center; background-color: #4f46e5;"
+                                valign="top" align="center" bgcolor="#4f46e5">
+                                <a href="{{ url_for('customer.view_project', project_id=project.id, _external=True) }}"
+                                    target="_blank"
+                                    style="border: solid 1px #4f46e5; border-radius: 5px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-decoration: none; text-transform: capitalize; background-color: #4f46e5; border-color: #4f46e5; color: #ffffff;">View
+                                    Project Details</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
+    Thank you for choosing The Z Solutions for your project. We hope you're satisfied with the results and look forward to working with you again!
+</p>
+
+<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0;">
+    Best regards,<br>
+    The Z Solutions Team
+</p>
+{% endblock %}

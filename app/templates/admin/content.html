@@ -1,0 +1,332 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <!-- Page header -->
+    <div class="pb-5 border-b border-gray-200">
+        <h3 class="text-2xl leading-6 font-medium text-gray-900">
+            Content Management
+        </h3>
+    </div>
+
+    <!-- Content Sections -->
+    <div class="mt-8">
+        <!-- Team Members Section -->
+        <div class="bg-white shadow sm:rounded-lg mb-8">
+            <div class="px-4 py-5 sm:p-6">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">
+                    Team Members
+                </h3>
+                <div class="mt-4 border-t border-gray-200">
+                    <!-- Existing Team Members -->
+                    <ul class="divide-y divide-gray-200">
+                        {% for member in team_members %}
+                        <li class="py-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex-1">
+                                    <h4 class="text-lg font-medium text-gray-900">{{ member.name }}</h4>
+                                    <p class="mt-1 text-sm text-gray-500">{{ member.role }}</p>
+                                    {% if member.bio %}
+                                    <p class="mt-2 text-sm text-gray-600">{{ member.bio }}</p>
+                                    {% endif %}
+                                </div>
+                                <div class="ml-4 flex-shrink-0">
+                                    <form action="{{ url_for('admin.delete_team_member', member_id=member.id) }}" method="POST"
+                                        class="inline">
+                                        <button type="submit"
+                                            class="text-red-600 hover:text-red-900 font-medium text-sm">Remove</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+
+                    <!-- Add New Team Member -->
+                    <div class="mt-6">
+                        <button type="button" onclick="document.getElementById('team-modal').classList.remove('hidden')"
+                            class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo hover:bg-blue focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo">
+                            Add Team Member
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Services Section -->
+        <div class="bg-white shadow sm:rounded-lg mb-8">
+            <div class="px-4 py-5 sm:p-6">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">
+                    Services
+                </h3>
+                <div class="mt-4 border-t border-gray-200">
+                    <!-- Existing Services -->
+                    <ul class="divide-y divide-gray-200">
+                        {% for service in services %}
+                        <li class="py-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex-1">
+                                    <div class="flex items-center">
+                                        {% if service.icon %}
+                                        <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-md bg-indigo text-white">
+                                            <i class="{{ service.icon }} text-xl"></i>
+                                        </div>
+                                        {% endif %}
+                                        <div class="ml-4">
+                                            <h4 class="text-lg font-medium text-gray-900">{{ service.name }}</h4>
+                                            <p class="mt-1 text-sm text-gray-500">{{ service.description }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ml-4 flex-shrink-0">
+                                    <form action="{{ url_for('admin.delete_service', service_id=service.id) }}" method="POST"
+                                        class="inline">
+                                        <button type="submit"
+                                            class="text-red-600 hover:text-red-900 font-medium text-sm">Remove</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+
+                    <!-- Add New Service -->
+                    <div class="mt-6">
+                        <button type="button" onclick="document.getElementById('service-modal').classList.remove('hidden')"
+                            class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo hover:bg-blue focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo">
+                            Add Service
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testimonials Section -->
+        <div class="bg-white shadow sm:rounded-lg">
+            <div class="px-4 py-5 sm:p-6">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">
+                    Testimonials
+                </h3>
+                <div class="mt-4 border-t border-gray-200">
+                    <!-- Existing Testimonials -->
+                    <ul class="divide-y divide-gray-200">
+                        {% for testimonial in testimonials %}
+                        <li class="py-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex-1">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0 h-10 w-10">
+                                            {% if testimonial.image_url %}
+                                            <img class="h-10 w-10 rounded-full" src="{{ testimonial.image_url }}"
+                                                alt="{{ testimonial.author }}">
+                                            {% else %}
+                                            <div
+                                                class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
+                                                {{ testimonial.author[0]|upper }}
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="ml-4">
+                                            <h4 class="text-lg font-medium text-gray-900">{{ testimonial.author }}</h4>
+                                            <p class="mt-1 text-sm text-gray-500">{{ testimonial.company }}</p>
+                                            <p class="mt-2 text-sm text-gray-600">{{ testimonial.content }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ml-4 flex-shrink-0">
+                                    <form action="{{ url_for('admin.toggle_testimonial', testimonial_id=testimonial.id) }}"
+                                        method="POST" class="inline">
+                                        <button type="submit"
+                                            class="text-indigo hover:text-blue font-medium text-sm">
+                                            {{ 'Hide' if testimonial.is_featured else 'Show' }}
+                                        </button>
+                                    </form>
+                                    <form action="{{ url_for('admin.delete_testimonial', testimonial_id=testimonial.id) }}"
+                                        method="POST" class="inline ml-4">
+                                        <button type="submit"
+                                            class="text-red-600 hover:text-red-900 font-medium text-sm">Remove</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+
+                    <!-- Add New Testimonial -->
+                    <div class="mt-6">
+                        <button type="button" onclick="document.getElementById('testimonial-modal').classList.remove('hidden')"
+                            class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo hover:bg-blue focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo">
+                            Add Testimonial
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Team Member Modal -->
+<div id="team-modal" class="hidden fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
+    aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+        <div
+            class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+            <form action="{{ url_for('admin.update_team') }}" method="POST">
+                <div>
+                    <div class="mt-3 text-center sm:mt-5">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                            Add Team Member
+                        </h3>
+                        <div class="mt-2">
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                                    <input type="text" name="name" id="name" required
+                                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo focus:border-indigo sm:text-sm">
+                                </div>
+                                <div>
+                                    <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
+                                    <input type="text" name="role" id="role" required
+                                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo focus:border-indigo sm:text-sm">
+                                </div>
+                                <div>
+                                    <label for="bio" class="block text-sm font-medium text-gray-700">Bio</label>
+                                    <textarea name="bio" id="bio" rows="3"
+                                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo focus:border-indigo sm:text-sm"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
+                    <button type="submit"
+                        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo text-base font-medium text-white hover:bg-blue focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo sm:col-start-2 sm:text-sm">
+                        Add Member
+                    </button>
+                    <button type="button" onclick="document.getElementById('team-modal').classList.add('hidden')"
+                        class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo sm:mt-0 sm:col-start-1 sm:text-sm">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Service Modal -->
+<div id="service-modal" class="hidden fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
+    aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+        <div
+            class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+            <form action="{{ url_for('admin.update_service') }}" method="POST">
+                <div>
+                    <div class="mt-3 text-center sm:mt-5">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                            Add Service
+                        </h3>
+                        <div class="mt-2">
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                                    <input type="text" name="name" id="name" required
+                                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo focus:border-indigo sm:text-sm">
+                                </div>
+                                <div>
+                                    <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                                    <textarea name="description" id="description" rows="3" required
+                                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo focus:border-indigo sm:text-sm"></textarea>
+                                </div>
+                                <div>
+                                    <label for="icon" class="block text-sm font-medium text-gray-700">Icon Class</label>
+                                    <input type="text" name="icon" id="icon"
+                                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo focus:border-indigo sm:text-sm"
+                                        placeholder="fas fa-code">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
+                    <button type="submit"
+                        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo text-base font-medium text-white hover:bg-blue focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo sm:col-start-2 sm:text-sm">
+                        Add Service
+                    </button>
+                    <button type="button" onclick="document.getElementById('service-modal').classList.add('hidden')"
+                        class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo sm:mt-0 sm:col-start-1 sm:text-sm">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Testimonial Modal -->
+<div id="testimonial-modal" class="hidden fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
+    aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+        <div
+            class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+            <form action="{{ url_for('admin.update_testimonial') }}" method="POST" enctype="multipart/form-data">
+                <div>
+                    <div class="mt-3 text-center sm:mt-5">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                            Add Testimonial
+                        </h3>
+                        <div class="mt-2">
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="author" class="block text-sm font-medium text-gray-700">Author Name</label>
+                                    <input type="text" name="author" id="author" required
+                                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo focus:border-indigo sm:text-sm">
+                                </div>
+                                <div>
+                                    <label for="company" class="block text-sm font-medium text-gray-700">Company</label>
+                                    <input type="text" name="company" id="company" required
+                                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo focus:border-indigo sm:text-sm">
+                                </div>
+                                <div>
+                                    <label for="content" class="block text-sm font-medium text-gray-700">Testimonial</label>
+                                    <textarea name="content" id="content" rows="4" required
+                                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo focus:border-indigo sm:text-sm"></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">
+                                        Photo
+                                    </label>
+                                    <div class="mt-1 flex items-center">
+                                        <input type="file" name="image" accept="image/*"
+                                            class="mt-1 block w-full text-sm text-gray-500
+                                            file:mr-4 file:py-2 file:px-4
+                                            file:rounded-full file:border-0
+                                            file:text-sm file:font-semibold
+                                            file:bg-indigo file:text-white
+                                            hover:file:bg-blue">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
+                    <button type="submit"
+                        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo text-base font-medium text-white hover:bg-blue focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo sm:col-start-2 sm:text-sm">
+                        Add Testimonial
+                    </button>
+                    <button type="button" onclick="document.getElementById('testimonial-modal').classList.add('hidden')"
+                        class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo sm:mt-0 sm:col-start-1 sm:text-sm">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

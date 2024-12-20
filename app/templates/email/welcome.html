@@ -1,0 +1,71 @@
+{% extends "email/base_email.html" %}
+
+{% block content %}
+<h2 style="color: #4f46e5; font-size: 24px; font-weight: bold; margin: 0; margin-bottom: 15px;">Welcome to The Z Solutions!</h2>
+
+<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
+    Hi {{ user.username }},
+</p>
+
+<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
+    Thank you for joining The Z Solutions! We're excited to have you on board. Our platform connects talented developers with
+    exciting projects, making software development collaboration seamless and efficient.
+</p>
+
+{% if user.role == 'developer' %}
+<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
+    As a developer, you'll have access to:
+</p>
+<ul style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
+    <li>Browse and apply for projects that match your skills</li>
+    <li>Showcase your portfolio and expertise</li>
+    <li>Collaborate with clients directly through our platform</li>
+    <li>Secure payment system for completed work</li>
+</ul>
+{% elif user.role == 'customer' %}
+<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
+    As a customer, you'll have access to:
+</p>
+<ul style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
+    <li>Post projects and find skilled developers</li>
+    <li>Track project progress in real-time</li>
+    <li>Communicate directly with developers</li>
+    <li>Secure payment system for project milestones</li>
+</ul>
+{% endif %}
+
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary"
+    style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; box-sizing: border-box; width: 100%;"
+    width="100%">
+    <tbody>
+        <tr>
+            <td align="center"
+                style="font-family: sans-serif; font-size: 14px; vertical-align: top; padding-bottom: 15px;"
+                valign="top">
+                <table role="presentation" border="0" cellpadding="0" cellspacing="0"
+                    style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
+                    <tbody>
+                        <tr>
+                            <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; border-radius: 5px; text-align: center; background-color: #4f46e5;"
+                                valign="top" align="center" bgcolor="#4f46e5">
+                                <a href="{{ url_for('main.home', _external=True) }}" target="_blank"
+                                    style="border: solid 1px #4f46e5; border-radius: 5px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-decoration: none; text-transform: capitalize; background-color: #4f46e5; border-color: #4f46e5; color: #ffffff;">Get
+                                    Started</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
+    If you have any questions or need assistance, don't hesitate to contact our support team.
+</p>
+
+<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0;">
+    Best regards,<br>
+    The Z Solutions Team
+</p>
+{% endblock %}

@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="bg-white">
+    <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+        <!-- Project Header -->
+        <div class="text-center">
+            <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
+                {{ project.title }}
+            </h1>
+            <div class="mt-4 flex justify-center items-center space-x-4">
+                <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium
+                    {% if project.category == 'web' %}
+                        bg-blue-100 text-blue-800
+                    {% elif project.category == 'desktop' %}
+                        bg-green-100 text-green-800
+                    {% else %}
+                        bg-purple-100 text-purple-800
+                    {% endif %}">
+                    {{ project.category|title }}
+                </span>
+                <span class="text-sm text-gray-500">
+                    {{ project.end_date.strftime('%B %Y') if project.end_date else 'Completed' }}
+                </span>
+                <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                    {{ project.status|title }}
+                </span>
+            </div>
+        </div>
+
+        <!-- Project Details -->
+        <div class="mt-16">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Main Content -->
+                <div class="lg:col-span-2">
+                    <div class="prose prose-indigo prose-lg text-gray-500 mx-auto">
+                        <h2 class="text-3xl font-bold text-gray-900">Project Overview</h2>
+                        <p>{{ project.description }}</p>
+
+                        {% if project.requirements.count() > 0 %}
+                        <h3 class="text-2xl font-bold text-gray-900 mt-8">Key Features</h3>
+                        <ul>
+                            {% for req in project.requirements %}
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 h-6 w-6 text-green-500">
+                                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </span>
+                                <span class="ml-3">
+                                    <span class="text-gray-900 font-medium">{{ req.title }}</span>
+                                    {% if req.description %}
+                                    <br>
+                                    <span class="text-gray-500">{{ req.description }}</span>
+                                    {% endif %}
+                                </span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+
+                        {% if project.milestones.count() > 0 %}
+                        <h3 class="text-2xl font-bold text-gray-900 mt-8">Project Milestones</h3>
+                        <div class="flow-root">
+                            <ul class="-mb-8">
+                                {% for milestone in project.milestones %}
+                                <li>
+                                    <div class="relative pb-8">
+                                        {% if not loop.last %}
+                                        <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200"
+                                            aria-hidden="true"></span>
+                                        {% endif %}
+                                        <div class="relative flex space-x-3">
+                                            <div>
+                                                <span class="h-8 w-8 rounded-full flex items-center justify-center
+                                                    {% if milestone.status == 'completed' %}
+                                                        bg-green-500
+                                                    {% elif milestone.status == 'in_progress' %}
+                                                        bg-blue-500
+                                                    {% else %}
+                                                        bg-gray-400
+                                                    {% endif %}">
+                                                    <svg class="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd"
+                                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </span>
+                                            </div>
+                                            <div class="min-w-0 flex-1">
+                                                <div>
+                                                    <div class="text-sm">
+                                                        <span class="font-medium text-gray-900">
+                                                            {{ milestone.title }}
+                                                        </span>
+                                                    </div>
+                                                    <p class="mt-0.5 text-sm text-gray-500">
+                                                        Due: {{ milestone.due_date.strftime('%B %d, %Y') if milestone.due_date }}
+                                                    </p>
+                                                </div>
+                                                {% if milestone.description %}
+                                                <div class="mt-2 text-sm text-gray-700">
+                                                    <p>{{ milestone.description }}</p>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                        <div class="px-4 py-5 sm:px-6">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                                Project Details
+                            </h3>
+                        </div>
+                        <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+                            <dl class="grid grid-cols-1 gap-x-4 gap-y-8">
+                                <div class="sm:col-span-1">
+                                    <dt class="text-sm font-medium text-gray-500">
+                                        Status
+                                    </dt>
+                                    <dd class="mt-1 text-sm text-gray-900">
+                                        {{ project.status|title }}
+                                    </dd>
+                                </div>
+                                <div class="sm:col-span-1">
+                                    <dt class="text-sm font-medium text-gray-500">
+                                        Category
+                                    </dt>
+                                    <dd class="mt-1 text-sm text-gray-900">
+                                        {{ project.category|title }}
+                                    </dd>
+                                </div>
+                                {% if project.start_date %}
+                                <div class="sm:col-span-1">
+                                    <dt class="text-sm font-medium text-gray-500">
+                                        Start Date
+                                    </dt>
+                                    <dd class="mt-1 text-sm text-gray-900">
+                                        {{ project.start_date.strftime('%B %d, %Y') }}
+                                    </dd>
+                                </div>
+                                {% endif %}
+                                {% if project.end_date %}
+                                <div class="sm:col-span-1">
+                                    <dt class="text-sm font-medium text-gray-500">
+                                        Completion Date
+                                    </dt>
+                                    <dd class="mt-1 text-sm text-gray-900">
+                                        {{ project.end_date.strftime('%B %d, %Y') }}
+                                    </dd>
+                                </div>
+                                {% endif %}
+                                {% if project.budget_min and project.budget_max %}
+                                <div class="sm:col-span-1">
+                                    <dt class="text-sm font-medium text-gray-500">
+                                        Budget Range
+                                    </dt>
+                                    <dd class="mt-1 text-sm text-gray-900">
+                                        ${{ "{:,.0f}".format(project.budget_min) }} - ${{ "{:,.0f}".format(project.budget_max) }}
+                                    </dd>
+                                </div>
+                                {% endif %}
+                            </dl>
+                        </div>
+                    </div>
+
+                    <!-- Call to Action -->
+                    <div class="mt-8">
+                        <a href="{{ url_for('main.contact') }}"
+                            class="w-full flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                            Start Your Project
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

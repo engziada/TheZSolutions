@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                Contact Us
+            </h1>
+            <p class="mt-4 text-lg text-gray-500">
+                Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+            </p>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="bg-white py-8 px-6 shadow rounded-lg sm:px-10">
+            <form method="POST" class="mb-0 space-y-6" id="contactForm">
+                {{ form.hidden_tag() }}
+                
+                <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+                    <!-- Name -->
+                    <div>
+                        <label for="first_name" class="block text-sm font-medium text-gray-700">First name</label>
+                        <div class="mt-1">
+                            {{ form.first_name(class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md") }}
+                        </div>
+                        {% if form.first_name.errors %}
+                        <p class="mt-2 text-sm text-red-600">{{ form.first_name.errors[0] }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label for="last_name" class="block text-sm font-medium text-gray-700">Last name</label>
+                        <div class="mt-1">
+                            {{ form.last_name(class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md") }}
+                        </div>
+                        {% if form.last_name.errors %}
+                        <p class="mt-2 text-sm text-red-600">{{ form.last_name.errors[0] }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Email -->
+                    <div class="sm:col-span-2">
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <div class="mt-1">
+                            {{ form.email(class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md") }}
+                        </div>
+                        {% if form.email.errors %}
+                        <p class="mt-2 text-sm text-red-600">{{ form.email.errors[0] }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="sm:col-span-2">
+                        <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                        <div class="mt-1">
+                            {{ form.phone(class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md") }}
+                        </div>
+                        {% if form.phone.errors %}
+                        <p class="mt-2 text-sm text-red-600">{{ form.phone.errors[0] }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Subject -->
+                    <div class="sm:col-span-2">
+                        <label for="subject" class="block text-sm font-medium text-gray-700">Subject</label>
+                        <div class="mt-1">
+                            {{ form.subject(class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md") }}
+                        </div>
+                        {% if form.subject.errors %}
+                        <p class="mt-2 text-sm text-red-600">{{ form.subject.errors[0] }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Message -->
+                    <div class="sm:col-span-2">
+                        <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                        <div class="mt-1">
+                            {{ form.message(rows="4", class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md") }}
+                        </div>
+                        {% if form.message.errors %}
+                        <p class="mt-2 text-sm text-red-600">{{ form.message.errors[0] }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="sm:col-span-2">
+                    <button type="submit"
+                        class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Send Message
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="mt-12 bg-white shadow rounded-lg">
+            <div class="max-w-7xl mx-auto py-8 px-6 sm:px-10">
+                <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-8">
+                    <!-- Address -->
+                    <div class="text-center sm:text-left">
+                        <h3 class="text-lg font-medium text-gray-900">Our Office</h3>
+                        <div class="mt-2 text-base text-gray-500">
+                            <p>123 Business Street</p>
+                            <p>Suite 100</p>
+                            <p>New York, NY 10001</p>
+                        </div>
+                    </div>
+
+                    <!-- Contact -->
+                    <div class="text-center sm:text-left">
+                        <h3 class="text-lg font-medium text-gray-900">Contact Info</h3>
+                        <div class="mt-2 text-base text-gray-500">
+                            <p>Email: info@thezolutions.com</p>
+                            <p>Phone: (555) 123-4567</p>
+                            <p>Fax: (555) 123-4568</p>
+                        </div>
+                    </div>
+
+                    <!-- Hours -->
+                    <div class="text-center sm:text-left">
+                        <h3 class="text-lg font-medium text-gray-900">Business Hours</h3>
+                        <div class="mt-2 text-base text-gray-500">
+                            <p>Monday - Friday</p>
+                            <p>9:00 AM - 6:00 PM EST</p>
+                            <p>Weekend by appointment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Message Modal -->
+<div id="successModal" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+        <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+            <div>
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                    <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                </div>
+                <div class="mt-3 text-center sm:mt-5">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                        Message Sent Successfully
+                    </h3>
+                    <div class="mt-2">
+                        <p class="text-sm text-gray-500">
+                            Thank you for contacting us! We'll get back to you as soon as possible.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5 sm:mt-6">
+                <button type="button" onclick="closeSuccessModal()"
+                    class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = new FormData(this);
+        
+        // Submit form using fetch
+        fetch('/contact', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                // Show success modal
+                document.getElementById('successModal').classList.remove('hidden');
+                // Reset form
+                this.reset();
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        });
+    });
+
+    function closeSuccessModal() {
+        document.getElementById('successModal').classList.add('hidden');
+    }
+</script>
+{% endblock %}

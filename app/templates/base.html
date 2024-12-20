@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - The Z Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        indigo: '#6366F1',
+                        blue: '#2563EB',
+                        navy: '#1E40AF',
+                        white: '#FFFFFF',
+                        darkGray: '#1F2937',
+                    }
+                }
+            }
+        }
+    </script>
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="bg-white text-darkGray">
+    <nav class="bg-navy">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <a href="{{ url_for('main.home') }}" class="text-white font-bold text-xl">
+                            The Z Solutions
+                        </a>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <a href="{{ url_for('main.home') }}" class="text-white hover:bg-blue px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                            <a href="{{ url_for('main.services') }}" class="text-white hover:bg-blue px-3 py-2 rounded-md text-sm font-medium">Services</a>
+                            <a href="{{ url_for('main.projects') }}" class="text-white hover:bg-blue px-3 py-2 rounded-md text-sm font-medium">Projects</a>
+                            <a href="{{ url_for('main.team') }}" class="text-white hover:bg-blue px-3 py-2 rounded-md text-sm font-medium">Team</a>
+                            <a href="{{ url_for('careers.apply') }}" class="text-white hover:bg-blue px-3 py-2 rounded-md text-sm font-medium">Join Us</a>
+                            <a href="{{ url_for('requests.new_request') }}" class="text-white hover:bg-blue px-3 py-2 rounded-md text-sm font-medium">Request Project</a>
+                            <a href="{{ url_for('main.contact') }}" class="text-white hover:bg-blue px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                            {% if current_user.is_authenticated and current_user.role == 'admin' %}
+                            <a href="{{ url_for('admin.dashboard') }}" class="text-indigo hover:bg-blue px-3 py-2 rounded-md text-sm font-medium flex items-center">
+                                <svg class="h-5 w-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                Admin
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-4 flex items-center md:ml-6">
+                        {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('auth.logout') }}" class="text-white hover:bg-blue px-3 py-2 rounded-md text-sm font-medium">Logout</a>
+                        {% else %}
+                            <a href="{{ url_for('auth.login') }}" class="text-white hover:bg-blue px-3 py-2 rounded-md text-sm font-medium">Login</a>
+                            <a href="{{ url_for('auth.register') }}" class="ml-4 text-white bg-indigo hover:bg-blue px-3 py-2 rounded-md text-sm font-medium">Register</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="mb-4 px-4 py-3 rounded-md {% if category == 'error' %}bg-red-100 text-red-700{% else %}bg-green-100 text-green-700{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-darkGray">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="text-center text-white">
+                <p class="text-sm">&copy; 2024 The Z Solutions. All rights reserved.</p>
+                <p class="mt-2 text-sm">Where Code Meets Custom: Your Vision, Precisely Coded</p>
+            </div>
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
