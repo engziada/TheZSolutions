@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify, request, abort
+from flask import Blueprint, render_template, jsonify, request, abort, redirect, url_for, flash
 from flask_login import current_user
 from app.forms.contact import ContactForm
 from app.utils.email import send_contact_notification
@@ -11,7 +11,8 @@ main_bp = Blueprint('main', __name__)
 @main_bp.route('/')
 @main_bp.route('/home')
 def home():
-    return render_template('main/home.html', title='Home')
+    form = ContactForm()
+    return render_template('main/home.html', title='Home', form=form)
 
 @main_bp.route('/services')
 def services():
@@ -48,44 +49,31 @@ def project_detail(project_id):
                          title=project.title,
                          project=project)
 
-@main_bp.route('/contact', methods=['GET', 'POST'])
+@main_bp.route('/contact', methods=['POST'])
 def contact():
     form = ContactForm()
     
-    if request.method == 'POST':
-        if form.validate_on_submit():
-            try:
-                # Create contact record
-                contact = Contact(
-                    first_name=form.first_name.data,
-                    last_name=form.last_name.data,
-                    email=form.email.data,
-                    phone=form.phone.data,
-                    subject=form.subject.data,
-                    message=form.message.data
-                )
-                db.session.add(contact)
-                db.session.commit()
-                
-                # Send notification email
-                send_contact_notification(contact)
-                
-                return jsonify({
-                    'status': 'success',
-                    'message': 'Your message has been sent successfully!'
-                })
-                
-            except Exception as e:
-                db.session.rollback()
-                return jsonify({
-                    'status': 'error',
-                    'message': 'An error occurred. Please try again.'
-                }), 500
-        
-        return jsonify({
-            'status': 'error',
-            'message': 'Please check your input and try again.',
-            'errors': form.errors
-        }), 400
+    if form.validate_on_submit():
+        try:
+            # Create contact record
+            contact = Contact(
+                name=form.name.data,
+                email=form.email.data,
+                subject=form.subject.data,
+                message=form.message.data
+            )
+            db.session.add(contact)
+            db.session.commit()
+            
+            # Send notification email if configured
+            # send_contact_notification(contact)
+            
+            flash('Your message has been sent successfully!', 'success')
+        except Exception as e:
+            db.session.rollback()
+            flash('An error occurred. Please try again.', 'error')
+            
+    else:
+        flash('Please check your input and try again.', 'error')
     
-    return render_template('main/contact.html', title='Contact Us', form=form)
+    return redirect(url_for('main.home', _anchor='contact'))

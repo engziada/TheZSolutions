@@ -4,7 +4,7 @@
 <!-- Hero Section -->
 <section class="hero-section">
     <div class="hero-content">
-        <h1 class="hero-title">Welcome to TheZSolutions</h1>
+        <h1 class="hero-title">Welcome to The<img src="{{ url_for('static', filename='img/z.svg') }}" alt="Z" class="hero-z">Solutions</h1>
         <p class="hero-subtitle">Connecting Talented Developers with Innovative Projects</p>
         
         <div class="hero-buttons">
@@ -21,7 +21,7 @@
 </section>
 
 <!-- Services Overview -->
-<section class="py-16">
+<section id="services" class="py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl font-bold text-center mb-12">Our Services</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -42,7 +42,7 @@
 </section>
 
 <!-- Recent Projects -->
-<section class="bg-gray-50 py-16">
+<section id="projects" class="bg-gray-50 py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl font-bold text-center mb-12">Recent Projects</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -70,14 +70,51 @@
         </div>
     </div>
 </section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center mb-12">Get in Touch</h2>
+        <div class="max-w-3xl mx-auto">
+            <form method="POST" action="{{ url_for('main.contact') }}" class="space-y-6">
+                {{ form.csrf_token if form }}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                        <input type="text" name="name" id="name" required 
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-accent focus:ring-accent">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" name="email" id="email" required 
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-accent focus:ring-accent">
+                    </div>
+                </div>
+                <div>
+                    <label for="subject" class="block text-sm font-medium text-gray-700">Subject</label>
+                    <input type="text" name="subject" id="subject" required 
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-accent focus:ring-accent">
+                </div>
+                <div>
+                    <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                    <textarea name="message" id="message" rows="4" required 
+                              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-accent focus:ring-accent"></textarea>
+                </div>
+                <div class="flex justify-center">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane mr-2"></i>Send Message
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
 {% endblock %}
 
 {% block extra_css %}
 <style>
     .hero-section {
-        background: linear-gradient(135deg, 
-            #1a1a1a 0%,
-            #2d2d2d 100%);
+        /* background: white; */
         position: relative;
         overflow: hidden;
         min-height: calc(100vh - 90px);
@@ -88,6 +125,13 @@
         padding: 4rem 1rem;
     }
 
+    .hero-z {
+        height: 1.2em;
+        vertical-align: text-bottom;
+        margin: 0 0.1em;
+        display: inline-block;
+    }
+
     .hero-section::before {
         content: '';
         position: absolute;
@@ -95,10 +139,10 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: 
+        /* background: 
             radial-gradient(circle at 20% 30%, rgba(147, 0, 0, 0.15) 0%, transparent 50%),
             radial-gradient(circle at 80% 70%, rgba(147, 0, 0, 0.15) 0%, transparent 50%),
-            repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.02) 0px, rgba(255, 255, 255, 0.02) 1px, transparent 1px, transparent 10px);
+            repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.02) 0px, rgba(255, 255, 255, 0.02) 1px, transparent 1px, transparent 10px); */
         pointer-events: none;
     }
 
@@ -115,7 +159,7 @@
         color: #ffffff;
         margin-bottom: 1.5rem;
         line-height: 1.2;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
     }
 
     .hero-subtitle {
@@ -123,7 +167,7 @@
         color: #ffffff;
         margin-bottom: 3rem;
         opacity: 0.9;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
     }
 
     .hero-buttons {
