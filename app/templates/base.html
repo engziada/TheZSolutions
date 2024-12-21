@@ -3,93 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }} - The Z Solutions</title>
+    <title>{% block title %}Z Solutions{% endblock %}</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        indigo: '#6366F1',
-                        blue: '#2563EB',
-                        navy: '#1E40AF',
-                        white: '#FFFFFF',
-                        darkGray: '#1F2937',
-                    }
-                }
-            }
-        }
-    </script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     {% block extra_css %}{% endblock %}
 </head>
-<body class="bg-white text-darkGray">
-    <nav class="bg-navy">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <a href="{{ url_for('main.home') }}" class="text-white font-bold text-xl">
-                            The Z Solutions
-                        </a>
-                    </div>
-                    <div class="hidden md:block">
-                        <div class="ml-10 flex items-baseline space-x-4">
-                            <a href="{{ url_for('main.home') }}" class="text-white hover:bg-blue px-3 py-2 rounded-md text-sm font-medium">Home</a>
-                            <a href="{{ url_for('main.services') }}" class="text-white hover:bg-blue px-3 py-2 rounded-md text-sm font-medium">Services</a>
-                            <a href="{{ url_for('main.projects') }}" class="text-white hover:bg-blue px-3 py-2 rounded-md text-sm font-medium">Projects</a>
-                            <a href="{{ url_for('main.team') }}" class="text-white hover:bg-blue px-3 py-2 rounded-md text-sm font-medium">Team</a>
-                            <a href="{{ url_for('careers.apply') }}" class="text-white hover:bg-blue px-3 py-2 rounded-md text-sm font-medium">Join Us</a>
-                            <a href="{{ url_for('requests.new_request') }}" class="text-white hover:bg-blue px-3 py-2 rounded-md text-sm font-medium">Request Project</a>
-                            <a href="{{ url_for('main.contact') }}" class="text-white hover:bg-blue px-3 py-2 rounded-md text-sm font-medium">Contact</a>
-                            {% if current_user.is_authenticated and current_user.role == 'admin' %}
-                            <a href="{{ url_for('admin.dashboard') }}" class="text-indigo hover:bg-blue px-3 py-2 rounded-md text-sm font-medium flex items-center">
-                                <svg class="h-5 w-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                </svg>
-                                Admin
-                            </a>
-                            {% endif %}
-                        </div>
-                    </div>
+<body class="bg-gray-100">
+    <!-- Navigation -->
+    <div class="nav-wrapper">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="nav-content flex items-center justify-between">
+                <!-- Left Nav -->
+                <div class="flex items-center space-x-8">
+                    <a href="{{ url_for('main.home') }}" class="nav-link">Home</a>
+                    <a href="{{ url_for('main.services') }}" class="nav-link">Services</a>
+                    <a href="{{ url_for('main.projects') }}" class="nav-link">Projects</a>
                 </div>
-                <div class="hidden md:block">
-                    <div class="ml-4 flex items-center md:ml-6">
-                        {% if current_user.is_authenticated %}
-                            <a href="{{ url_for('auth.logout') }}" class="text-white hover:bg-blue px-3 py-2 rounded-md text-sm font-medium">Logout</a>
+                
+                <!-- Right Nav -->
+                <div class="flex items-center space-x-8">
+                    <a href="{{ url_for('main.team') }}" class="nav-link">Team</a>
+                    <a href="{{ url_for('careers.apply') }}" class="nav-link">Join Us</a>
+                    <a href="{{ url_for('main.contact') }}" class="nav-link">Contact</a>
+                    {% if current_user.is_authenticated %}
+                        {% if current_user.role == 'admin' %}
+                            <a href="{{ url_for('admin.dashboard') }}" class="btn btn-primary">Dashboard</a>
+                        {% elif current_user.role == 'developer' %}
+                            <a href="{{ url_for('developer.dashboard') }}" class="btn btn-primary">Dashboard</a>
                         {% else %}
-                            <a href="{{ url_for('auth.login') }}" class="text-white hover:bg-blue px-3 py-2 rounded-md text-sm font-medium">Login</a>
-                            <a href="{{ url_for('auth.register') }}" class="ml-4 text-white bg-indigo hover:bg-blue px-3 py-2 rounded-md text-sm font-medium">Register</a>
+                            <a href="{{ url_for('customer.dashboard') }}" class="btn btn-primary">Dashboard</a>
                         {% endif %}
-                    </div>
+                        <a href="{{ url_for('auth.logout') }}" class="btn btn-menu">Logout</a>
+                    {% else %}
+                        <a href="{{ url_for('auth.login') }}" class="btn btn-menu">Login</a>
+                        <a href="{{ url_for('auth.register') }}" class="btn btn-menu">Register</a>
+                    {% endif %}
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" data-mobile-menu-button class="text-gray-400 hover:text-white">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
                 </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </div>
 
-    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <!-- Centered Logo -->
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Z Solutions" class="logo">
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="md:hidden hidden" data-mobile-menu>
+        <div class="px-2 pt-2 pb-3 space-y-1">
+            <a href="{{ url_for('main.home') }}" class="nav-link block">Home</a>
+            <a href="{{ url_for('main.services') }}" class="nav-link block">Services</a>
+            <a href="{{ url_for('main.projects') }}" class="nav-link block">Projects</a>
+            <a href="{{ url_for('main.team') }}" class="nav-link block">Team</a>
+            <a href="{{ url_for('careers.apply') }}" class="nav-link block">Join Us</a>
+            <a href="{{ url_for('main.contact') }}" class="nav-link block">Contact</a>
+            {% if current_user.is_authenticated %}
+                {% if current_user.role == 'admin' %}
+                    <a href="{{ url_for('admin.dashboard') }}" class="btn btn-primary block">Dashboard</a>
+                {% elif current_user.role == 'developer' %}
+                    <a href="{{ url_for('developer.dashboard') }}" class="btn btn-primary block">Dashboard</a>
+                {% else %}
+                    <a href="{{ url_for('customer.dashboard') }}" class="btn btn-primary block">Dashboard</a>
+                {% endif %}
+                <a href="{{ url_for('auth.logout') }}" class="btn btn-secondary block">Logout</a>
+            {% else %}
+                <a href="{{ url_for('auth.login') }}" class="btn btn-primary block">Login</a>
+                <a href="{{ url_for('auth.register') }}" class="btn btn-secondary block">Register</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Flash Messages Container -->
+    <div class="flash-container">
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
-                    <div class="mb-4 px-4 py-3 rounded-md {% if category == 'error' %}bg-red-100 text-red-700{% else %}bg-green-100 text-green-700{% endif %}">
+                    <div class="flash-message {{ category }} {% if category == 'success' %}bg-green-800{% endif %} text-white p-4" 
+                         role="alert"
+                         data-auto-dismiss="true">
                         {{ message }}
+                        <button type="button" 
+                                class="close-flash absolute top-2 right-2 text-white hover:text-gray-200 focus:outline-none"
+                                onclick="this.parentElement.remove()">
+                            <span class="text-xl">&times;</span>
+                        </button>
                     </div>
                 {% endfor %}
             {% endif %}
         {% endwith %}
-        
+    </div>
+
+    <!-- Main Content -->
+    <main class="relative z-10">
         {% block content %}{% endblock %}
     </main>
 
-    <footer class="bg-darkGray">
+    <!-- Footer -->
+    <footer class="mt-12">
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-            <div class="text-center text-white">
-                <p class="text-sm">&copy; 2024 The Z Solutions. All rights reserved.</p>
-                <p class="mt-2 text-sm">Where Code Meets Custom: Your Vision, Precisely Coded</p>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div class="col-span-1 md:col-span-2">
+                    <h3 class="text-lg font-semibold mb-4">Z Solutions</h3>
+                    <p class="text-gray-300 mb-4">Your Vision, Precisely Coded</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="{{ url_for('main.home') }}" class="text-gray-300 hover:text-white">Home</a></li>
+                        <li><a href="{{ url_for('main.services') }}" class="text-gray-300 hover:text-white">Services</a></li>
+                        <li><a href="{{ url_for('main.projects') }}" class="text-gray-300 hover:text-white">Projects</a></li>
+                        <li><a href="{{ url_for('main.team') }}" class="text-gray-300 hover:text-white">Team</a></li>
+                        <li><a href="{{ url_for('main.contact') }}" class="text-gray-300 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact Us</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-map-marker-alt w-5"></i>
+                            <span class="text-gray-300">123 Business Street, City, Country</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone w-5"></i>
+                            <span class="text-gray-300">+1 234 567 890</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope w-5"></i>
+                            <span class="text-gray-300">info@zsolutions.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-300">&copy; {{ now.year }} Z Solutions. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    {% block extra_js %}{% endblock %}
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block extra_js %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-dismiss flash messages after 10 seconds
+            const flashMessages = document.querySelectorAll('.flash-message[data-auto-dismiss="true"]');
+            flashMessages.forEach(function(message) {
+                // Add fade-in animation
+                message.style.opacity = '0';
+                message.style.transform = 'translateX(100%)';
+                
+                // Trigger fade-in
+                setTimeout(() => {
+                    message.style.opacity = '1';
+                    message.style.transform = 'translateX(0)';
+                }, 10);
+
+                // Set timeout for auto-dismiss
+                setTimeout(function() {
+                    // Add fade-out animation
+                    message.style.opacity = '0';
+                    message.style.transform = 'translateX(100%)';
+                    
+                    // Remove element after fade-out
+                    setTimeout(() => {
+                        message.remove();
+                    }, 500);
+                }, 10000); // 10 seconds
+            });
+
+            // Handle close button hover effect
+            const closeButtons = document.querySelectorAll('.close-flash');
+            closeButtons.forEach(function(button) {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.1)';
+                    this.style.opacity = '1';
+                });
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                    this.style.opacity = '0.8';
+                });
+            });
+        });
+    </script>
+    {% endblock %}
 </body>
 </html>

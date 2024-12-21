@@ -1,14 +1,17 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail
-from config import Config
+from app.config import Config
 import logging
 from logging.handlers import RotatingFileHandler
 import os
+from datetime import datetime
 
 db = SQLAlchemy()
+migrate = Migrate()
 login_manager = LoginManager()
 bcrypt = Bcrypt()
 mail = Mail()
@@ -19,6 +22,7 @@ def create_app(config_class=Config):
 
     # Initialize extensions
     db.init_app(app)
+    migrate.init_app(app, db)
     login_manager.init_app(app)
     bcrypt.init_app(app)
     mail.init_app(app)
@@ -39,6 +43,11 @@ def create_app(config_class=Config):
     app.logger.addHandler(file_handler)
     app.logger.setLevel(logging.INFO)
     app.logger.info('The Z Solutions startup')
+
+    # Add current year to all templates
+    @app.context_processor
+    def inject_now():
+        return {'now': datetime.utcnow()}
 
     # Register blueprints
     from app.routes.main import main_bp

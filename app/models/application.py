@@ -2,59 +2,44 @@ from app import db
 from datetime import datetime
 
 class JobApplication(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    full_name = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(120), nullable=False)
-    phone = db.Column(db.String(20))
-    years_of_experience = db.Column(db.Integer)
-    skills = db.Column(db.JSON)  # List of skills
-    portfolio_url = db.Column(db.String(200))
-    github_url = db.Column(db.String(200))
-    linkedin_url = db.Column(db.String(200))
-    resume_path = db.Column(db.String(200))  # Path to uploaded resume
-    cover_letter = db.Column(db.Text)
-    status = db.Column(db.String(20), default='pending')  # pending, accepted, rejected
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    __tablename__ = 'job_applications'
 
-    # Admin notes
-    admin_notes = db.Column(db.Text)
-    reviewed_by_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    reviewed_by = db.relationship('User', backref='reviewed_applications')
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(50), nullable=False)
+    last_name = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(120), nullable=False)
+    phone = db.Column(db.String(20), nullable=False)
+    position = db.Column(db.String(50), nullable=False)
+    years_of_experience = db.Column(db.Integer, nullable=False)
+    skills = db.Column(db.Text, nullable=False)
+    portfolio_url = db.Column(db.String(255))
+    github_url = db.Column(db.String(255))
+    resume_path = db.Column(db.String(255), nullable=False)
+    cover_letter = db.Column(db.Text, nullable=False)
+    status = db.Column(db.String(20), default='pending')
+    application_date = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    def __repr__(self):
+        return f'<JobApplication {self.first_name} {self.last_name}>'
 
 class ProjectRequest(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
-    description = db.Column(db.Text, nullable=False)
-    category = db.Column(db.String(50))  # web, mobile, desktop, etc.
-    budget_min = db.Column(db.Float)
-    budget_max = db.Column(db.Float)
-    timeline = db.Column(db.String(50))  # expected timeline
-    priority = db.Column(db.String(20), default='normal')  # low, normal, high, urgent
-    status = db.Column(db.String(20), default='new')  # new, reviewing, approved, rejected
-    
-    # Client information
-    client_name = db.Column(db.String(100), nullable=False)
-    client_email = db.Column(db.String(120), nullable=False)
-    client_phone = db.Column(db.String(20))
-    company_name = db.Column(db.String(100))
-    
-    # Timestamps
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    
-    # Admin fields
-    admin_notes = db.Column(db.Text)
-    reviewed_by_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    reviewed_by = db.relationship('User', backref='reviewed_requests')
-    
-    # Attachments
-    attachments = db.relationship('ProjectRequestAttachment', backref='project_request', lazy=True)
+    __tablename__ = 'project_requests'
 
-class ProjectRequestAttachment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    project_request_id = db.Column(db.Integer, db.ForeignKey('project_request.id'), nullable=False)
-    filename = db.Column(db.String(200), nullable=False)
-    file_path = db.Column(db.String(200), nullable=False)
-    file_type = db.Column(db.String(50))
-    uploaded_at = db.Column(db.DateTime, default=datetime.utcnow)
+    project_name = db.Column(db.String(100), nullable=False)
+    project_type = db.Column(db.String(50), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    features = db.Column(db.Text, nullable=False)
+    timeline = db.Column(db.String(20), nullable=False)
+    budget_range = db.Column(db.String(20), nullable=False)
+    contact_name = db.Column(db.String(100), nullable=False)
+    company_name = db.Column(db.String(100))
+    contact_email = db.Column(db.String(120), nullable=False)
+    contact_phone = db.Column(db.String(20), nullable=False)
+    preferred_contact = db.Column(db.String(10), nullable=False)
+    additional_info = db.Column(db.Text)
+    status = db.Column(db.String(20), default='pending')
+    submission_date = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    def __repr__(self):
+        return f'<ProjectRequest {self.project_name}>'
