@@ -51,12 +51,6 @@
                     <a href="#services" class="nav-link" data-scroll>Services</a>
                     <a href="#projects" class="nav-link" data-scroll>Projects</a>
                     <a href="#contact" class="nav-link" data-scroll>Contact</a>
-                    {% if current_user.is_authenticated and current_user.role == 'admin' %}
-                        <a href="{{ url_for('admin.dashboard') }}" class="btn btn-primary">Dashboard</a>
-                        <a href="{{ url_for('auth.logout') }}" class="btn btn-menu">Logout</a>
-                    {% else %}
-                        <a href="{{ url_for('auth.login') }}" class="btn btn-primary">Admin</a>
-                    {% endif %}
                 </div>
                 
                 <!-- Mobile menu button -->
@@ -110,7 +104,7 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <!-- Company Info -->
                 <div class="col-span-1 md:col-span-2">
-                    <h3 class="footer-title">Z Solutions</h3>
+                    <h3 class="footer-title">The Z Solutions</h3>
                     <p class="text-gray-300 mb-4">Your Vision, Precisely Coded</p>
                     <div class="footer-social">
                         <a href="#" class="footer-link">
@@ -131,13 +125,19 @@
                 <!-- Quick Links -->
                 <div>
                     <h4 class="footer-title">Quick Links</h4>
-                    <ul class="space-y-2">
+                    <!-- <ul class="space-y-2">
                         <li><a href="{{ url_for('main.home') }}" class="footer-link">Home</a></li>
                         <li><a href="{{ url_for('main.services') }}" class="footer-link">Services</a></li>
                         <li><a href="{{ url_for('main.projects') }}" class="footer-link">Projects</a></li>
                         <li><a href="{{ url_for('main.team') }}" class="footer-link">Team</a></li>
                         <li><a href="#contact" class="footer-link" data-scroll>Contact</a></li>
-                    </ul>
+                    </ul> -->
+                    {% if current_user.is_authenticated and current_user.role == 'admin' %}
+                        <a href="{{ url_for('admin.dashboard') }}" class="btn btn-primary">Dashboard</a>
+                        <a href="{{ url_for('auth.logout') }}" class="btn btn-menu">Logout</a>
+                    {% else %}
+                        <a href="{{ url_for('auth.login') }}" class="btn btn-primary">Admin</a>
+                    {% endif %}
                 </div>
 
                 <!-- Contact Info -->
@@ -146,22 +146,22 @@
                     <ul class="space-y-2">
                         <li class="flex items-center">
                             <i class="fas fa-map-marker-alt w-5"></i>
-                            <span class="text-gray-300">123 Business Street, City, Country</span>
+                            <span class="text-gray-300">Madinety, Cairo, Egypt</span>
                         </li>
                         <li class="flex items-center">
                             <i class="fas fa-phone w-5"></i>
-                            <span class="text-gray-300">+1 234 567 890</span>
+                            <span class="text-gray-300">+20 1026655008</span>
                         </li>
                         <li class="flex items-center">
                             <i class="fas fa-envelope w-5"></i>
-                            <span class="text-gray-300">info@zsolutions.com</span>
+                            <span class="text-gray-300">info@thez.solutions</span>
                         </li>
                     </ul>
                 </div>
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; {{ now.year }} Z Solutions. All rights reserved.</p>
+                <p>&copy; {{ now.year }} The Z Solutions. All rights reserved.</p>
             </div>
         </div>
     </footer>
