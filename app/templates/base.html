@@ -22,6 +22,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/particles.css') }}">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -286,6 +287,9 @@
             });
         });
     </script>
+    
+    <!-- Particles Animation -->
+    <script src="{{ url_for('static', filename='js/particles.js') }}"></script>
     
     {% block extra_js %}{% endblock %}
 </body>

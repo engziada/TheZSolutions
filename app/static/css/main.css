@@ -189,7 +189,7 @@ section {
     padding: 4rem 1rem;
     margin-top: 80px;
     background-color: var(--color-primary);
-    background-image: linear-gradient(rgba(17, 17, 17, 0.85), rgba(17, 17, 17, 0.85)), url('../img/bg.jpg');
+    background-image: linear-gradient(rgba(17, 17, 17, 0.65), rgba(17, 17, 17, 0.65)), url('../img/bg.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -197,10 +197,10 @@ section {
 }
 
 .hero-content {
+    position: relative;
+    z-index: 2;
     max-width: 800px;
     margin: 0 auto;
-    position: relative;
-    z-index: 1;
 }
 
 .hero-title {
@@ -351,6 +351,31 @@ section {
     outline: none;
     border-color: var(--color-accent);
     box-shadow: 0 0 0 2px rgba(147, 0, 0, 0.1);
+}
+
+/* Testimonials Section */
+.testimonial-text {
+    direction: rtl;
+    text-align: right;
+    font-family: 'Tajawal', sans-serif;
+    line-height: 1.6;
+}
+
+.testimonial-card {
+    transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+}
+
+.testimonial-avatar {
+    transition: all 0.3s ease;
+}
+
+.testimonial-card:hover .testimonial-avatar {
+    background-color: var(--color-accent);
+    color: white;
 }
 
 /* Footer */
