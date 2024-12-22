@@ -2,6 +2,7 @@ from app import create_app, db
 from dotenv import load_dotenv
 import os
 from app.models.user import User
+from sqlalchemy import or_
 
 load_dotenv()
 application = create_app()  # This is the WSGI application
@@ -20,19 +21,29 @@ def create_default_admin():
     admin_username = os.getenv('ADMIN_USERNAME', 'admin')
     admin_password = os.getenv('ADMIN_PASSWORD', 'TheZSolutions2024!')
     
-    # Check if admin exists
-    admin = User.query.filter_by(email=admin_email).first()
-    if not admin:
-        admin = User(
-            email=admin_email,
-            username=admin_username,
-            role='admin',
-            is_active=True
+    # Check if admin exists by either email or username
+    admin = User.query.filter(
+        or_(
+            User.email == admin_email,
+            User.username == admin_username
         )
-        admin.set_password(admin_password)
-        db.session.add(admin)
-        db.session.commit()
-        application.logger.info('Created default admin user')
+    ).first()
+    
+    if not admin:
+        try:
+            admin = User(
+                email=admin_email,
+                username=admin_username,
+                role='admin',
+                is_active=True
+            )
+            admin.set_password(admin_password)
+            db.session.add(admin)
+            db.session.commit()
+            application.logger.info('Created default admin user')
+        except Exception as e:
+            db.session.rollback()
+            application.logger.error(f'Failed to create admin user: {str(e)}')
     else:
         application.logger.info('Default admin user already exists')
 
