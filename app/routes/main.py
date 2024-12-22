@@ -49,6 +49,10 @@ def project_detail(project_id):
                          title=project.title,
                          project=project)
 
+@main_bp.route('/portfolio')
+def portfolio():
+    return render_template('main/portfolio.html', title='Portfolio')
+
 @main_bp.route('/contact', methods=['POST'])
 def contact():
     form = ContactForm()

@@ -29,7 +29,22 @@ body {
     position: relative;
     margin: 0;
     padding: 0;
-    padding-top: 90px; /* Account for fixed navbar */
+    padding-top: 80px; /* Account for fixed navbar */
+}
+
+/* Main Content Sections */
+section:first-of-type {
+    padding-top: 2rem; /* Additional padding for first section */
+}
+
+.hero-section {
+    padding-top: 1rem; /* Specific padding for hero section */
+}
+
+/* Ensure consistent section spacing */
+section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
 }
 
 /* Main Content */
@@ -166,13 +181,13 @@ body {
 .hero-section {
     position: relative;
     overflow: hidden;
-    min-height: calc(100vh - 90px);
+    min-height: calc(100vh - 80px);
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     padding: 4rem 1rem;
-    margin-top: 90px;
+    margin-top: 80px;
     background-color: var(--color-primary);
     background-image: linear-gradient(rgba(17, 17, 17, 0.85), rgba(17, 17, 17, 0.85)), url('../img/bg.jpg');
     background-size: cover;
@@ -202,7 +217,7 @@ body {
     color: #ffffff;
     margin-bottom: 3rem;
     opacity: 0.9;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+    text-shadow: 0 8px 5px rgba(0, 0, 0, 0.9);
 }
 
 .hero-buttons {

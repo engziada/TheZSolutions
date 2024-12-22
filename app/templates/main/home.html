@@ -24,17 +24,38 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl font-bold text-center mb-12">Our Services</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="bg-white p-6 rounded-lg shadow-lg">
+            <div class="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+                <i class="fas fa-globe text-4xl text-accent mb-4"></i>
                 <h3 class="text-xl font-bold mb-4">Web Development</h3>
-                <p class="text-gray-600">Custom web applications tailored to your business needs</p>
+                <p class="text-gray-600">Custom web applications tailored to your business needs. Specializing in:</p>
+                <ul class="mt-3 text-gray-600 list-disc list-inside">
+                    <li>Flask-based enterprise solutions</li>
+                    <li>E-commerce platforms</li>
+                    <li>Content Management Systems</li>
+                    <li>RESTful API Development</li>
+                </ul>
             </div>
-            <div class="bg-white p-6 rounded-lg shadow-lg">
+            <div class="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+                <i class="fas fa-desktop text-4xl text-accent mb-4"></i>
                 <h3 class="text-xl font-bold mb-4">Desktop Applications</h3>
-                <p class="text-gray-600">Powerful desktop solutions for enhanced productivity</p>
+                <p class="text-gray-600">Powerful desktop solutions featuring:</p>
+                <ul class="mt-3 text-gray-600 list-disc list-inside">
+                    <li>Cross-platform compatibility</li>
+                    <li>Real-time data processing</li>
+                    <li>Custom UI/UX design</li>
+                    <li>Offline functionality</li>
+                </ul>
             </div>
-            <div class="bg-white p-6 rounded-lg shadow-lg">
+            <div class="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+                <i class="fas fa-mobile-alt text-4xl text-accent mb-4"></i>
                 <h3 class="text-xl font-bold mb-4">Mobile Development</h3>
-                <p class="text-gray-600">Cross-platform mobile apps for modern businesses</p>
+                <p class="text-gray-600">Cross-platform mobile solutions with:</p>
+                <ul class="mt-3 text-gray-600 list-disc list-inside">
+                    <li>Native performance</li>
+                    <li>Responsive design</li>
+                    <li>Push notifications</li>
+                    <li>Offline-first architecture</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -45,7 +66,50 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl font-bold text-center mb-12">Recent Projects</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Project cards will be dynamically populated -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="{{ url_for('static', filename='img/projects/teleo-platform.jpg') }}" alt="Unified Teleo Platform" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="font-bold text-xl mb-2">Unified Network Management</h3>
+                    <p class="text-gray-600">Enterprise-grade platform for unified telecom network management and monitoring</p>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">Python</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">Flask</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">WebSocket</span>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="{{ url_for('static', filename='img/projects/enterprise-integration.jpg') }}" alt="Enterprise Integration" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="font-bold text-xl mb-2">Enterprise Systems Integration</h3>
+                    <p class="text-gray-600">Seamless integration platform connecting various enterprise systems and databases</p>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">Python</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">API</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">SQL</span>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="{{ url_for('static', filename='img/projects/yourspace.jpg') }}" alt="YourSpace Platform" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="font-bold text-xl mb-2">YourSpace Platform</h3>
+                    <p class="text-gray-600">Modern workspace management solution with advanced booking features</p>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">Python</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">React</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">MongoDB</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-8 text-center">
+            <a href="{{ url_for('main.portfolio') }}" class="inline-flex items-center text-accent hover:text-accent-dark">
+                View More Projects
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </a>
         </div>
     </div>
 </section>
@@ -55,7 +119,40 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl font-bold text-center mb-12">What Our Clients Say</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Testimonial cards will be dynamically populated -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <div class="flex items-center mb-4">
+                    <img src="{{ url_for('static', filename='img/testimonials/ahmed.jpg') }}" alt="Ahmed Al-Mansouri" class="w-12 h-12 rounded-full">
+                    <div class="ml-4">
+                        <h4 class="font-bold">Ahmed Al-Mansouri</h4>
+                        <p class="text-gray-600">CEO, Smart Technology Solutions</p>
+                    </div>
+                </div>
+                <p class="text-gray-700">"The mall management system developed by Ziada's team has transformed our operations. Their understanding of local business needs was exceptional."</p>
+                <div class="mt-4 flex text-accent">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <div class="flex items-center mb-4">
+                    <img src="{{ url_for('static', filename='img/testimonials/fatima.jpg') }}" alt="Fatima Al-Sayed" class="w-12 h-12 rounded-full">
+                    <div class="ml-4">
+                        <h4 class="font-bold">Fatima Al-Sayed</h4>
+                        <p class="text-gray-600">Director, Al Shifa Medical Center</p>
+                    </div>
+                </div>
+                <p class="text-gray-700">"The clinic management system has streamlined our patient care process. The team's attention to Arabic language support and local healthcare regulations was impressive."</p>
+                <div class="mt-4 flex text-accent">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -65,7 +162,42 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl font-bold text-center mb-12">Our Team</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            <!-- Team member cards will be dynamically populated -->
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                <img src="{{ url_for('static', filename='img/team/ziada.jpg') }}" alt="Muhammad Ziada" class="w-32 h-32 rounded-full mx-auto mb-4">
+                <h3 class="font-bold text-xl">Muhammad Ziada</h3>
+                <p class="text-gray-600">Lead Developer</p>
+                <div class="mt-4 flex justify-center space-x-3">
+                    <a href="#" class="text-accent hover:text-accent-dark"><i class="fab fa-github"></i></a>
+                    <a href="#" class="text-accent hover:text-accent-dark"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                <img src="{{ url_for('static', filename='img/team/omar.jpg') }}" alt="Omar Khalil" class="w-32 h-32 rounded-full mx-auto mb-4">
+                <h3 class="font-bold text-xl">Omar Khalil</h3>
+                <p class="text-gray-600">Frontend Architect</p>
+                <div class="mt-4 flex justify-center space-x-3">
+                    <a href="#" class="text-accent hover:text-accent-dark"><i class="fab fa-github"></i></a>
+                    <a href="#" class="text-accent hover:text-accent-dark"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                <img src="{{ url_for('static', filename='img/team/layla.jpg') }}" alt="Layla Hassan" class="w-32 h-32 rounded-full mx-auto mb-4">
+                <h3 class="font-bold text-xl">Layla Hassan</h3>
+                <p class="text-gray-600">Backend Developer</p>
+                <div class="mt-4 flex justify-center space-x-3">
+                    <a href="#" class="text-accent hover:text-accent-dark"><i class="fab fa-github"></i></a>
+                    <a href="#" class="text-accent hover:text-accent-dark"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                <img src="{{ url_for('static', filename='img/team/kareem.jpg') }}" alt="Kareem Mahmoud" class="w-32 h-32 rounded-full mx-auto mb-4">
+                <h3 class="font-bold text-xl">Kareem Mahmoud</h3>
+                <p class="text-gray-600">UI/UX Designer</p>
+                <div class="mt-4 flex justify-center space-x-3">
+                    <a href="#" class="text-accent hover:text-accent-dark"><i class="fab fa-github"></i></a>
+                    <a href="#" class="text-accent hover:text-accent-dark"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
