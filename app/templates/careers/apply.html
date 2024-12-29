@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mx-auto px-4" style="padding-top: 250px;">
+<div class="container mx-auto px-4 py-8">
     <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-8">
         <h1 class="text-3xl font-bold mb-6 text-center">Join Our Development Team</h1>
         
-        <form action="{{ url_for('careers.apply') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+        {% include 'components/loading_overlay.html' %}
+        
+        <form id="applicationForm" action="{{ url_for('careers.apply') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             <!-- Personal Information -->
             <div class="space-y-4">
                 <h2 class="text-xl font-semibold mb-4">Personal Information</h2>
@@ -98,4 +100,13 @@
         </form>
     </div>
 </div>
+
+<script>
+    document.getElementById('applicationForm').addEventListener('submit', function(e) {
+        // Show loading overlay
+        showLoadingOverlay();
+        // Disable submit button
+        document.querySelector('button[type="submit"]').disabled = true;
+    });
+</script>
 {% endblock %}

@@ -1,0 +1,52 @@
+{% extends "email/base_email.html" %}
+
+{% block content %}
+<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+    <h2 style="color: #333;">New Job Application</h2>
+    
+    <p>A new job application has been received:</p>
+    
+    <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Name:</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">{{ first_name }} {{ last_name }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Position:</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">{{ position }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Email:</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">{{ email }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Phone:</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">{{ phone }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Experience:</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">{{ years_of_experience }} years</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Skills:</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">{{ skills }}</td>
+        </tr>
+        {% if portfolio_url %}
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Portfolio:</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;"><a href="{{ portfolio_url }}">View Portfolio</a></td>
+        </tr>
+        {% endif %}
+        {% if github_url %}
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>GitHub:</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;"><a href="{{ github_url }}">View GitHub</a></td>
+        </tr>
+        {% endif %}
+    </table>
+    
+    <p>The resume is attached to this application. You can review it in the admin panel.</p>
+    
+    <p>Application received on: {{ application_date.strftime('%Y-%m-%d %H:%M') }}</p>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "email/base_email.html" %}
+
+{% block content %}
+<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+    <h2 style="color: #333;">Application Received</h2>
+    
+    <p>Dear {{ first_name }} {{ last_name }},</p>
+    
+    <p>Thank you for applying to join our development team at The Z Solutions! We have received your application for the position of {{ position }}.</p>
+    
+    <p>Application Details:</p>
+    <ul>
+        <li>Position: {{ position }}</li>
+        <li>Application Date: {{ application_date.strftime('%Y-%m-%d %H:%M') }}</li>
+    </ul>
+    
+    <p>Our team will carefully review your application and get back to you soon. If you have any questions in the meantime, please don't hesitate to contact us.</p>
+    
+    <p>Best regards,<br>
+    The Z Solutions Team</p>
+</div>
+{% endblock %}

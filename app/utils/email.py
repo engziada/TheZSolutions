@@ -261,6 +261,90 @@ def send_contact_notification(contact):
         logger.error(f"Failed to send contact notification: {str(e)}")
         raise
 
+def send_application_confirmation(application):
+    """
+    Send confirmation email to job applicant
+    Args:
+        application: JobApplication model instance
+    """
+    try:
+        logger.info(f"Sending application confirmation to {application.email}")
+        send_email(
+            subject="Application Received",
+            recipients=[application.email],
+            template="email/application_confirmation",
+            first_name=application.first_name,
+            last_name=application.last_name,
+            position=application.position,
+            application_date=application.application_date
+        )
+    except Exception as e:
+        logger.error(f"Failed to send application confirmation: {str(e)}")
+        raise
+
+def send_application_notification(application):
+    """
+    Send notification email to admin about new job application
+    Args:
+        application: JobApplication model instance
+    """
+    try:
+        admin_email = current_app.config['ADMIN_EMAIL']
+        logger.info(f"Sending application notification to admin: {admin_email}")
+        send_email(
+            subject=f"New Job Application - {application.position}",
+            recipients=[admin_email],
+            template="email/application_notification",
+            **application.__dict__
+        )
+    except Exception as e:
+        logger.error(f"Failed to send application notification: {str(e)}")
+        raise
+
+def send_project_request_confirmation(project_request):
+    """
+    Send confirmation email to project requester
+    Args:
+        project_request: ProjectRequest model instance
+    """
+    try:
+        logger.info(f"Sending project request confirmation to {project_request.contact_email}")
+        send_email(
+            subject="Project Request Received",
+            recipients=[project_request.contact_email],
+            template="email/project_request_confirmation",
+            **project_request.__dict__
+        )
+    except Exception as e:
+        logger.error(f"Failed to send project request confirmation: {str(e)}")
+        raise
+
+def send_project_request_notification(project_request, files=None):
+    """
+    Send notification email to admin about new project request
+    Args:
+        project_request: ProjectRequest model instance
+        files: List of uploaded files (optional)
+    """
+    try:
+        admin_email = current_app.config['ADMIN_EMAIL']
+        logger.info(f"Sending project request notification to admin: {admin_email}")
+        
+        # Prepare template data
+        template_data = project_request.__dict__
+        if files:
+            template_data['files'] = files
+            
+        send_email(
+            subject=f"New Project Request - {project_request.project_name}",
+            recipients=[admin_email],
+            template="email/project_request_notification",
+            **template_data
+        )
+    except Exception as e:
+        logger.error(f"Failed to send project request notification: {str(e)}")
+        raise
+
 def test_smtp_connection():
     """Test SMTP connection and authentication"""
     try:

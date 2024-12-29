@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mx-auto px-4" style="padding-top: 250px;">
+<div class="container mx-auto px-4 py-8">
     <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-8">
         <h1 class="text-3xl font-bold mb-6 text-center">Submit Your Project Request</h1>
         
-        <form action="{{ url_for('requests.new_request') }}" method="POST" class="space-y-6">
+        {% include 'components/loading_overlay.html' %}
+        
+        <form id="projectForm" action="{{ url_for('requests.new_request') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             <!-- Project Overview -->
             <div class="space-y-4">
                 <h2 class="text-xl font-semibold mb-4">Project Overview</h2>
@@ -68,6 +70,19 @@
                 </div>
             </div>
 
+            <!-- File Uploads -->
+            <div class="space-y-4">
+                <h2 class="text-xl font-semibold mb-4">Project Files</h2>
+                
+                <div class="form-group">
+                    <label for="files" class="form-label">Additional Files</label>
+                    <input type="file" id="files" name="files[]" multiple 
+                        class="form-control" accept=".pdf,.doc,.docx,.txt,.zip,.rar,.7z">
+                    <p class="text-sm text-gray-500 mt-1">Upload any relevant files (documentation, mockups, etc.). 
+                        Accepted formats: PDF, DOC, DOCX, TXT, ZIP, RAR, 7Z (Max 5MB per file)</p>
+                </div>
+            </div>
+
             <!-- Contact Information -->
             <div class="space-y-4">
                 <h2 class="text-xl font-semibold mb-4">Contact Information</h2>
@@ -116,4 +131,13 @@
         </form>
     </div>
 </div>
+
+<script>
+    document.getElementById('projectForm').addEventListener('submit', function(e) {
+        // Show loading overlay
+        showLoadingOverlay();
+        // Disable submit button
+        document.querySelector('button[type="submit"]').disabled = true;
+    });
+</script>
 {% endblock %}

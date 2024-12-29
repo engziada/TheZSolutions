@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, flash, request,
 from werkzeug.utils import secure_filename
 from app.models.application import JobApplication
 from app import db
+from app.utils.email import send_application_confirmation, send_application_notification
 import os
 from datetime import datetime
 
@@ -83,6 +84,14 @@ def apply():
             
             # Log successful application
             current_app.logger.info(f'New job application received from {applicant_name}')
+            
+            # Send confirmation emails
+            try:
+                send_application_confirmation(application)
+                send_application_notification(application)
+            except Exception as e:
+                current_app.logger.error(f'Error sending application emails: {str(e)}')
+                # Don't rollback the application if emails fail
             
             flash('Your application has been submitted successfully! We will review it and get back to you soon.', 'success')
             return redirect(url_for('main.home'))

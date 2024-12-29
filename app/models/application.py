@@ -43,3 +43,19 @@ class ProjectRequest(db.Model):
     
     def __repr__(self):
         return f'<ProjectRequest {self.project_name}>'
+
+class ProjectRequestFile(db.Model):
+    __tablename__ = 'project_request_files'
+
+    id = db.Column(db.Integer, primary_key=True)
+    project_request_id = db.Column(db.Integer, db.ForeignKey('project_requests.id'), nullable=False)
+    filename = db.Column(db.String(255), nullable=False)
+    file_path = db.Column(db.String(255), nullable=False)
+    file_type = db.Column(db.String(50))
+    uploaded_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    # Relationship
+    project_request = db.relationship('ProjectRequest', backref='files')
+    
+    def __repr__(self):
+        return f'<ProjectRequestFile {self.filename}>'
