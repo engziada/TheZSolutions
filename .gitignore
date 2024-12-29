@@ -24,7 +24,6 @@ wheels/
 # Virtual Environment
 venv/
 ENV/
-.env
 
 # IDE
 .idea/
@@ -44,6 +43,7 @@ instance/
 *.sqlite3
 
 # Logs
+Log/
 logs/
 *.log
 
@@ -53,7 +53,9 @@ media/
 
 # Environment variables
 .env
-.env.*
+.env.local
+.env.*.local
+!.env.example
 
 # OS generated files
 .DS_Store

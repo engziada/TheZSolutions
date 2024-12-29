@@ -69,7 +69,12 @@
                     style="box-sizing: border-box; display: block; margin: 0 auto; max-width: 580px; padding: 10px;">
                     <!-- Header -->
                     <div style="text-align: center; margin-bottom: 30px;">
-                        <h1 style="color: #4f46e5; font-size: 32px; font-weight: bold; margin: 0;">The Z Solutions</h1>
+                        {% if logo_base64 %}
+                            <img src="{{ logo_base64 }}" alt="The Z Solutions" style="max-width: 200px;">
+                        {% else %}
+                            <h1 style="color: #4f46e5; font-size: 32px; font-weight: bold; margin: 0;">The Z Solutions</h1>
+                        {% endif %}
+                        <p style="color: #6b7280; font-size: 16px; font-style: italic; margin-top: 10px; margin-bottom: 0;">Your Vision, Precisely Coded</p>
                     </div>
 
                     <!-- Main -->
@@ -104,10 +109,10 @@
                                     style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; color: #999999; font-size: 12px; text-align: center;"
                                     valign="top" align="center">
                                     <span class="apple-link" style="color: #999999; font-size: 12px; text-align: center;">
-                                        The Z Solutions - Professional Software Development Services
+                                        The Z Solutions - Your Vision, Precisely Coded
                                     </span>
                                     <br>
-                                    <a href="{{ url_for('main.home', _external=True) }}"
+                                    <a href="https://thez.solutions"
                                         style="text-decoration: underline; color: #999999; font-size: 12px; text-align: center;">Visit
                                         our website</a>
                                 </td>

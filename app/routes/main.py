@@ -1,12 +1,30 @@
-from flask import Blueprint, render_template, jsonify, request, abort, redirect, url_for, flash
+from flask import Blueprint, render_template, jsonify, request, abort, redirect, url_for, flash, current_app
 from flask_login import current_user
 from app.forms.contact import ContactForm
-from app.utils.email import send_contact_notification
+from app.utils.email import send_contact_notification, test_smtp_connection
 from app.models.contact import Contact
 from app.models.project import Project
 from app import db
+import logging
+from logging.handlers import RotatingFileHandler
+import os
 
 main_bp = Blueprint('main', __name__)
+
+# Configure logging
+def configure_logging():
+    log_file = os.path.join(current_app.config['LOG_FOLDER'], 'contact.log')
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    
+    file_handler = RotatingFileHandler(log_file, maxBytes=10240, backupCount=10)
+    file_handler.setFormatter(formatter)
+    file_handler.setLevel(logging.INFO)
+    
+    logger = logging.getLogger('contact')
+    logger.setLevel(logging.INFO)
+    logger.addHandler(file_handler)
+    
+    return logger
 
 @main_bp.route('/')
 @main_bp.route('/home')
@@ -56,9 +74,19 @@ def portfolio():
 @main_bp.route('/contact', methods=['POST'])
 def contact():
     form = ContactForm()
+    logger = configure_logging()
+    
+    logger.info("Processing contact form submission")
+    logger.debug(f"Form data: {request.form}")
     
     if form.validate_on_submit():
         try:
+            # Log form data
+            logger.info(f"Form validated successfully")
+            logger.info(f"Name: {form.name.data}")
+            logger.info(f"Email: {form.email.data}")
+            logger.info(f"Subject: {form.subject.data}")
+            
             # Create contact record
             contact = Contact(
                 name=form.name.data,
@@ -66,18 +94,44 @@ def contact():
                 subject=form.subject.data,
                 message=form.message.data
             )
+            
+            logger.info("Saving contact to database")
             db.session.add(contact)
             db.session.commit()
+            logger.info(f"Contact saved successfully with ID: {contact.id}")
             
-            # Send notification email if configured
-            # send_contact_notification(contact)
+            # Send notification email
+            try:
+                logger.info("Attempting to send notification email")
+                send_contact_notification(contact)
+                logger.info("Notification email sent successfully")
+                flash('Your message has been sent successfully! We will get back to you soon.', 'success')
+            except Exception as e:
+                logger.error(f"Failed to send notification email: {str(e)}")
+                flash('Your message was received but there was an issue sending the notification. Our team will still contact you soon.', 'warning')
             
-            flash('Your message has been sent successfully!', 'success')
         except Exception as e:
             db.session.rollback()
-            flash('An error occurred. Please try again.', 'error')
+            logger.error(f"Database error: {str(e)}")
+            flash('An error occurred while saving your message. Please try again.', 'error')
             
     else:
-        flash('Please check your input and try again.', 'error')
+        logger.warning("Form validation failed")
+        for field, errors in form.errors.items():
+            logger.warning(f"Validation error in {field}: {', '.join(errors)}")
+            flash(f"{field}: {', '.join(errors)}", 'error')
     
     return redirect(url_for('main.home', _anchor='contact'))
+
+@main_bp.route('/test_email')
+def test_email():
+    """Test email configuration"""
+    from app.utils.email import test_smtp_connection
+    
+    success, message = test_smtp_connection()
+    if success:
+        flash('Email configuration test successful!', 'success')
+    else:
+        flash(f'Email configuration test failed: {message}', 'error')
+    
+    return redirect(url_for('main.home'))
