@@ -1,0 +1,66 @@
+<!-- Admin Navigation -->
+<nav class="bg-indigo-600 shadow">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex">
+                <div class="flex-shrink-0 flex items-center">
+                    <h1 class="text-white text-lg font-bold">Admin Dashboard</h1>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                    <a href="{{ url_for('admin.dashboard') }}"
+                        class="{% if request.endpoint == 'admin.dashboard' %}border-indigo-500 text-white{% else %}border-transparent text-indigo-200 hover:text-white hover:border-white{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        Dashboard
+                    </a>
+                    <a href="{{ url_for('admin.project_requests', status='pending') }}"
+                        class="{% if request.endpoint == 'admin.project_requests' %}border-indigo-500 text-white{% else %}border-transparent text-indigo-200 hover:text-white hover:border-white{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        Project Requests
+                    </a>
+                    <a href="{{ url_for('admin.job_applications', status='pending') }}"
+                        class="{% if request.endpoint == 'admin.job_applications' %}border-indigo-500 text-white{% else %}border-transparent text-indigo-200 hover:text-white hover:border-white{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        Job Applications
+                    </a>
+                </div>
+            </div>
+            <!-- Mobile menu button -->
+            <div class="flex items-center sm:hidden">
+                <button type="button" 
+                        class="inline-flex items-center justify-center p-2 rounded-md text-indigo-200 hover:text-white hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                        onclick="toggleMobileMenu()">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="sm:hidden hidden" id="mobile-menu">
+        <div class="pt-2 pb-3 space-y-1">
+            <a href="{{ url_for('admin.dashboard') }}"
+                class="{% if request.endpoint == 'admin.dashboard' %}bg-indigo-700 text-white{% else %}text-indigo-200 hover:bg-indigo-500 hover:text-white{% endif %} block pl-3 pr-4 py-2 text-base font-medium">
+                Dashboard
+            </a>
+            <a href="{{ url_for('admin.project_requests', status='pending') }}"
+                class="{% if request.endpoint == 'admin.project_requests' %}bg-indigo-700 text-white{% else %}text-indigo-200 hover:bg-indigo-500 hover:text-white{% endif %} block pl-3 pr-4 py-2 text-base font-medium">
+                Project Requests
+            </a>
+            <a href="{{ url_for('admin.job_applications', status='pending') }}"
+                class="{% if request.endpoint == 'admin.job_applications' %}bg-indigo-700 text-white{% else %}text-indigo-200 hover:bg-indigo-500 hover:text-white{% endif %} block pl-3 pr-4 py-2 text-base font-medium">
+                Job Applications
+            </a>
+        </div>
+    </div>
+</nav>
+
+<script>
+function toggleMobileMenu() {
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.remove('hidden');
+    } else {
+        mobileMenu.classList.add('hidden');
+    }
+}
+</script>

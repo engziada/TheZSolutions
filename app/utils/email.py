@@ -1,4 +1,4 @@
-from flask import current_app, render_template
+from flask import current_app, render_template, url_for
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -6,8 +6,29 @@ import logging
 import threading
 import base64
 import os
+from datetime import datetime
+from threading import Thread
+from flask_mail import Message
+from app import mail
 
-logger = logging.getLogger(__name__)
+# Configure logging
+logger = logging.getLogger('email')
+logger.setLevel(logging.INFO)
+
+# Create Log directory if it doesn't exist
+log_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'Log')
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)
+
+# Add file handler
+file_handler = logging.handlers.RotatingFileHandler(
+    os.path.join(log_dir, 'email.log'),
+    maxBytes=10240,
+    backupCount=10,
+    delay=True
+)
+file_handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
+logger.addHandler(file_handler)
 
 def get_logo_base64():
     """Get base64 encoded logo for email templates"""
@@ -19,6 +40,28 @@ def get_logo_base64():
     except Exception as e:
         logger.error(f"Failed to load logo: {str(e)}")
         return None
+
+def send_async_email(app, msg):
+    with app.app_context():
+        try:
+            mail.send(msg)
+            logger.info(f'Email sent successfully to {msg.recipients}')
+        except Exception as e:
+            logger.error(f'Failed to send email to {msg.recipients}: {str(e)}')
+            raise
+
+def send_email(subject, recipients, html_body):
+    try:
+        msg = Message(subject, recipients=recipients)
+        msg.html = html_body
+        
+        Thread(target=send_async_email,
+               args=(current_app._get_current_object(), msg)).start()
+        
+        logger.info(f'Email task started for recipients: {recipients}')
+    except Exception as e:
+        logger.error(f'Failed to create email task: {str(e)}')
+        raise
 
 def send_email_direct(subject, recipients, html_content):
     """Send email directly using smtplib"""
@@ -74,38 +117,13 @@ def send_email_async(subject, recipients, template, **kwargs):
                 # Render template
                 html_content = render_template(f"{template}.html", **kwargs)
                 # Send email
-                send_email_direct(subject, recipients, html_content)
+                send_email(subject, recipients, html_content)
         
         thread = threading.Thread(target=_send)
         thread.start()
         
     except Exception as e:
         logger.error(f"Failed to send async email: {str(e)}")
-        raise
-
-def send_email(subject, recipients, template, **kwargs):
-    """
-    Send email using a template
-    Args:
-        subject: Email subject
-        recipients: List of recipient email addresses
-        template: Template name without extension (e.g., 'email/welcome')
-        **kwargs: Variables to pass to the template
-    """
-    try:
-        logger.info(f"Preparing email with subject '{subject}' for recipients: {recipients}")
-        
-        # Add logo to template variables
-        kwargs['logo_base64'] = get_logo_base64()
-        
-        # Render template
-        html_content = render_template(f"{template}.html", **kwargs)
-        
-        # Send email
-        send_email_direct(subject, recipients, html_content)
-        
-    except Exception as e:
-        logger.error(f"Error preparing email: {str(e)}")
         raise
 
 def send_welcome_email(user):
@@ -343,6 +361,58 @@ def send_project_request_notification(project_request, files=None):
         )
     except Exception as e:
         logger.error(f"Failed to send project request notification: {str(e)}")
+        raise
+
+def send_project_request_rejection(project_request):
+    """Send rejection email for project request"""
+    subject = "Update Regarding Your Project Request"
+    
+    html = render_template('email/project_request_rejection.html',
+                         contact_name=project_request.contact_name,
+                         project_name=project_request.project_name)
+    
+    send_email(subject=subject,
+              recipients=[project_request.contact_email],
+              html_body=html)
+
+def send_project_request_approval(project_request):
+    """Send approval email for project request"""
+    subject = "Your Project Request Has Been Approved!"
+    
+    html = render_template('email/project_request_approval.html',
+                         contact_name=project_request.contact_name,
+                         project_name=project_request.project_name)
+    
+    send_email(subject=subject,
+              recipients=[project_request.contact_email],
+              html_body=html)
+
+def send_application_rejection(application):
+    """Send rejection email to job applicant"""
+    try:
+        send_email(
+            subject="Update on Your Application - The Z Solutions",
+            recipients=[application.email],
+            template='email/application_rejection',
+            application=application
+        )
+        current_app.logger.info(f'Rejection email sent to {application.email}')
+    except Exception as e:
+        current_app.logger.error(f'Failed to send rejection email to {application.email}: {str(e)}')
+        raise
+
+def send_application_shortlisted(application):
+    """Send shortlist notification email to job applicant"""
+    try:
+        send_email(
+            subject="Your Application Has Been Shortlisted - The Z Solutions",
+            recipients=[application.email],
+            template='email/application_shortlisted',
+            application=application
+        )
+        current_app.logger.info(f'Shortlist notification email sent to {application.email}')
+    except Exception as e:
+        current_app.logger.error(f'Failed to send shortlist notification email to {application.email}: {str(e)}')
         raise
 
 def test_smtp_connection():

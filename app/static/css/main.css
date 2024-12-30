@@ -151,6 +151,27 @@ section {
     color: var(--color-text);
 }
 
+/* Input height matching button */
+.input-height-match {
+    height: 42px !important; /* Standard button height in Tailwind */
+    line-height: 42px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="url"],
+input[type="number"] {
+    height: 42px !important;
+    line-height: 42px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
 /* Login/Register Forms */
 .auth-form {
     background-color: #ffffff;

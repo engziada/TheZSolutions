@@ -20,8 +20,11 @@ class Config:
     
     # File Upload
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB max file size
-    UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads')
-    ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'doc', 'docx'}
+    UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'app', 'uploads')
+    PROJECT_FILES_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'app', 'uploads', 'project_files')
+    RESUMES_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'app', 'uploads', 'resumes')
+    ALLOWED_PROJECT_FILE_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'doc', 'docx', 'zip', 'rar'}
+    ALLOWED_RESUME_EXTENSIONS = {'pdf', 'doc', 'docx'}
     
     # Session Configuration
     PERMANENT_SESSION_LIFETIME = timedelta(days=1)

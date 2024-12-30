@@ -1,0 +1,20 @@
+{% extends "email/base.html" %}
+
+{% block content %}
+<tr>
+    <td class="content-cell">
+        <p>Dear {{ application.first_name }} {{ application.last_name }},</p>
+
+        <p>Thank you for your application for the {{ application.position }} position at The Z Solutions. We are pleased to inform you that your application has been shortlisted for the next stage of our recruitment process.</p>
+
+        <p>Our HR team will contact you shortly to schedule an interview and provide more details about the next steps. Please ensure your contact information ({{ application.phone }}) is up to date.</p>
+
+        <p>If you have any questions or need to update your contact information, please don't hesitate to reach out to us at hr@thesz.solutions .</p>
+
+        <p>We look forward to speaking with you soon!</p>
+
+        <p>Best regards,<br>
+        The Z Solutions Recruitment Team</p>
+    </td>
+</tr>
+{% endblock %}

@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-100">
+    {% include "admin/nav.html" %}
+    
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="px-4 sm:px-0">
+            <!-- Back Button -->
+            <div class="mb-4">
+                <a href="{{ url_for('admin.developers') }}" 
+                   class="text-indigo-600 hover:text-indigo-900 flex items-center">
+                    <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                    </svg>
+                    Back to Developers
+                </a>
+            </div>
+
+            <!-- Developer Profile -->
+            <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 h-20 w-20">
+                            <img class="h-20 w-20 rounded-full" 
+                                 src="{{ developer.profile_picture or url_for('static', filename='images/default-avatar.png') }}" 
+                                 alt="{{ developer.name }}">
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                                {{ developer.name }}
+                            </h3>
+                            <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                                {{ developer.email }}
+                            </p>
+                            <div class="mt-1">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                            {% if developer.status == 'active' %}bg-green-100 text-green-800
+                                            {% elif developer.status == 'pending' %}bg-yellow-100 text-yellow-800
+                                            {% else %}bg-red-100 text-red-800{% endif %}">
+                                    {{ developer.status|title }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t border-gray-200">
+                    <dl>
+                        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt class="text-sm font-medium text-gray-500">
+                                Skills
+                            </dt>
+                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                {% for skill in developer.developer_profile.skills %}
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 mr-2">
+                                    {{ skill }}
+                                </span>
+                                {% endfor %}
+                            </dd>
+                        </div>
+                        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt class="text-sm font-medium text-gray-500">
+                                Experience Level
+                            </dt>
+                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                {{ developer.developer_profile.experience_level|title }}
+                            </dd>
+                        </div>
+                        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt class="text-sm font-medium text-gray-500">
+                                Joined Date
+                            </dt>
+                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                {{ developer.created_at.strftime('%Y-%m-%d') }}
+                            </dd>
+                        </div>
+                        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt class="text-sm font-medium text-gray-500">
+                                Portfolio URL
+                            </dt>
+                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                {% if developer.developer_profile.portfolio_url %}
+                                <a href="{{ developer.developer_profile.portfolio_url }}" 
+                                   target="_blank"
+                                   class="text-indigo-600 hover:text-indigo-900">
+                                    {{ developer.developer_profile.portfolio_url }}
+                                </a>
+                                {% else %}
+                                Not provided
+                                {% endif %}
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+
+            <!-- Projects Section -->
+            <div class="mt-8">
+                <h2 class="text-lg leading-6 font-medium text-gray-900 mb-4">Projects</h2>
+                
+                {% if developer.projects %}
+                <div class="bg-white shadow overflow-hidden sm:rounded-md">
+                    <ul class="divide-y divide-gray-200">
+                        {% for project in developer.projects %}
+                        <li>
+                            <a href="{{ url_for('admin.view_project', project_id=project.id) }}" 
+                               class="block hover:bg-gray-50">
+                                <div class="px-4 py-4 sm:px-6">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-indigo-600 truncate">
+                                                {{ project.title }}
+                                            </p>
+                                            <p class="mt-1 text-sm text-gray-500">
+                                                {{ project.description[:100] }}...
+                                            </p>
+                                        </div>
+                                        <div class="ml-4 flex-shrink-0">
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                                        {% if project.status == 'active' %}bg-green-100 text-green-800
+                                                        {% elif project.status == 'pending' %}bg-yellow-100 text-yellow-800
+                                                        {% elif project.status == 'completed' %}bg-blue-100 text-blue-800
+                                                        {% else %}bg-red-100 text-red-800{% endif %}">
+                                                {{ project.status|title }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% else %}
+                <p class="text-gray-500">No projects assigned yet.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -2,7 +2,9 @@
 
 {% block content %}
 <div class="container mx-auto px-4 py-8">
-    <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-8">
+    {% include 'components/terms_modal.html' %}
+
+    <div id="applicationContent" style="display: none;" class="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-8">
         <h1 class="text-3xl font-bold mb-6 text-center">Join Our Development Team</h1>
         
         {% include 'components/loading_overlay.html' %}
@@ -102,10 +104,26 @@
 </div>
 
 <script>
+    // Show terms modal on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('termsModal').style.display = 'flex';
+        document.getElementById('applicationContent').style.display = 'none';
+    });
+
+    // Handle terms acceptance
+    document.getElementById('acceptTerms').addEventListener('change', function() {
+        document.getElementById('continueBtn').disabled = !this.checked;
+    });
+
+    // Handle continue button click
+    document.getElementById('continueBtn').addEventListener('click', function() {
+        document.getElementById('termsModal').style.display = 'none';
+        document.getElementById('applicationContent').style.display = 'block';
+    });
+
+    // Handle form submission
     document.getElementById('applicationForm').addEventListener('submit', function(e) {
-        // Show loading overlay
         showLoadingOverlay();
-        // Disable submit button
         document.querySelector('button[type="submit"]').disabled = true;
     });
 </script>

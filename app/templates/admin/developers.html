@@ -6,79 +6,79 @@
     
     <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div class="px-4 sm:px-0">
-            <h2 class="text-2xl font-semibold text-gray-900 mb-4">User Management</h2>
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4">Developer Management</h2>
             
             <!-- Filters -->
             <div class="bg-white p-4 rounded-lg shadow mb-6">
                 <div class="flex space-x-4">
-                    <select id="role-filter" class="rounded-md border-gray-300">
-                        <option value="all">All Roles</option>
-                        <option value="customer">Customers</option>
-                        <option value="developer">Developers</option>
-                        <option value="admin">Admins</option>
-                    </select>
                     <select id="status-filter" class="rounded-md border-gray-300">
                         <option value="all">All Status</option>
                         <option value="active">Active</option>
                         <option value="pending">Pending</option>
                         <option value="inactive">Inactive</option>
                     </select>
-                    <input type="text" id="search" placeholder="Search users..." 
+                    <select id="skill-filter" class="rounded-md border-gray-300">
+                        <option value="all">All Skills</option>
+                        {% for skill in skills %}
+                        <option value="{{ skill }}">{{ skill|title }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="text" id="search" placeholder="Search developers..." 
                            class="rounded-md border-gray-300 flex-1">
                 </div>
             </div>
 
-            <!-- Users List -->
+            <!-- Developers List -->
             <div class="bg-white shadow overflow-hidden sm:rounded-md">
                 <ul class="divide-y divide-gray-200">
-                    {% for user in users %}
+                    {% for developer in developers %}
                     <li>
                         <div class="px-4 py-4 sm:px-6 hover:bg-gray-50">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0">
                                         <img class="h-12 w-12 rounded-full" 
-                                             src="{{ user.profile_picture or url_for('static', filename='images/default-avatar.png') }}" 
-                                             alt="{{ user.name }}">
+                                             src="{{ developer.profile_picture or url_for('static', filename='images/default-avatar.png') }}" 
+                                             alt="{{ developer.name }}">
                                     </div>
                                     <div class="ml-4">
                                         <div class="text-sm font-medium text-indigo-600">
-                                            <a href="{{ url_for('admin.view_user', user_id=user.id) }}" 
+                                            <a href="{{ url_for('admin.view_developer', developer_id=developer.id) }}" 
                                                class="hover:underline">
-                                                {{ user.name }}
+                                                {{ developer.name }}
                                             </a>
                                         </div>
                                         <div class="text-sm text-gray-500">
-                                            {{ user.email }}
-                                        </div>
-                                        <div class="text-xs text-gray-400">
-                                            Joined: {{ user.created_at.strftime('%Y-%m-%d') }}
+                                            {{ developer.email }}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="flex items-center space-x-4">
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-100 text-indigo-800">
-                                        {{ user.role|title }}
-                                    </span>
                                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                                {% if user.status == 'active' %}bg-green-100 text-green-800
-                                                {% elif user.status == 'pending' %}bg-yellow-100 text-yellow-800
+                                                {% if developer.status == 'active' %}bg-green-100 text-green-800
+                                                {% elif developer.status == 'pending' %}bg-yellow-100 text-yellow-800
                                                 {% else %}bg-red-100 text-red-800{% endif %}">
-                                        {{ user.status|title }}
+                                        {{ developer.status|title }}
                                     </span>
-                                    <button onclick="toggleUserStatus('{{ user.id }}')"
+                                    <div class="text-sm text-gray-500">
+                                        {{ developer.projects|length }} Projects
+                                    </div>
+                                    <button onclick="toggleDeveloperStatus('{{ developer.id }}')"
                                             class="text-sm text-indigo-600 hover:text-indigo-900">
-                                        {% if user.status == 'active' %}Deactivate{% else %}Activate{% endif %}
+                                        {% if developer.status == 'active' %}Deactivate{% else %}Activate{% endif %}
                                     </button>
                                 </div>
                             </div>
-                            {% if user.role == 'customer' %}
                             <div class="mt-2">
                                 <div class="text-sm text-gray-500">
-                                    <span class="font-medium">Projects:</span> {{ user.customer_profile.projects|length }}
+                                    <span class="font-medium">Skills:</span>
+                                    {% for skill in developer.skills %}
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 ml-1">
+                                        {{ skill }}
+                                    </span>
+                                    {% endfor %}
                                 </div>
                             </div>
-                            {% endif %}
                         </div>
                     </li>
                     {% endfor %}
@@ -90,13 +90,13 @@
             <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6 mt-4">
                 <div class="flex-1 flex justify-between sm:hidden">
                     {% if pagination.has_prev %}
-                    <a href="{{ url_for('admin.users', page=pagination.prev_num) }}" 
+                    <a href="{{ url_for('admin.developers', page=pagination.prev_num) }}" 
                        class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
                         Previous
                     </a>
                     {% endif %}
                     {% if pagination.has_next %}
-                    <a href="{{ url_for('admin.users', page=pagination.next_num) }}" 
+                    <a href="{{ url_for('admin.developers', page=pagination.next_num) }}" 
                        class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
                         Next
                     </a>
@@ -111,8 +111,8 @@
 
 {% block scripts %}
 <script>
-function toggleUserStatus(userId) {
-    fetch(`/admin/user/${userId}/toggle-status`, {
+function toggleDeveloperStatus(developerId) {
+    fetch(`/admin/developer/${developerId}/toggle-status`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -123,26 +123,26 @@ function toggleUserStatus(userId) {
         if (data.success) {
             location.reload();
         } else {
-            alert('Error updating user status');
+            alert('Error updating developer status');
         }
     });
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    const roleFilter = document.getElementById('role-filter');
     const statusFilter = document.getElementById('status-filter');
+    const skillFilter = document.getElementById('skill-filter');
     const searchInput = document.getElementById('search');
 
     function applyFilters() {
-        const role = roleFilter.value;
         const status = statusFilter.value;
+        const skill = skillFilter.value;
         const search = searchInput.value;
         
-        window.location.href = `/admin/users?role=${role}&status=${status}&search=${search}`;
+        window.location.href = `/admin/developers?status=${status}&skill=${skill}&search=${search}`;
     }
 
-    roleFilter.addEventListener('change', applyFilters);
     statusFilter.addEventListener('change', applyFilters);
+    skillFilter.addEventListener('change', applyFilters);
     
     let timeout = null;
     searchInput.addEventListener('input', function() {
