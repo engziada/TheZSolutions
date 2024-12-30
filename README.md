@@ -58,23 +58,14 @@ The Z Solutions is a comprehensive platform for managing software development pr
      - Reusable component
 
 ## Checkpoints
-### Checkpoint 2 (2024-12-29)
-- Added ProjectRequestFile model for handling file uploads
-- Created reusable loading overlay component
-- Enhanced form submission UX with:
-  - Matrix-style loading animation
-  - Fading logo effect
-  - Submit button disabling
-  - File upload progress feedback
-- Fixed project request file handling
-- Improved email notifications with file attachments
-- Added database migrations for new models
-
-### Checkpoint 1 (Previous)
-- Initial project setup
-- Basic form implementations
-- Email notification system
-- Database models and migrations
+1. Initial project setup with basic structure and dependencies (December 28, 2024, 23:45:12)
+2. Added user authentication and basic templates (December 29, 2024, 00:30:45)
+3. Added project request and job application features (December 29, 2024, 02:11:55)
+4. Added project request file handling and reusable loading overlay (December 29, 2024, 23:20:54)
+5. Unified notification system across all forms (December 30, 2024, 14:27:28)
+   - Contact form now uses the same loading overlay and notification system as project requests
+   - Improved form submission UX with disabled buttons during submission
+   - Consistent notification style across all forms
 
 ## Installation
 1. Clone the repository

@@ -268,7 +268,8 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl font-bold text-center mb-12">Get in Touch</h2>
         <div class="max-w-3xl mx-auto">
-            <form method="POST" action="{{ url_for('main.contact') }}" class="space-y-6">
+            {% include 'components/loading_overlay.html' %}
+            <form method="POST" action="{{ url_for('main.contact') }}" class="space-y-6" id="contactForm">
                 {{ form.csrf_token if form }}
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
@@ -304,3 +305,14 @@
 {% endblock %}
 
 {% block extra_css %}{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        // Show loading overlay
+        showLoadingOverlay();
+        // Disable submit button
+        document.querySelector('#contactForm button[type="submit"]').disabled = true;
+    });
+</script>
+{% endblock %}
