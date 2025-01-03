@@ -4,10 +4,13 @@ from datetime import datetime
 from app import db
 import logging
 
-seo_bp = Blueprint('seo', __name__)
+# Create blueprint with explicit url_prefix
+seo_bp = Blueprint('seo', __name__, url_prefix='')
+
+# Configure logging
 logger = logging.getLogger(__name__)
 
-@seo_bp.route('/sitemap.xml')
+@seo_bp.route('/sitemap.xml', methods=['GET'])
 def sitemap():
     """Generate sitemap.xml dynamically."""
     try:
@@ -15,32 +18,43 @@ def sitemap():
         ten_days_ago = datetime.now().strftime('%Y-%m-%d')
         
         # Add static pages with their priorities
-        static_pages = {
-            'main.home': {'priority': '1.0', 'changefreq': 'daily'},
-            'main.about': {'priority': '0.8', 'changefreq': 'weekly'},
-            'main.contact': {'priority': '0.8', 'changefreq': 'weekly'},
-            'projects.list_projects': {'priority': '0.9', 'changefreq': 'daily'},
-            'careers.list_positions': {'priority': '0.9', 'changefreq': 'daily'},
-        }
+        static_pages = [
+            {'route': 'main.home', 'priority': '1.0', 'changefreq': 'daily'},
+            {'route': 'main.services', 'priority': '0.9', 'changefreq': 'weekly'},
+            {'route': 'main.contact_page', 'priority': '0.8', 'changefreq': 'weekly'},
+            {'route': 'main.projects', 'priority': '0.9', 'changefreq': 'daily'},
+            {'route': 'main.portfolio', 'priority': '0.9', 'changefreq': 'daily'}
+        ]
         
         # Add static pages
-        for rule, options in static_pages.items():
-            pages.append({
-                'loc': url_for(rule, _external=True),
-                'lastmod': ten_days_ago,
-                'changefreq': options['changefreq'],
-                'priority': options['priority']
-            })
+        for page in static_pages:
+            try:
+                url = url_for(page['route'], _external=True)
+                pages.append({
+                    'loc': url,
+                    'lastmod': ten_days_ago,
+                    'changefreq': page['changefreq'],
+                    'priority': page['priority']
+                })
+                logger.info(f"Added static page: {url}")
+            except Exception as e:
+                logger.warning(f"Could not generate URL for route {page['route']}: {str(e)}")
+                continue
         
         # Add dynamic project pages
-        projects = Project.query.all()
-        for project in projects:
-            pages.append({
-                'loc': url_for('projects.view_project', project_id=project.id, _external=True),
-                'lastmod': project.updated_at.strftime('%Y-%m-%d'),
-                'changefreq': 'weekly',
-                'priority': '0.7'
-            })
+        try:
+            projects = Project.query.all()
+            for project in projects:
+                url = url_for('projects.view_project', project_id=project.id, _external=True)
+                pages.append({
+                    'loc': url,
+                    'lastmod': project.updated_at.strftime('%Y-%m-%d'),
+                    'changefreq': 'weekly',
+                    'priority': '0.7'
+                })
+                logger.info(f"Added project page: {url}")
+        except Exception as e:
+            logger.warning(f"Could not add project pages to sitemap: {str(e)}")
         
         # Generate sitemap XML
         sitemap_xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -64,9 +78,9 @@ def sitemap():
     
     except Exception as e:
         logger.error(f'Error generating sitemap: {str(e)}')
-        return Response('Error generating sitemap', status=500)
+        return Response(f'Error generating sitemap: {str(e)}', status=500)
 
-@seo_bp.route('/robots.txt')
+@seo_bp.route('/robots.txt', methods=['GET'])
 def robots():
     """Serve robots.txt dynamically."""
     try:
@@ -89,4 +103,4 @@ Disallow: /uploads/*
     
     except Exception as e:
         logger.error(f'Error serving robots.txt: {str(e)}')
-        return Response('Error serving robots.txt', status=500)
+        return Response(f'Error serving robots.txt: {str(e)}', status=500)
