@@ -1,115 +1,95 @@
-# The Z Solutions
+# Z Solutions Website
 
-A professional software development services platform built with Flask.
+A professional software development company website built with Flask.
 
 ## Project Description
-The Z Solutions is a comprehensive platform for managing software development projects, connecting clients with skilled developers, and facilitating project collaboration.
+Z Solutions website showcases our software development services, team, and portfolio. Built with Python Flask for robust backend functionality and modern frontend technologies for a seamless user experience.
 
 ## Requirements
-- Python 3.11+
+- Python 3.8+
 - Flask
 - SQLAlchemy
-- Flask-Mail
 - Other dependencies in requirements.txt
 
 ## Project Structure
-- `app/`: Main application directory
-  - `models/`: Database models
-    - `application.py`: Models for job applications and project requests
-    - `project.py`: Models for projects and related entities
-  - `routes/`: Route handlers
-    - `project_requests.py`: Handles project request submissions
-  - `templates/`: HTML templates
-    - `components/`: Reusable UI components
-      - `loading_overlay.html`: Matrix-style loading animation with logo
-    - `careers/`: Career-related templates
-      - `apply.html`: Job application form
-    - `requests/`: Project request templates
-      - `new.html`: Project request form
-    - `email/`: Email templates
-      - `project_request_confirmation.html`: Email sent to requester
-      - `project_request_notification.html`: Email sent to admin
-  - `static/`: Static files
-    - `img/`: Images including logo
-  - `utils/`: Utility functions
-    - `email.py`: Email sending functions
-  - `config.py`: Application configuration
-- `logs/`: Application logs
-- `migrations/`: Database migrations
-- `.env`: Environment variables
-- `requirements.txt`: Project dependencies
+```
+TheZSolutions/
+├── app/
+│   ├── static/          # Static files (CSS, JS, images)
+│   ├── templates/       # HTML templates
+│   ├── routes/          # Route handlers
+│   ├── models/          # Database models
+│   └── utils/           # Utility functions
+├── logs/                # Application logs
+├── migrations/          # Database migrations
+└── tests/              # Test files
+```
 
 ## Features
-1. Project Request System
-   - Form submission with file uploads
-   - Email notifications (requester & admin)
-   - File storage with database tracking
-   - Form validation and security
+1. **User Management**
+   - Authentication system
+   - User roles (Admin, Developer, Customer)
+   - Profile management
 
-2. Job Application System
-   - Application form with resume upload
-   - Email notifications
-   - Application tracking
+2. **Project Management**
+   - Project showcase
+   - Project requests
+   - Project status tracking
 
-3. UI Components
-   - Matrix-style loading overlay
-     - Falling 0's, 1's, and Z's animation
-     - Fading logo effect
-     - Reusable component
+3. **Career Portal**
+   - Job listings
+   - Application system
+   - Team showcase
+
+4. **Content Management**
+   - Dynamic content updates
+   - SEO optimization
+   - Image optimization
+
+5. **SEO Optimization**
+   - Meta tags optimization
+   - Open Graph integration
+   - Dynamic sitemap generation
+   - Robots.txt configuration
 
 ## Checkpoints
-1. Initial project setup with basic structure and dependencies (December 28, 2024, 23:45:12)
-2. Added user authentication and basic templates (December 29, 2024, 00:30:45)
-3. Added project request and job application features (December 29, 2024, 02:11:55)
-4. Added project request file handling and reusable loading overlay (December 29, 2024, 23:20:54)
-5. Unified notification system across all forms (December 30, 2024, 14:27:28)
-   - Contact form now uses the same loading overlay and notification system as project requests
-   - Improved form submission UX with disabled buttons during submission
-   - Consistent notification style across all forms
-6. Added email notifications for project request status changes:
-  - Created approval email template with welcoming message and next steps
-  - Created rejection email template with professional and empathetic message
-  - Implemented email sending functionality for both approve and reject actions
-  - Added comprehensive logging for debugging and tracking
-  - Fixed concurrent log file access issues
-  - Improved error handling in status update endpoint
 
-To revert to this checkpoint:
+### Checkpoint 1 (2024-01-03)
+- Initial project setup
+- Basic structure implementation
+- Authentication system
 ```bash
-git checkout checkpoint-6
+git checkout tags/checkpoint-1
 ```
 
-7. (2024-12-31 01:57)
-- Added email notifications for project request status changes:
-  - Created approval email template with welcoming message and next steps
-  - Created rejection email template with professional and empathetic message
-  - Implemented email sending functionality for both approve and reject actions
-  - Added comprehensive logging for debugging and tracking
-  - Fixed concurrent log file access issues
-  - Improved error handling in status update endpoint
-
-To revert to this checkpoint:
+### Checkpoint 2 (2024-01-03)
+- Hero section implementation
+- Image optimization
+- Loading performance improvements
 ```bash
-git checkout checkpoint-7
+git checkout tags/checkpoint-2
 ```
 
-## Installation
+### Checkpoint 3 (2024-01-03)
+- SEO Optimization
+  - Enhanced meta tags
+  - Open Graph implementation
+  - Dynamic sitemap generation
+  - Robots.txt configuration
+  - Social media preview optimization
+```bash
+git checkout tags/checkpoint-3
+```
+
+## Getting Started
 1. Clone the repository
-2. Create a virtual environment: `python -m venv venv`
-3. Activate the virtual environment:
-   - Windows: `venv\Scripts\activate`
-   - Unix: `source venv/bin/activate`
-4. Install dependencies: `pip install -r requirements.txt`
-5. Copy `.env.example` to `.env` and configure environment variables
-6. Run migrations: `flask db upgrade`
-7. Start the server: `python run.py`
+2. Install dependencies: `pip install -r requirements.txt`
+3. Set up environment variables
+4. Run migrations: `flask db upgrade`
+5. Start the server: `flask run`
 
-## Environment Variables
-Required environment variables in `.env`:
-```
-# Email Configuration
-MAIL_USERNAME=your_email@domain.com
-MAIL_PASSWORD='your_password'
+## Contributing
+Please read CONTRIBUTING.md for details on our code of conduct and the process for submitting pull requests.
 
-# Application Security
-SECRET_KEY='your_secret_key'
+## License
+This project is licensed under the MIT License - see the LICENSE.md file for details

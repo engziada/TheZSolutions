@@ -38,177 +38,12 @@ section:first-of-type {
 }
 
 .hero-section {
-    padding-top: 1rem; /* Specific padding for hero section */
-}
-
-/* Ensure consistent section spacing */
-section {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-}
-
-/* Main Content */
-.main-content {
-    padding: 2rem;
-}
-
-/* Notifications */
-.notification {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    background-color: #2f343a;
-    color: #fff;
-    animation: slide-in 0.5s ease;
-    z-index: 1000;
-}
-
-.notification.error {
-    background-color: var(--color-accent);
-}
-
-.notification.success {
-    background-color: #00ff00;
-}
-
-/* Buttons */
-.btn {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    border-radius: 0.375rem;
-    font-weight: 500;
-    text-align: center;
-    transition: all 0.2s ease;
-    cursor: pointer;
-    text-decoration: none;
-    border: 2px solid transparent;
-}
-
-.btn-primary {
-    background-color: var(--color-accent);
-    color: #ffffff !important;
-    border-color: var(--color-accent);
-}
-
-.btn-primary:hover {
-    background-color: transparent;
-    color: var(--color-accent) !important;
-}
-
-.btn-secondary {
-    background-color: transparent;
-    color: var(--color-text) !important;
-    border-color: var(--color-text);
-}
-
-.btn-secondary:hover {
-    background-color: var(--color-text);
-    color: #ffffff !important;
-}
-
-.btn-menu {
-    background-color: transparent;
-    color: #ffffff !important;
-    border: 2px solid #ffffff;
-    padding: 0.375rem 0.75rem;
-}
-
-.btn-menu:hover {
-    background-color: #ffffff;
-    color: #000000 !important;
-}
-
-/* Form Styles */
-.form-group {
-    margin-bottom: 1rem;
-}
-
-.form-control {
-    display: block;
-    width: 100%;
-    padding: 0.5rem 0.75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: var(--color-text);
-    background-color: #ffffff;
-    border: 1px solid var(--color-border);
-    border-radius: 0.375rem;
-    transition: border-color 0.2s ease;
-}
-
-.form-control:focus {
-    outline: none;
-    border-color: var(--color-accent);
-    box-shadow: 0 0 0 2px rgba(147, 0, 0, 0.1);
-}
-
-.form-label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: var(--color-text);
-}
-
-/* Input height matching button */
-.input-height-match {
-    height: 42px !important; /* Standard button height in Tailwind */
-    line-height: 42px !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="search"],
-input[type="tel"],
-input[type="url"],
-input[type="number"] {
-    height: 42px !important;
-    line-height: 42px !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-}
-
-/* Login/Register Forms */
-.auth-form {
-    background-color: #ffffff;
-    padding: 2rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.auth-form .btn {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-}
-
-.auth-form input {
-    margin-bottom: 1rem;
-}
-
-.auth-title {
-    color: var(--color-text);
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-    text-align: center;
-}
-
-/* Hero Section */
-.hero-section {
     position: relative;
-    overflow: hidden;
     min-height: calc(100vh - 80px);
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
     padding: 4rem 1rem;
-    margin-top: 80px;
     background-color: var(--color-primary);
     background-image: linear-gradient(rgba(17, 17, 17, 0.65), rgba(17, 17, 17, 0.65)), url('../img/bg.jpg');
     background-size: cover;
@@ -220,8 +55,9 @@ input[type="number"] {
 .hero-content {
     position: relative;
     z-index: 2;
+    text-align: center;
     max-width: 800px;
-    margin: 0 auto;
+    padding: 2rem;
 }
 
 .hero-title {
@@ -505,4 +341,161 @@ input[type="number"] {
 
 .animate-slide-in {
     animation: slideIn var(--transition-normal);
+}
+
+/* Notifications */
+.notification {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: #2f343a;
+    color: #fff;
+    animation: slide-in 0.5s ease;
+    z-index: 1000;
+}
+
+.notification.error {
+    background-color: var(--color-accent);
+}
+
+.notification.success {
+    background-color: #00ff00;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    text-align: center;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+    border: 2px solid transparent;
+}
+
+.btn-primary {
+    background-color: var(--color-accent);
+    color: #ffffff !important;
+    border-color: var(--color-accent);
+}
+
+.btn-primary:hover {
+    background-color: transparent;
+    color: var(--color-accent) !important;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--color-text) !important;
+    border-color: var(--color-text);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-text);
+    color: #ffffff !important;
+}
+
+.btn-menu {
+    background-color: transparent;
+    color: #ffffff !important;
+    border: 2px solid #ffffff;
+    padding: 0.375rem 0.75rem;
+}
+
+.btn-menu:hover {
+    background-color: #ffffff;
+    color: #000000 !important;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--color-text);
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 0.375rem;
+    transition: border-color 0.2s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 2px rgba(147, 0, 0, 0.1);
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+/* Input height matching button */
+.input-height-match {
+    height: 42px !important; /* Standard button height in Tailwind */
+    line-height: 42px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="url"],
+input[type="number"] {
+    height: 42px !important;
+    line-height: 42px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* Login/Register Forms */
+.auth-form {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.auth-form .btn {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+}
+
+.auth-form input {
+    margin-bottom: 1rem;
+}
+
+.auth-title {
+    color: var(--color-text);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Main Content */
+.main-content {
+    padding: 2rem;
+}
+
+/* Ensure consistent section spacing */
+section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
 }

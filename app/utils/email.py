@@ -51,86 +51,40 @@ def send_async_email(app, msg):
             raise
 
 def send_email(subject, recipients, html_body):
+    """Send email using Flask-Mail"""
     try:
-        msg = Message(subject, recipients=recipients)
-        msg.html = html_body
-        
-        Thread(target=send_async_email,
-               args=(current_app._get_current_object(), msg)).start()
-        
-        logger.info(f'Email task started for recipients: {recipients}')
-    except Exception as e:
-        logger.error(f'Failed to create email task: {str(e)}')
-        raise
-
-def send_email_direct(subject, recipients, html_content):
-    """Send email directly using smtplib"""
-    try:
-        # Get configuration
-        smtp_server = current_app.config['MAIL_SERVER']
-        smtp_port = current_app.config['MAIL_PORT']
-        username = current_app.config['MAIL_USERNAME']
-        password = current_app.config['MAIL_PASSWORD']
-        sender = current_app.config['MAIL_DEFAULT_SENDER'][1]  # Get email from tuple
-        
-        logger.info(f"Attempting to connect to SMTP server: {smtp_server}:{smtp_port}")
-        logger.debug(f"Using username: {username}")
-        
-        # Create message
-        msg = MIMEMultipart('alternative')
-        msg['Subject'] = f"The Z Solutions - {subject}"
-        msg['From'] = sender
-        msg['To'] = ', '.join(recipients)
-        
-        # Attach HTML content
-        part = MIMEText(html_content, 'html')
-        msg.attach(part)
-        
-        # Connect to SMTP server
-        with smtplib.SMTP(smtp_server, smtp_port) as server:
-            logger.info("Connected to SMTP server")
-            
-            # Start TLS
-            server.starttls()
-            logger.info("TLS started")
-            
-            # Login
-            logger.info(f"Attempting to login as {username}")
-            server.login(username, password)
-            logger.info("Login successful")
-            
-            # Send email
-            logger.info(f"Sending email to {recipients}")
-            server.send_message(msg)
-            logger.info("Email sent successfully")
-            
+        msg = Message(subject=subject, recipients=recipients, html=html_body)
+        Thread(target=send_async_email, args=(current_app._get_current_object(), msg)).start()
     except Exception as e:
         logger.error(f"Failed to send email: {str(e)}")
         raise
 
-def send_email_async(subject, recipients, template, **kwargs):
-    """Send email asynchronously"""
+def send_email_async(subject, recipients, html_body):
+    """Send email asynchronously using Flask-Mail"""
     try:
         app = current_app._get_current_object()
-        def _send():
-            with app.app_context():
-                # Render template
-                html_content = render_template(f"{template}.html", **kwargs)
-                # Send email
-                send_email(subject, recipients, html_content)
-        
-        thread = threading.Thread(target=_send)
-        thread.start()
-        
+        msg = Message(subject=subject, recipients=recipients, html=html_body)
+        Thread(target=send_async_email, args=(app, msg)).start()
     except Exception as e:
         logger.error(f"Failed to send async email: {str(e)}")
+        raise
+
+def render_and_send_email(subject, recipients, template, **kwargs):
+    """Render template and send email"""
+    try:
+        # Render template
+        html_content = render_template(f"{template}.html", **kwargs)
+        # Send email
+        send_email(subject, recipients, html_content)
+    except Exception as e:
+        logger.error(f"Failed to render and send email: {str(e)}")
         raise
 
 def send_welcome_email(user):
     """Send welcome email to new users"""
     try:
         logger.info(f"Sending welcome email to user: {user.email}")
-        send_email_async(
+        render_and_send_email(
             "Welcome to The Z Solutions",
             [user.email],
             'email/welcome',
@@ -146,7 +100,7 @@ def send_project_created_email(project):
         developers = [dev.user.email for dev in project.developers]
         logger.info(f"Sending project created email to developers: {developers}")
         if developers:
-            send_email_async(
+            render_and_send_email(
                 f"New Project: {project.title}",
                 developers,
                 'email/project_created',
@@ -160,7 +114,7 @@ def send_project_assigned_email(project, developer):
     """Notify developer about project assignment"""
     try:
         logger.info(f"Sending project assigned email to developer: {developer.user.email}")
-        send_email_async(
+        render_and_send_email(
             f"Project Assignment: {project.title}",
             [developer.user.email],
             'email/project_assigned',
@@ -177,7 +131,7 @@ def send_project_status_update_email(project):
         recipients = [project.customer.email]
         recipients.extend(dev.user.email for dev in project.developers)
         logger.info(f"Sending project status update email to stakeholders: {recipients}")
-        send_email_async(
+        render_and_send_email(
             f"Project Status Update: {project.title}",
             recipients,
             'email/project_status_update',
@@ -194,7 +148,7 @@ def send_milestone_completed_email(milestone):
         recipients = [project.customer.email]
         recipients.extend(dev.user.email for dev in project.developers)
         logger.info(f"Sending milestone completed email to stakeholders: {recipients}")
-        send_email_async(
+        render_and_send_email(
             f"Milestone Completed: {milestone.title}",
             recipients,
             'email/milestone_completed',
@@ -212,7 +166,7 @@ def send_payment_received_email(payment):
         logger.info(f"Sending payment received email to customer: {project.customer.email}")
         
         # Send to customer
-        send_email_async(
+        render_and_send_email(
             "Payment Confirmation",
             [project.customer.email],
             'email/payment_confirmation',
@@ -223,7 +177,7 @@ def send_payment_received_email(payment):
         # Send to developers
         logger.info(f"Sending payment received email to developers: {[dev.user.email for dev in project.developers]}")
         for developer in project.developers:
-            send_email_async(
+            render_and_send_email(
                 "Payment Received",
                 [developer.user.email],
                 'email/payment_received',
@@ -241,7 +195,7 @@ def send_project_completed_email(project):
         recipients = [project.customer.email]
         recipients.extend(dev.user.email for dev in project.developers)
         logger.info(f"Sending project completed email to stakeholders: {recipients}")
-        send_email_async(
+        render_and_send_email(
             f"Project Completed: {project.title}",
             recipients,
             'email/project_completed',
@@ -268,7 +222,7 @@ def send_contact_notification(contact):
         subject = f'New Contact Form Submission: {contact.subject}'
         logger.info(f"Contact form details - Name: {contact.name}, Email: {contact.email}, Subject: {contact.subject}")
         
-        send_email(
+        render_and_send_email(
             subject=subject,
             recipients=[admin_email],
             template='email/contact_notification',
@@ -287,7 +241,7 @@ def send_application_confirmation(application):
     """
     try:
         logger.info(f"Sending application confirmation to {application.email}")
-        send_email(
+        render_and_send_email(
             subject="Application Received",
             recipients=[application.email],
             template="email/application_confirmation",
@@ -309,7 +263,7 @@ def send_application_notification(application):
     try:
         admin_email = current_app.config['ADMIN_EMAIL']
         logger.info(f"Sending application notification to admin: {admin_email}")
-        send_email(
+        render_and_send_email(
             subject=f"New Job Application - {application.position}",
             recipients=[admin_email],
             template="email/application_notification",
@@ -327,7 +281,7 @@ def send_project_request_confirmation(project_request):
     """
     try:
         logger.info(f"Sending project request confirmation to {project_request.contact_email}")
-        send_email(
+        render_and_send_email(
             subject="Project Request Received",
             recipients=[project_request.contact_email],
             template="email/project_request_confirmation",
@@ -353,7 +307,7 @@ def send_project_request_notification(project_request, files=None):
         if files:
             template_data['files'] = files
             
-        send_email(
+        render_and_send_email(
             subject=f"New Project Request - {project_request.project_name}",
             recipients=[admin_email],
             template="email/project_request_notification",

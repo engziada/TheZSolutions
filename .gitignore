@@ -46,6 +46,8 @@ instance/
 Log/
 logs/
 *.log
+logs/
+*.log
 
 # Uploads
 uploads/

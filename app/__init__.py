@@ -57,6 +57,8 @@ def create_app(config_class=Config):
     from app.routes.admin import admin_bp
     from app.routes.careers import careers_bp
     from app.routes.project_requests import requests_bp
+    from app.routes.seo import seo_bp
+    from app.routes.theme import theme_bp
 
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp, url_prefix='/auth')
@@ -65,5 +67,7 @@ def create_app(config_class=Config):
     app.register_blueprint(admin_bp, url_prefix='/admin')
     app.register_blueprint(careers_bp, url_prefix='/careers')
     app.register_blueprint(requests_bp, url_prefix='/requests')
+    app.register_blueprint(seo_bp)
+    app.register_blueprint(theme_bp)
 
     return app
