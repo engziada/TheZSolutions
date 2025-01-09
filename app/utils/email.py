@@ -8,8 +8,9 @@ import base64
 import os
 from datetime import datetime
 from threading import Thread
-from flask_mail import Message
+from flask_mail import Message, Mail
 from app import mail
+from flask_babel import _
 
 # Configure logging
 logger = logging.getLogger('email')
@@ -85,7 +86,7 @@ def send_welcome_email(user):
     try:
         logger.info(f"Sending welcome email to user: {user.email}")
         render_and_send_email(
-            "Welcome to The Z Solutions",
+            _("Welcome to The Z Solutions"),
             [user.email],
             'email/welcome',
             user=user
@@ -101,7 +102,7 @@ def send_project_created_email(project):
         logger.info(f"Sending project created email to developers: {developers}")
         if developers:
             render_and_send_email(
-                f"New Project: {project.title}",
+                _("New Project: %(title)s", title=project.title),
                 developers,
                 'email/project_created',
                 project=project
@@ -115,7 +116,7 @@ def send_project_assigned_email(project, developer):
     try:
         logger.info(f"Sending project assigned email to developer: {developer.user.email}")
         render_and_send_email(
-            f"Project Assignment: {project.title}",
+            _("Project Assignment: %(title)s", title=project.title),
             [developer.user.email],
             'email/project_assigned',
             project=project,
@@ -132,7 +133,7 @@ def send_project_status_update_email(project):
         recipients.extend(dev.user.email for dev in project.developers)
         logger.info(f"Sending project status update email to stakeholders: {recipients}")
         render_and_send_email(
-            f"Project Status Update: {project.title}",
+            _("Project Status Update: %(title)s", title=project.title),
             recipients,
             'email/project_status_update',
             project=project
@@ -149,7 +150,7 @@ def send_milestone_completed_email(milestone):
         recipients.extend(dev.user.email for dev in project.developers)
         logger.info(f"Sending milestone completed email to stakeholders: {recipients}")
         render_and_send_email(
-            f"Milestone Completed: {milestone.title}",
+            _("Milestone Completed: %(title)s", title=milestone.title),
             recipients,
             'email/milestone_completed',
             milestone=milestone,
@@ -167,7 +168,7 @@ def send_payment_received_email(payment):
         
         # Send to customer
         render_and_send_email(
-            "Payment Confirmation",
+            _("Payment Confirmation"),
             [project.customer.email],
             'email/payment_confirmation',
             payment=payment,
@@ -178,7 +179,7 @@ def send_payment_received_email(payment):
         logger.info(f"Sending payment received email to developers: {[dev.user.email for dev in project.developers]}")
         for developer in project.developers:
             render_and_send_email(
-                "Payment Received",
+                _("Payment Received"),
                 [developer.user.email],
                 'email/payment_received',
                 payment=payment,
@@ -196,7 +197,7 @@ def send_project_completed_email(project):
         recipients.extend(dev.user.email for dev in project.developers)
         logger.info(f"Sending project completed email to stakeholders: {recipients}")
         render_and_send_email(
-            f"Project Completed: {project.title}",
+            _("Project Completed: %(title)s", title=project.title),
             recipients,
             'email/project_completed',
             project=project
@@ -255,23 +256,59 @@ def send_application_confirmation(application):
         raise
 
 def send_application_notification(application):
-    """
-    Send notification email to admin about new job application
-    Args:
-        application: JobApplication model instance
-    """
+    """Send email notifications for new job applications"""
     try:
-        admin_email = current_app.config['ADMIN_EMAIL']
-        logger.info(f"Sending application notification to admin: {admin_email}")
-        render_and_send_email(
-            subject=f"New Job Application - {application.position}",
-            recipients=[admin_email],
-            template="email/application_notification",
-            **application.__dict__
+        current_year = datetime.now().year
+        application_date = datetime.now()  # Get current date/time for new applications
+        
+        # Email to admin
+        admin_msg = Message(
+            subject=f'New Job Application: {application.first_name} {application.last_name}',
+            recipients=[current_app.config['ADMIN_EMAIL']],
+            html=render_template('email/application_notification.html',
+                first_name=application.first_name,
+                last_name=application.last_name,
+                email=application.email,
+                phone=application.phone,
+                position=application.position,
+                experience=application.experience,
+                skills=application.skills,
+                portfolio_url=application.portfolio_url,
+                github_url=application.github_url,
+                cover_letter=application.cover_letter,
+                current_year=current_year,
+                application_date=application_date
+            )
         )
+        
+        # Attach resume
+        if application.resume_path:
+            with open(os.path.join(current_app.config['RESUMES_FOLDER'], application.resume_path), 'rb') as f:
+                admin_msg.attach(
+                    application.resume_path,
+                    'application/pdf' if application.resume_path.endswith('.pdf') else 'application/msword',
+                    f.read()
+                )
+        
+        mail.send(admin_msg)
+        
+        # Confirmation email to applicant
+        applicant_msg = Message(
+            subject='Application Received - The Z Solutions',
+            recipients=[application.email],
+            html=render_template('email/application_confirmation.html',
+                first_name=application.first_name,
+                position=application.position,
+                current_year=current_year,
+                application_date=application_date
+            )
+        )
+        mail.send(applicant_msg)
+        
+        return True
     except Exception as e:
-        logger.error(f"Failed to send application notification: {str(e)}")
-        raise
+        current_app.logger.error(f'Error sending application emails: {str(e)}')
+        return False
 
 def send_project_request_confirmation(project_request):
     """
@@ -291,35 +328,71 @@ def send_project_request_confirmation(project_request):
         logger.error(f"Failed to send project request confirmation: {str(e)}")
         raise
 
-def send_project_request_notification(project_request, files=None):
-    """
-    Send notification email to admin about new project request
-    Args:
-        project_request: ProjectRequest model instance
-        files: List of uploaded files (optional)
-    """
+def send_project_request_notification(project_request):
+    """Send email notifications for new project requests"""
     try:
-        admin_email = current_app.config['ADMIN_EMAIL']
-        logger.info(f"Sending project request notification to admin: {admin_email}")
+        current_year = datetime.now().year
         
-        # Prepare template data
-        template_data = project_request.__dict__
-        if files:
-            template_data['files'] = files
-            
-        render_and_send_email(
-            subject=f"New Project Request - {project_request.project_name}",
-            recipients=[admin_email],
-            template="email/project_request_notification",
-            **template_data
+        # Format budget range
+        budget_range = f"${project_request.budget_min:,.2f}"
+        if project_request.budget_max and project_request.budget_max != project_request.budget_min:
+            budget_range += f" - ${project_request.budget_max:,.2f}"
+        
+        # Confirmation email to requester first
+        html = render_template('email/project_request_confirmation.html',
+            contact_name=project_request.contact_name,
+            project_name=project_request.title,  
+            current_year=current_year
         )
+        send_email(
+            subject='Project Request Received - The Z Solutions',
+            recipients=[project_request.contact_email],
+            html_body=html
+        )
+        
+        # Then email to admin
+        admin_html = render_template('email/project_request_notification.html',
+            project_name=project_request.title,  
+            project_type=project_request.category,  
+            description=project_request.description,
+            features=project_request.features,
+            timeline=project_request.timeline,
+            budget_range=budget_range,  
+            contact_name=project_request.contact_name,
+            contact_email=project_request.contact_email,
+            contact_phone=project_request.contact_phone,
+            preferred_contact=project_request.preferred_contact,
+            created_at=project_request.created_at,
+            files=project_request.files,
+            current_year=current_year
+        )
+        
+        msg = Message(
+            subject=f'New Project Request: {project_request.title}',  
+            recipients=[current_app.config['ADMIN_EMAIL']],
+            html=admin_html
+        )
+        
+        # Attach project files
+        if project_request.files:
+            for file in project_request.files:
+                with open(os.path.join(current_app.config['PROJECT_FILES_FOLDER'], file.filename), 'rb') as f:
+                    msg.attach(
+                        file.filename,
+                        'application/pdf' if file.filename.endswith('.pdf') else 'application/octet-stream',
+                        f.read()
+                    )
+        
+        mail.send(msg)
+        return True
+        
     except Exception as e:
-        logger.error(f"Failed to send project request notification: {str(e)}")
-        raise
+        current_app.logger.error(f'Error sending project request emails: {str(e)}')
+        return False
 
 def send_project_request_rejection(project_request):
     """Send rejection email for project request"""
-    subject = "Update Regarding Your Project Request"
+    subject = _("Update Regarding Your Project Request")
     
     html = render_template('email/project_request_rejection.html',
                          contact_name=project_request.contact_name,
@@ -331,7 +404,7 @@ def send_project_request_rejection(project_request):
 
 def send_project_request_approval(project_request):
     """Send approval email for project request"""
-    subject = "Your Project Request Has Been Approved!"
+    subject = _("Your Project Request Has Been Approved!")
     
     html = render_template('email/project_request_approval.html',
                          contact_name=project_request.contact_name,
@@ -344,11 +417,12 @@ def send_project_request_approval(project_request):
 def send_application_rejection(application):
     """Send rejection email to job applicant"""
     try:
+        html = render_template('email/application_rejection.html',
+                           application=application)
         send_email(
-            subject="Update on Your Application - The Z Solutions",
+            subject=_("Update on Your Application - The Z Solutions"),
             recipients=[application.email],
-            template='email/application_rejection',
-            application=application
+            html_body=html
         )
         current_app.logger.info(f'Rejection email sent to {application.email}')
     except Exception as e:
@@ -358,11 +432,12 @@ def send_application_rejection(application):
 def send_application_shortlisted(application):
     """Send shortlist notification email to job applicant"""
     try:
+        html = render_template('email/application_shortlisted.html',
+                           application=application)
         send_email(
-            subject="Your Application Has Been Shortlisted - The Z Solutions",
+            subject=_("Your Application Has Been Shortlisted - The Z Solutions"),
             recipients=[application.email],
-            template='email/application_shortlisted',
-            application=application
+            html_body=html
         )
         current_app.logger.info(f'Shortlist notification email sent to {application.email}')
     except Exception as e:

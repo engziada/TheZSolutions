@@ -1,326 +1,151 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, request, jsonify, send_from_directory, current_app
-from flask_login import login_required, current_user
+from flask import Blueprint, render_template, request, flash, redirect, url_for, send_file, current_app
+from app.models.application import Application
+from app.models.project_request import ProjectRequest, ProjectRequestFile
+from app.decorators import admin_required
+from app import db
+import os
+from flask_babel import _
 from app.models.user import User
 from app.models.project import Project
-from app.models.application import JobApplication, ProjectRequest, ProjectRequestFile
-from app import db
-from datetime import datetime
-from sqlalchemy import func, or_
-import logging.handlers
-import os
-from logging.handlers import RotatingFileHandler
-from app.utils.email import (
-    send_application_rejection, 
-    send_application_shortlisted, 
-    send_project_request_rejection,
-    send_project_request_approval
-)
 
 admin_bp = Blueprint('admin', __name__)
 
-# Configure logging with thread-safe rotating file handler
-def configure_logging():
-    log_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'Log')
-    if not os.path.exists(log_dir):
-        os.makedirs(log_dir)
-    
-    log_file = os.path.join(log_dir, 'admin.log')
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    
-    # Use a Queue handler to handle concurrent writes
-    file_handler = RotatingFileHandler(
-        log_file,
-        maxBytes=10240,
-        backupCount=10,
-        delay=True  # Delay file creation until first write
-    )
-    file_handler.setFormatter(formatter)
-    file_handler.setLevel(logging.INFO)
-    
-    # Create logger with a unique name
-    logger = logging.getLogger('admin.' + str(os.getpid()))
-    logger.setLevel(logging.INFO)
-    
-    # Remove any existing handlers to avoid duplicates
-    for handler in logger.handlers[:]:
-        logger.removeHandler(handler)
-    
-    logger.addHandler(file_handler)
-    
-    return logger
-
-# Create logger instance
-logger = configure_logging()
-
-def admin_required(f):
-    def decorated_function(*args, **kwargs):
-        if not current_user.is_authenticated or current_user.role != 'admin':
-            flash('Access denied. Admin privileges required.', 'error')
-            return redirect(url_for('main.home'))
-        return f(*args, **kwargs)
-    decorated_function.__name__ = f.__name__
-    return decorated_function
-
 @admin_bp.route('/dashboard')
-@login_required
 @admin_required
 def dashboard():
-    # Get statistics
     stats = {
+        # Applications Stats
+        'total_applications': Application.query.count(),
+        'pending_applications': Application.query.filter_by(status='pending').count(),
+        'reviewing_applications': Application.query.filter_by(status='reviewing').count(),
+        'accepted_applications': Application.query.filter_by(status='accepted').count(),
+        'rejected_applications': Application.query.filter_by(status='rejected').count(),
+        
+        # Project Requests Stats
+        'total_requests': ProjectRequest.query.count(),
+        'pending_requests': ProjectRequest.query.filter_by(status='pending').count(),
+        'reviewing_requests': ProjectRequest.query.filter_by(status='reviewing').count(),
+        'accepted_requests': ProjectRequest.query.filter_by(status='accepted').count(),
+        'rejected_requests': ProjectRequest.query.filter_by(status='rejected').count(),
+        
+        # User Stats
         'total_users': User.query.count(),
         'total_customers': User.query.filter_by(role='customer').count(),
         'total_developers': User.query.filter_by(role='developer').count(),
+        'active_users': User.query.filter_by(is_active=True).count(),
+        
+        # Project Stats
         'total_projects': Project.query.count(),
         'active_projects': Project.query.filter_by(status='active').count(),
-        'pending_projects': Project.query.filter_by(status='pending').count(),
-        'completed_projects': Project.query.filter_by(status='completed').count(),
-        'pending_job_applications': JobApplication.query.filter_by(status='pending').count(),
-        'pending_project_requests': ProjectRequest.query.filter_by(status='pending').count(),
+        'completed_projects': Project.query.filter_by(status='completed').count()
     }
     
-    # Get recent project requests
-    recent_project_requests = ProjectRequest.query.order_by(ProjectRequest.submission_date.desc()).limit(5).all()
+    recent_applications = Application.query.order_by(Application.application_date.desc()).limit(5).all()
+    recent_requests = ProjectRequest.query.order_by(ProjectRequest.created_at.desc()).limit(5).all()
+    recent_projects = Project.query.order_by(Project.created_at.desc()).limit(5).all()
     
-    # Get recent job applications
-    recent_job_applications = JobApplication.query.order_by(JobApplication.application_date.desc()).limit(5).all()
-    
-    logger.info(f'Admin {current_user.email} accessed dashboard')
-    
-    return render_template('admin/dashboard.html',
-                         title='Admin Dashboard',
+    return render_template('admin/dashboard.html', 
                          stats=stats,
-                         recent_project_requests=recent_project_requests,
-                         recent_job_applications=recent_job_applications)
+                         recent_applications=recent_applications,
+                         recent_requests=recent_requests,
+                         recent_projects=recent_projects)
+
+@admin_bp.route('/applications')
+@admin_required
+def applications():
+    page = request.args.get('page', 1, type=int)
+    status = request.args.get('status', 'all')
+    
+    query = Application.query
+    if status != 'all':
+        query = query.filter_by(status=status)
+    
+    applications = query.order_by(Application.application_date.desc()).paginate(page=page, per_page=10)
+    
+    return render_template('admin/applications.html', 
+                         applications=applications,
+                         current_status=status)
+
+@admin_bp.route('/application/<int:id>')
+@admin_required
+def application_detail(id):
+    application = Application.query.get_or_404(id)
+    return render_template('admin/application_detail.html', application=application)
 
 @admin_bp.route('/project-requests')
-@login_required
 @admin_required
 def project_requests():
     page = request.args.get('page', 1, type=int)
     status = request.args.get('status', 'all')
-    search = request.args.get('search', '')
     
     query = ProjectRequest.query
-    
     if status != 'all':
         query = query.filter_by(status=status)
     
-    if search:
-        search_term = f"%{search}%"
-        query = query.filter(
-            or_(
-                ProjectRequest.project_name.ilike(search_term),
-                ProjectRequest.contact_name.ilike(search_term),
-                ProjectRequest.contact_email.ilike(search_term)
-            )
-        )
+    requests = query.order_by(ProjectRequest.created_at.desc()).paginate(page=page, per_page=10)
     
-    # Add proper ordering
-    query = query.order_by(ProjectRequest.submission_date.desc())
-    
-    # Use Flask-SQLAlchemy's pagination
-    pagination = query.paginate(page=page, per_page=10, error_out=False)
-    project_requests = pagination.items
-    
-    logger.info(f'Admin {current_user.email} accessed project requests list with status={status}')
-    
-    return render_template('admin/project_requests.html',
-                         title='Project Requests',
-                         project_requests=project_requests,
-                         pagination=pagination,
+    return render_template('admin/project_requests.html', 
+                         requests=requests,
                          current_status=status)
 
-@admin_bp.route('/job-applications')
-@login_required
+@admin_bp.route('/project-request/<int:id>')
 @admin_required
-def job_applications():
-    status = request.args.get('status', 'all')
-    search_skills = request.args.get('skills', '').strip()
-    page = request.args.get('page', 1, type=int)
-    per_page = 10
+def request_detail(id):
+    request = ProjectRequest.query.get_or_404(id)
+    return render_template('admin/request_detail.html', request=request)
 
-    # Base query
-    query = JobApplication.query
-
-    # Filter by status if specified
-    if status != 'all':
-        query = query.filter(JobApplication.status == status)
-
-    # Search by skills if provided
-    if search_skills:
-        search_terms = search_skills.split()
-        # Create a filter condition for each search term
-        skill_filters = []
-        for term in search_terms:
-            skill_filters.append(JobApplication.skills.ilike(f'%{term}%'))
-        # Combine filters with OR
-        if skill_filters:
-            query = query.filter(or_(*skill_filters))
-
-    # Order by application date, newest first
-    query = query.order_by(JobApplication.application_date.desc())
-
-    # Paginate results
-    applications = query.paginate(page=page, per_page=per_page, error_out=False)
-
-    return render_template('admin/job_applications.html',
-                         title='Job Applications',
-                         applications=applications,
-                         current_status=status,
-                         current_skills=search_skills)
-
-@admin_bp.route('/project-request/<int:request_id>')
-@login_required
+@admin_bp.route('/download/project-file/<int:file_id>')
 @admin_required
-def view_project_request(request_id):
-    project_request = ProjectRequest.query.get_or_404(request_id)
-    logger.info(f'Admin {current_user.email} viewed project request {project_request.project_name}')
-    
-    return render_template('admin/project_request_detail.html',
-                         title=f'Project Request - {project_request.project_name}',
-                         project_request=project_request)
-
-@admin_bp.route('/job-application/<int:application_id>')
-@login_required
-@admin_required
-def view_job_application(application_id):
-    application = JobApplication.query.get_or_404(application_id)
-    logger.info(f'Admin {current_user.email} viewed job application from {application.first_name} {application.last_name}')
-    
-    return render_template('admin/job_application_detail.html',
-                         title=f'Job Application - {application.first_name} {application.last_name}',
-                         application=application)
-
-@admin_bp.route('/job-application/<int:application_id>/download-cv')
-@login_required
-@admin_required
-def download_cv(application_id):
-    application = JobApplication.query.get_or_404(application_id)
-    if not application.resume_path:
-        flash('No CV file found for this application.', 'error')
-        return redirect(url_for('admin.view_job_application', application_id=application_id))
-    
-    # Get the resumes folder from config
-    resumes_folder = current_app.config['RESUMES_FOLDER']
-    
-    # Log the download
-    logger.info(f'Admin {current_user.email} downloaded CV for application from {application.first_name} {application.last_name}')
-    
-    return send_from_directory(
-        resumes_folder,
-        os.path.basename(application.resume_path),
-        as_attachment=True,
-        download_name=f'CV_{application.first_name}_{application.last_name}{os.path.splitext(application.resume_path)[1]}'
-    )
-
-@admin_bp.route('/project-request/<int:request_id>/download-document/<int:file_id>')
-@login_required
-@admin_required
-def download_project_document(request_id, file_id):
-    project_request = ProjectRequest.query.get_or_404(request_id)
+def download_project_file(file_id):
     project_file = ProjectRequestFile.query.get_or_404(file_id)
     
-    if project_file.project_request_id != request_id:
-        flash('Invalid file access attempt.', 'error')
-        return redirect(url_for('admin.view_project_request', request_id=request_id))
+    file_path = os.path.join(current_app.config['PROJECT_FILES_FOLDER'], project_file.filename)
     
-    # Get the documents folder path
-    documents_folder = os.path.join(current_app.root_path, 'uploads', 'project_files')
-    
-    # Log the download
-    logger.info(f'Admin {current_user.email} downloaded document {project_file.filename} for project request {project_request.project_name}')
-    
-    return send_from_directory(
-        documents_folder,
-        os.path.basename(project_file.file_path),
-        as_attachment=True,
-        download_name=project_file.filename
-    )
-
-@admin_bp.route('/project-request/<int:request_id>/update-status', methods=['POST'])
-@login_required
-@admin_required
-def update_project_request_status(request_id):
-    project_request = ProjectRequest.query.get_or_404(request_id)
-    
-    # Log the incoming request data for debugging
-    logger.info(f'Received status update request. Form data: {request.form}')
-    logger.info(f'Request content type: {request.content_type}')
-    
-    # Try both form and json data
-    new_status = request.form.get('status')
-    if not new_status and request.is_json:
-        new_status = request.json.get('status')
-    
-    if not new_status:
-        logger.error('No status provided in request')
-        return jsonify({'error': 'No status provided'}), 400
-    
-    if new_status not in ['pending', 'approved', 'rejected']:
-        logger.error(f'Invalid status provided: {new_status}')
-        return jsonify({'error': 'Invalid status'}), 400
-    
-    old_status = project_request.status
-    project_request.status = new_status
+    if not os.path.exists(file_path):
+        flash(_('File not found.'), 'error')
+        return redirect(url_for('admin.request_detail', id=project_file.request_id))
     
     try:
-        db.session.commit()
-        
-        # Send appropriate email based on status change
-        if old_status != new_status:
-            try:
-                if new_status == 'rejected':
-                    logger.info(f'Attempting to send rejection email for project request {project_request.project_name}')
-                    send_project_request_rejection(project_request)
-                    logger.info(f'Successfully sent rejection email for project request {project_request.project_name}')
-                elif new_status == 'approved':
-                    logger.info(f'Attempting to send approval email for project request {project_request.project_name}')
-                    send_project_request_approval(project_request)
-                    logger.info(f'Successfully sent approval email for project request {project_request.project_name}')
-            except Exception as e:
-                logger.error(f'Failed to send email for project request {project_request.project_name}: {str(e)}')
-                # Don't return error to user, as the status update was successful
-        
-        logger.info(f'Admin {current_user.email} updated project request {project_request.project_name} status from {old_status} to {new_status}')
-        return jsonify({'message': 'Status updated successfully'}), 200
+        return send_file(file_path, as_attachment=True)
     except Exception as e:
-        db.session.rollback()
-        logger.error(f'Error updating project request status: {str(e)}')
-        return jsonify({'error': 'Failed to update status'}), 500
+        flash(_('Invalid file access attempt.'), 'error')
+        return redirect(url_for('admin.request_detail', id=project_file.request_id))
 
-@admin_bp.route('/job-application/<int:application_id>/update-status', methods=['POST'])
-@login_required
+@admin_bp.route('/application/<int:id>/update-status', methods=['POST'])
 @admin_required
-def update_job_application_status(application_id):
+def update_application_status(id):
+    application = Application.query.get_or_404(id)
+    status = request.form.get('status')
+    
+    if status not in ['pending', 'reviewing', 'accepted', 'rejected']:
+        return {'error': 'Invalid status'}, 400
+    
+    application.status = status
+    db.session.commit()
+
     try:
-        application = JobApplication.query.get_or_404(application_id)
-        data = request.get_json()
-        new_status = data.get('status')
-        
-        if new_status not in ['pending', 'shortlisted', 'rejected']:
-            return jsonify({'success': False, 'error': 'Invalid status'}), 400
-        
-        application.status = new_status
-        
-        # Send appropriate email based on status
-        if new_status == 'rejected':
-            try:
-                send_application_rejection(application)
-            except Exception as e:
-                logger.error(f'Failed to send rejection email: {str(e)}')
-                # Continue with status update even if email fails
-        elif new_status == 'shortlisted':
-            try:
-                send_application_shortlisted(application)
-            except Exception as e:
-                logger.error(f'Failed to send shortlist notification email: {str(e)}')
-                # Continue with status update even if email fails
-        
-        db.session.commit()
-        logger.info(f'Job application {application_id} status updated to {new_status} by admin {current_user.email}')
-        
-        return jsonify({'success': True})
+        if status == 'rejected':
+            from app.utils.email import send_application_rejection
+            send_application_rejection(application)
+        elif status == 'accepted':
+            from app.utils.email import send_application_shortlisted
+            send_application_shortlisted(application)
     except Exception as e:
-        db.session.rollback()
-        logger.error(f'Error updating job application status: {str(e)}')
-        return jsonify({'success': False, 'error': str(e)}), 500
+        current_app.logger.error(f"Failed to send application status email: {str(e)}")
+        # Don't return error to client, as the status update was successful
+    
+    return {'status': 'success'}, 200
+
+@admin_bp.route('/project-request/<int:id>/update-status', methods=['POST'])
+@admin_required
+def update_request_status(id):
+    project_request = ProjectRequest.query.get_or_404(id)
+    status = request.form.get('status')
+    
+    if status not in ['pending', 'reviewing', 'accepted', 'rejected']:
+        return {'error': 'Invalid status'}, 400
+    
+    project_request.status = status
+    db.session.commit()
+    
+    return {'status': 'success'}, 200

@@ -4,11 +4,15 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail
-from app.config import Config
+from flask_babel import Babel
+from config import Config
 import logging
 from logging.handlers import RotatingFileHandler
 import os
+import subprocess
 from datetime import datetime
+from .utils.babel import init_babel
+from .cli import translate
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -16,16 +20,31 @@ login_manager = LoginManager()
 bcrypt = Bcrypt()
 mail = Mail()
 
+def compile_translations():
+    """Compile translation files"""
+    try:
+        subprocess.run(['pybabel', 'compile', '-d', 'app/translations'])
+    except Exception as e:
+        print(f"Warning: Could not compile translations: {e}")
+
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
 
     # Initialize extensions
     db.init_app(app)
-    migrate.init_app(app, db)
+    migrate.init_app(app, db, render_as_batch=True)
     login_manager.init_app(app)
     bcrypt.init_app(app)
     mail.init_app(app)
+    
+    # Initialize Babel and compile translations
+    babel = init_babel(app)
+    app.jinja_env.add_extension('jinja2.ext.i18n')
+    compile_translations()  # Compile translations at startup
+
+    # Register CLI commands
+    app.cli.add_command(translate)
 
     login_manager.login_view = 'auth.login'
     login_manager.login_message_category = 'info'
@@ -59,6 +78,7 @@ def create_app(config_class=Config):
     from app.routes.project_requests import requests_bp
     from app.routes.seo import seo_bp
     from app.routes.theme import theme_bp
+    from app.routes.downloads import bp as downloads_bp
 
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp, url_prefix='/auth')
@@ -69,5 +89,9 @@ def create_app(config_class=Config):
     app.register_blueprint(requests_bp, url_prefix='/requests')
     app.register_blueprint(seo_bp)
     app.register_blueprint(theme_bp)
+    app.register_blueprint(downloads_bp, url_prefix='/downloads')
+
+    from app.commands.create_admin import create_admin_command
+    app.cli.add_command(create_admin_command)
 
     return app

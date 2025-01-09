@@ -3,130 +3,129 @@
 {% block content %}
 <div class="container mx-auto px-4 py-8">
     <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-8">
-        <h1 class="text-3xl font-bold mb-6 text-center">Submit Your Project Request</h1>
+        <h1 class="text-3xl font-bold mb-6 text-center">{{ _('Submit Your Project Request') }}</h1>
         
         {% include 'components/loading_overlay.html' %}
         
         <form id="projectForm" action="{{ url_for('requests.new_request') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             <!-- Project Overview -->
             <div class="space-y-4">
-                <h2 class="text-xl font-semibold mb-4">Project Overview</h2>
+                <h2 class="text-xl font-semibold mb-4">{{ _('Project Overview') }}</h2>
                 
                 <div class="form-group">
-                    <label for="project_name" class="form-label">Project Name</label>
+                    <label for="project_name" class="form-label">{{ _('Project Name') }}</label>
                     <input type="text" id="project_name" name="project_name" class="form-control" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="project_type" class="form-label">Project Type</label>
+                    <label for="project_type" class="form-label">{{ _('Project Type') }}</label>
                     <select id="project_type" name="project_type" class="form-control" required>
-                        <option value="">Select project type</option>
-                        <option value="web">Web Application</option>
-                        <option value="mobile">Mobile Application</option>
-                        <option value="desktop">Desktop Application</option>
-                        <option value="api">API Development</option>
-                        <option value="automation">Automation Solution</option>
-                        <option value="other">Other</option>
+                        <option value="">{{ _('Select project type') }}</option>
+                        <option value="web">{{ _('Web Application') }}</option>
+                        <option value="mobile">{{ _('Mobile Application') }}</option>
+                        <option value="desktop">{{ _('Desktop Application') }}</option>
+                        <option value="api">{{ _('API Development') }}</option>
+                        <option value="automation">{{ _('Automation Solution') }}</option>
+                        <option value="other">{{ _('Other') }}</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="description" class="form-label">Project Description</label>
+                    <label for="description" class="form-label">{{ _('Project Description') }}</label>
                     <textarea id="description" name="description" rows="4" class="form-control" 
-                        placeholder="Please provide a detailed description of your project..." required></textarea>
+                        placeholder="{{ _('Please provide a detailed description of your project...') }}" required></textarea>
                 </div>
             </div>
 
             <!-- Requirements -->
             <div class="space-y-4">
-                <h2 class="text-xl font-semibold mb-4">Project Requirements</h2>
+                <h2 class="text-xl font-semibold mb-4">{{ _('Project Requirements') }}</h2>
                 
                 <div class="form-group">
-                    <label for="features" class="form-label">Key Features</label>
+                    <label for="features" class="form-label">{{ _('Key Features') }}</label>
                     <textarea id="features" name="features" rows="3" class="form-control" 
-                        placeholder="List the main features you want in your project..." required></textarea>
+                        placeholder="{{ _('List the main features you want in your project...') }}" required></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="timeline" class="form-label">Expected Timeline</label>
+                    <label for="timeline" class="form-label">{{ _('Expected Timeline') }}</label>
                     <select id="timeline" name="timeline" class="form-control" required>
-                        <option value="">Select timeline</option>
-                        <option value="1-3">1-3 months</option>
-                        <option value="3-6">3-6 months</option>
-                        <option value="6-12">6-12 months</option>
-                        <option value="12+">More than 12 months</option>
+                        <option value="">{{ _('Select timeline') }}</option>
+                        <option value="1-3">{{ _('1-3 months') }}</option>
+                        <option value="3-6">{{ _('3-6 months') }}</option>
+                        <option value="6-12">{{ _('6-12 months') }}</option>
+                        <option value="12+">{{ _('More than 12 months') }}</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="budget" class="form-label">Budget Range</label>
+                    <label for="budget" class="form-label">{{ _('Budget Range') }}</label>
                     <select id="budget" name="budget" class="form-control" required>
-                        <option value="">Select budget range</option>
-                        <option value="small">$5,000 - $10,000</option>
-                        <option value="medium">$10,000 - $25,000</option>
-                        <option value="large">$25,000 - $50,000</option>
-                        <option value="enterprise">$50,000+</option>
+                        <option value="">{{ _('Select budget range') }}</option>
+                        <option value="$5,000 - $10,000">{{ _('$5,000 - $10,000') }}</option>
+                        <option value="$10,000 - $25,000">{{ _('$10,000 - $25,000') }}</option>
+                        <option value="$25,000 - $50,000">{{ _('$25,000 - $50,000') }}</option>
+                        <option value="$50,000+">{{ _('$50,000+') }}</option>
                     </select>
                 </div>
             </div>
 
             <!-- File Uploads -->
             <div class="space-y-4">
-                <h2 class="text-xl font-semibold mb-4">Project Files</h2>
+                <h2 class="text-xl font-semibold mb-4">{{ _('Project Files') }}</h2>
                 
                 <div class="form-group">
-                    <label for="files" class="form-label">Additional Files</label>
+                    <label for="files" class="form-label">{{ _('Additional Files') }}</label>
                     <input type="file" id="files" name="files[]" multiple 
                         class="form-control" accept=".pdf,.doc,.docx,.txt,.zip,.rar,.7z">
-                    <p class="text-sm text-gray-500 mt-1">Upload any relevant files (documentation, mockups, etc.). 
-                        Accepted formats: PDF, DOC, DOCX, TXT, ZIP, RAR, 7Z (Max 5MB per file)</p>
+                    <p class="text-sm text-gray-500 mt-1">{{ _('Upload any relevant files (documentation, mockups, etc.). Accepted formats: PDF, DOC, DOCX, TXT, ZIP, RAR, 7Z (Max 5MB per file)') }}</p>
                 </div>
             </div>
 
             <!-- Contact Information -->
             <div class="space-y-4">
-                <h2 class="text-xl font-semibold mb-4">Contact Information</h2>
+                <h2 class="text-xl font-semibold mb-4">{{ _('Contact Information') }}</h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-group">
-                        <label for="contact_name" class="form-label">Contact Name</label>
+                        <label for="contact_name" class="form-label">{{ _('Contact Name') }}</label>
                         <input type="text" id="contact_name" name="contact_name" class="form-control" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="company" class="form-label">Company Name</label>
+                        <label for="company" class="form-label">{{ _('Company Name') }}</label>
                         <input type="text" id="company" name="company" class="form-control">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="contact_email" class="form-label">Email Address</label>
+                    <label for="contact_email" class="form-label">{{ _('Email Address') }}</label>
                     <input type="email" id="contact_email" name="contact_email" class="form-control" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="contact_phone" class="form-label">Phone Number</label>
+                    <label for="contact_phone" class="form-label">{{ _('Phone Number') }}</label>
                     <input type="tel" id="contact_phone" name="contact_phone" class="form-control" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="preferred_contact" class="form-label">Preferred Contact Method</label>
+                    <label for="preferred_contact" class="form-label">{{ _('Preferred Contact Method') }}</label>
                     <select id="preferred_contact" name="preferred_contact" class="form-control" required>
-                        <option value="email">Email</option>
-                        <option value="phone">Phone</option>
+                        <option value="email">{{ _('Email') }}</option>
+                        <option value="phone">{{ _('Phone') }}</option>
                     </select>
                 </div>
             </div>
 
             <!-- Additional Information -->
             <div class="form-group">
-                <label for="additional_info" class="form-label">Additional Information</label>
+                <label for="additional_info" class="form-label">{{ _('Additional Information') }}</label>
                 <textarea id="additional_info" name="additional_info" rows="3" class="form-control" 
-                    placeholder="Any other details you'd like to share..."></textarea>
+                    placeholder="{{ _('Any other details you\'d like to share...') }}"></textarea>
             </div>
 
             <div class="mt-6">
-                <button type="submit" class="btn btn-primary w-full">Submit Project Request</button>
+                <button type="submit" class="btn btn-primary w-full">{{ _('Submit Project Request') }}</button>
             </div>
         </form>
     </div>

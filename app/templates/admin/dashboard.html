@@ -8,98 +8,123 @@
     <!-- Page header -->
     <div class="pb-5 border-b border-gray-200">
         <h3 class="text-2xl leading-6 font-medium text-gray-900">
-            Admin Dashboard
+            {{ _('Admin Dashboard') }}
         </h3>
     </div>
 
-    <!-- Stats -->
+    <!-- Stats Grid -->
     <div class="mt-8">
-        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            <!-- Stats Cards -->
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <!-- User Stats Section -->
             <div class="bg-white overflow-hidden shadow rounded-lg">
                 <div class="p-5">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <svg class="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                            </svg>
+                    <h4 class="text-lg font-semibold text-gray-900 mb-4">{{ _('User Statistics') }}</h4>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">{{ _('Total Users') }}</span>
+                            <span class="font-medium">{{ stats.total_users }}</span>
                         </div>
-                        <div class="ml-5 w-0 flex-1">
-                            <dl>
-                                <dt class="text-sm font-medium text-gray-500 truncate">
-                                    Total Users
-                                </dt>
-                                <dd class="flex items-baseline">
-                                    <div class="text-2xl font-semibold text-gray-900">
-                                        {{ stats.total_users }}
-                                    </div>
-                                </dd>
-                            </dl>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">{{ _('Customers') }}</span>
+                            <span class="font-medium">{{ stats.total_customers }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">{{ _('Developers') }}</span>
+                            <span class="font-medium">{{ stats.total_developers }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">{{ _('Active Users') }}</span>
+                            <span class="font-medium">{{ stats.active_users }}</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Project Requests Stats -->
+            <!-- Application Stats Section -->
             <div class="bg-white overflow-hidden shadow rounded-lg">
                 <div class="p-5">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <svg class="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
-                            </svg>
+                    <h4 class="text-lg font-semibold text-gray-900 mb-4">{{ _('Applications') }}</h4>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">{{ _('Total') }}</span>
+                            <span class="font-medium">{{ stats.total_applications }}</span>
                         </div>
-                        <div class="ml-5 w-0 flex-1">
-                            <dl>
-                                <dt class="text-sm font-medium text-gray-500 truncate">
-                                    Pending Project Requests
-                                </dt>
-                                <dd class="flex items-baseline">
-                                    <div class="text-2xl font-semibold text-gray-900">
-                                        {{ stats.pending_project_requests }}
-                                    </div>
-                                </dd>
-                            </dl>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">{{ _('Pending') }}</span>
+                            <span class="font-medium text-yellow-600">{{ stats.pending_applications }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">{{ _('Reviewing') }}</span>
+                            <span class="font-medium text-blue-600">{{ stats.reviewing_applications }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">{{ _('Accepted') }}</span>
+                            <span class="font-medium text-green-600">{{ stats.accepted_applications }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">{{ _('Rejected') }}</span>
+                            <span class="font-medium text-red-600">{{ stats.rejected_applications }}</span>
                         </div>
                     </div>
                 </div>
                 <div class="bg-gray-50 px-5 py-3">
-                    <div class="text-sm">
-                        <a href="{{ url_for('admin.project_requests', status='pending') }}" class="font-medium text-indigo hover:text-blue">
-                            View pending requests
-                        </a>
-                    </div>
+                    <a href="{{ url_for('admin.applications') }}" class="text-sm font-medium text-indigo-600 hover:text-indigo-900">
+                        {{ _('View all applications') }} →
+                    </a>
                 </div>
             </div>
 
-            <!-- Job Applications Stats -->
+            <!-- Project Request Stats Section -->
             <div class="bg-white overflow-hidden shadow rounded-lg">
                 <div class="p-5">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <svg class="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                            </svg>
+                    <h4 class="text-lg font-semibold text-gray-900 mb-4">{{ _('Project Requests') }}</h4>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">{{ _('Total') }}</span>
+                            <span class="font-medium">{{ stats.total_requests }}</span>
                         </div>
-                        <div class="ml-5 w-0 flex-1">
-                            <dl>
-                                <dt class="text-sm font-medium text-gray-500 truncate">
-                                    Pending Job Applications
-                                </dt>
-                                <dd class="flex items-baseline">
-                                    <div class="text-2xl font-semibold text-gray-900">
-                                        {{ stats.pending_job_applications }}
-                                    </div>
-                                </dd>
-                            </dl>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">{{ _('Pending') }}</span>
+                            <span class="font-medium text-yellow-600">{{ stats.pending_requests }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">{{ _('Reviewing') }}</span>
+                            <span class="font-medium text-blue-600">{{ stats.reviewing_requests }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">{{ _('Accepted') }}</span>
+                            <span class="font-medium text-green-600">{{ stats.accepted_requests }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">{{ _('Rejected') }}</span>
+                            <span class="font-medium text-red-600">{{ stats.rejected_requests }}</span>
                         </div>
                     </div>
                 </div>
                 <div class="bg-gray-50 px-5 py-3">
-                    <div class="text-sm">
-                        <a href="{{ url_for('admin.job_applications', status='pending') }}" class="font-medium text-indigo hover:text-blue">
-                            View pending applications
-                        </a>
+                    <a href="{{ url_for('admin.project_requests') }}" class="text-sm font-medium text-indigo-600 hover:text-indigo-900">
+                        {{ _('View all requests') }} →
+                    </a>
+                </div>
+            </div>
+
+            <!-- Project Stats Section -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="p-5">
+                    <h4 class="text-lg font-semibold text-gray-900 mb-4">{{ _('Projects') }}</h4>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">{{ _('Total Projects') }}</span>
+                            <span class="font-medium">{{ stats.total_projects }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">{{ _('Active') }}</span>
+                            <span class="font-medium text-green-600">{{ stats.active_projects }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">{{ _('Completed') }}</span>
+                            <span class="font-medium text-blue-600">{{ stats.completed_projects }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -107,70 +132,117 @@
     </div>
 
     <!-- Recent Activity -->
-    <div class="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-2">
-        <!-- Recent Project Requests -->
-        <div class="bg-white shadow sm:rounded-lg">
-            <div class="px-4 py-5 sm:p-6">
-                <h3 class="text-lg leading-6 font-medium text-gray-900">Recent Project Requests</h3>
-                <div class="mt-5">
-                    <div class="flow-root">
-                        <ul class="-my-5 divide-y divide-gray-200">
-                            {% for request in recent_project_requests %}
-                            <li class="py-4">
-                                <div class="flex items-center space-x-4">
-                                    <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-medium text-gray-900 truncate">
-                                            {{ request.project_name }}
-                                        </p>
-                                        <p class="text-sm text-gray-500 truncate">
-                                            {{ request.contact_name }} - {{ request.contact_email }}
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <a href="{{ url_for('admin.view_project_request', request_id=request.id) }}"
-                                            class="inline-flex items-center shadow-sm px-2.5 py-0.5 border border-gray-300 text-sm leading-5 font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50">
-                                            View
-                                        </a>
-                                    </div>
+    <div class="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-3">
+        <!-- Recent Applications -->
+        <div class="bg-white shadow rounded-lg">
+            <div class="p-6">
+                <h4 class="text-lg font-semibold text-gray-900 mb-4">{{ _('Recent Applications') }}</h4>
+                {% if recent_applications %}
+                <div class="flow-root">
+                    <ul class="-my-5 divide-y divide-gray-200">
+                        {% for application in recent_applications %}
+                        <li class="py-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-900 truncate">
+                                        {{ application.first_name }} {{ application.last_name }}
+                                    </p>
+                                    <p class="text-sm text-gray-500 truncate">
+                                        {{ application.position }}
+                                    </p>
                                 </div>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
+                                <div>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                                        {% if application.status == 'pending' %}bg-yellow-100 text-yellow-800
+                                        {% elif application.status == 'reviewing' %}bg-blue-100 text-blue-800
+                                        {% elif application.status == 'accepted' %}bg-green-100 text-green-800
+                                        {% else %}bg-red-100 text-red-800{% endif %}">
+                                        {{ _(application.status) }}
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
                 </div>
+                {% else %}
+                <p class="text-gray-500 text-sm">{{ _('No recent applications') }}</p>
+                {% endif %}
             </div>
         </div>
 
-        <!-- Recent Job Applications -->
-        <div class="bg-white shadow sm:rounded-lg">
-            <div class="px-4 py-5 sm:p-6">
-                <h3 class="text-lg leading-6 font-medium text-gray-900">Recent Job Applications</h3>
-                <div class="mt-5">
-                    <div class="flow-root">
-                        <ul class="-my-5 divide-y divide-gray-200">
-                            {% for application in recent_job_applications %}
-                            <li class="py-4">
-                                <div class="flex items-center space-x-4">
-                                    <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-medium text-gray-900 truncate">
-                                            {{ application.first_name }} {{ application.last_name }}
-                                        </p>
-                                        <p class="text-sm text-gray-500 truncate">
-                                            {{ application.position }} - {{ application.email }}
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <a href="{{ url_for('admin.view_job_application', application_id=application.id) }}"
-                                            class="inline-flex items-center shadow-sm px-2.5 py-0.5 border border-gray-300 text-sm leading-5 font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50">
-                                            View
-                                        </a>
-                                    </div>
+        <!-- Recent Project Requests -->
+        <div class="bg-white shadow rounded-lg">
+            <div class="p-6">
+                <h4 class="text-lg font-semibold text-gray-900 mb-4">{{ _('Recent Project Requests') }}</h4>
+                {% if recent_requests %}
+                <div class="flow-root">
+                    <ul class="-my-5 divide-y divide-gray-200">
+                        {% for request in recent_requests %}
+                        <li class="py-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-900 truncate">
+                                        {{ request.title }}
+                                    </p>
+                                    <p class="text-sm text-gray-500 truncate">
+                                        {{ request.category }}
+                                    </p>
                                 </div>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
+                                <div>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                                        {% if request.status == 'pending' %}bg-yellow-100 text-yellow-800
+                                        {% elif request.status == 'reviewing' %}bg-blue-100 text-blue-800
+                                        {% elif request.status == 'accepted' %}bg-green-100 text-green-800
+                                        {% else %}bg-red-100 text-red-800{% endif %}">
+                                        {{ _(request.status) }}
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
                 </div>
+                {% else %}
+                <p class="text-gray-500 text-sm">{{ _('No recent project requests') }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Recent Projects -->
+        <div class="bg-white shadow rounded-lg">
+            <div class="p-6">
+                <h4 class="text-lg font-semibold text-gray-900 mb-4">{{ _('Recent Projects') }}</h4>
+                {% if recent_projects %}
+                <div class="flow-root">
+                    <ul class="-my-5 divide-y divide-gray-200">
+                        {% for project in recent_projects %}
+                        <li class="py-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-900 truncate">
+                                        {{ project.title }}
+                                    </p>
+                                    <p class="text-sm text-gray-500 truncate">
+                                        {{ _('Client') }}: {{ project.customer.username }}
+                                    </p>
+                                </div>
+                                <div>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                                        {% if project.status == 'active' %}bg-green-100 text-green-800
+                                        {% elif project.status == 'completed' %}bg-blue-100 text-blue-800
+                                        {% else %}bg-gray-100 text-gray-800{% endif %}">
+                                        {{ _(project.status) }}
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% else %}
+                <p class="text-gray-500 text-sm">{{ _('No recent projects') }}</p>
+                {% endif %}
             </div>
         </div>
     </div>

@@ -5,99 +5,105 @@
     {% include 'components/terms_modal.html' %}
 
     <div id="applicationContent" style="display: none;" class="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-8">
-        <h1 class="text-3xl font-bold mb-6 text-center">Join Our Development Team</h1>
+        <h1 class="text-3xl font-bold mb-6 text-center">{{ _('Join Our Development Team') }}</h1>
         
         {% include 'components/loading_overlay.html' %}
         
         <form id="applicationForm" action="{{ url_for('careers.apply') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             <!-- Personal Information -->
             <div class="space-y-4">
-                <h2 class="text-xl font-semibold mb-4">Personal Information</h2>
+                <h2 class="text-xl font-semibold mb-4">{{ _('Personal Information') }}</h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-group">
-                        <label for="first_name" class="form-label">First Name</label>
+                        <label for="first_name" class="form-label">{{ _('First Name') }}</label>
                         <input type="text" id="first_name" name="first_name" class="form-control" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="last_name" class="form-label">Last Name</label>
+                        <label for="last_name" class="form-label">{{ _('Last Name') }}</label>
                         <input type="text" id="last_name" name="last_name" class="form-control" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="email" class="form-label">Email Address</label>
+                    <label for="email" class="form-label">{{ _('Email Address') }}</label>
                     <input type="email" id="email" name="email" class="form-control" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="phone" class="form-label">Phone Number</label>
+                    <label for="phone" class="form-label">{{ _('Phone Number') }}</label>
                     <input type="tel" id="phone" name="phone" class="form-control" required>
                 </div>
             </div>
 
             <!-- Professional Information -->
             <div class="space-y-4">
-                <h2 class="text-xl font-semibold mb-4">Professional Information</h2>
+                <h2 class="text-xl font-semibold mb-4">{{ _('Professional Information') }}</h2>
                 
                 <div class="form-group">
-                    <label for="position" class="form-label">Position Applying For</label>
+                    <label for="position" class="form-label">{{ _('Position Applying For') }}</label>
                     <select id="position" name="position" class="form-control" required>
-                        <option value="">Select a position</option>
-                        <option value="frontend">Frontend Developer</option>
-                        <option value="backend">Backend Developer</option>
-                        <option value="fullstack">Full Stack Developer</option>
-                        <option value="mobile">Mobile Developer</option>
-                        <option value="devops">DevOps Engineer</option>
+                        <option value="">{{ _('Select a position') }}</option>
+                        <option value="frontend">{{ _('Frontend Developer') }}</option>
+                        <option value="backend">{{ _('Backend Developer') }}</option>
+                        <option value="fullstack">{{ _('Full Stack Developer') }}</option>
+                        <option value="mobile">{{ _('Mobile Developer') }}</option>
+                        <option value="devops">{{ _('DevOps Engineer') }}</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="experience" class="form-label">Years of Experience</label>
-                    <input type="number" id="experience" name="experience" min="0" class="form-control" required>
+                    <label for="experience" class="form-label">{{ _('Years of Experience') }}</label>
+                    <select id="experience" name="experience" class="form-control" required>
+                        <option value="">{{ _('Select years of experience') }}</option>
+                        <option value="0-2">{{ _('0-2 years') }}</option>
+                        <option value="2-5">{{ _('2-5 years') }}</option>
+                        <option value="5-10">{{ _('5-10 years') }}</option>
+                        <option value="10+">{{ _('10+ years') }}</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="skills" class="form-label">Key Skills</label>
+                    <label for="skills" class="form-label">{{ _('Key Skills') }}</label>
                     <textarea id="skills" name="skills" rows="3" class="form-control" 
-                        placeholder="e.g., Python, JavaScript, React, Docker..." required></textarea>
+                        placeholder="{{ _('e.g., Python, JavaScript, React, Docker...') }}" required></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="portfolio" class="form-label">Portfolio URL</label>
+                    <label for="portfolio" class="form-label">{{ _('Portfolio URL') }}</label>
                     <input type="url" id="portfolio" name="portfolio" class="form-control" 
-                        placeholder="https://your-portfolio.com">
+                        placeholder="{{ _('https://your-portfolio.com') }}">
                 </div>
 
                 <div class="form-group">
-                    <label for="github" class="form-label">GitHub Profile</label>
+                    <label for="github" class="form-label">{{ _('GitHub Profile') }}</label>
                     <input type="url" id="github" name="github" class="form-control" 
-                        placeholder="https://github.com/username">
+                        placeholder="{{ _('https://github.com/username') }}">
                 </div>
             </div>
 
             <!-- File Uploads -->
             <div class="space-y-4">
-                <h2 class="text-xl font-semibold mb-4">Documents</h2>
+                <h2 class="text-xl font-semibold mb-4">{{ _('Documents') }}</h2>
                 
                 <div class="form-group">
-                    <label for="resume" class="form-label">Resume/CV</label>
+                    <label for="resume" class="form-label">{{ _('Resume/CV') }}</label>
                     <input type="file" id="resume" name="resume" 
                         class="form-control" accept=".pdf,.doc,.docx" required>
-                    <p class="text-sm text-gray-500 mt-1">Accepted formats: PDF, DOC, DOCX (Max 5MB)</p>
+                    <p class="text-sm text-gray-500 mt-1">{{ _('Accepted formats: PDF, DOC, DOCX (Max 5MB)') }}</p>
                 </div>
 
                 <div class="form-group">
-                    <label for="cover_letter" class="form-label">Cover Letter (Optional)</label>
+                    <label for="cover_letter" class="form-label">{{ _('Cover Letter (Optional)') }}</label>
                     <textarea id="cover_letter" name="cover_letter" rows="4" class="form-control" 
-                        placeholder="Tell us why you'd be a great fit for our team..."></textarea>
-                    <p class="text-sm text-gray-500 mt-1">Optional but recommended</p>
+                        placeholder="{{ _('Tell us why you\'d be a great fit for our team...') }}"></textarea>
+                    <p class="text-sm text-gray-500 mt-1">{{ _('Optional but recommended') }}</p>
                 </div>
             </div>
 
             <div class="mt-6">
-                <button type="submit" class="btn btn-primary w-full">Submit Application</button>
+                <button type="submit" class="btn btn-primary w-full">{{ _('Submit Application') }}</button>
             </div>
         </form>
     </div>

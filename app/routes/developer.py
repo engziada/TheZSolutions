@@ -5,6 +5,7 @@ from app.models.project import Project
 from app import db
 from datetime import datetime
 import json
+from flask_babel import _
 
 developer_bp = Blueprint('developer', __name__)
 
@@ -12,7 +13,7 @@ developer_bp = Blueprint('developer', __name__)
 @login_required
 def dashboard():
     if current_user.role != 'developer':
-        flash('Access denied. Developer access only.', 'error')
+        flash(_('Access denied. Developer access only.'), 'error')
         return redirect(url_for('main.home'))
     
     # Get developer's active projects and available projects
@@ -35,7 +36,7 @@ def dashboard():
 @login_required
 def profile():
     if current_user.role != 'developer':
-        flash('Access denied. Developer access only.', 'error')
+        flash(_('Access denied. Developer access only.'), 'error')
         return redirect(url_for('main.home'))
     
     profile = current_user.developer_profile
@@ -55,7 +56,7 @@ def profile():
         profile.availability_status = request.form.get('availability_status')
         
         db.session.commit()
-        flash('Profile updated successfully!', 'success')
+        flash(_('Profile updated successfully!'), 'success')
         return redirect(url_for('developer.profile'))
     
     return render_template('developer/profile.html',
@@ -66,14 +67,14 @@ def profile():
 @login_required
 def view_project(project_id):
     if current_user.role != 'developer':
-        flash('Access denied. Developer access only.', 'error')
+        flash(_('Access denied. Developer access only.'), 'error')
         return redirect(url_for('main.home'))
     
     project = Project.query.get_or_404(project_id)
     
     # Check if developer is assigned to this project
     if project.status != 'pending' and current_user.developer_profile not in project.developers:
-        flash('Access denied. You are not assigned to this project.', 'error')
+        flash(_('Access denied. You are not assigned to this project.'), 'error')
         return redirect(url_for('developer.dashboard'))
     
     return render_template('developer/view_project.html',
@@ -84,21 +85,21 @@ def view_project(project_id):
 @login_required
 def apply_project(project_id):
     if current_user.role != 'developer':
-        flash('Access denied. Developer access only.', 'error')
+        flash(_('Access denied. Developer access only.'), 'error')
         return redirect(url_for('main.home'))
     
     project = Project.query.get_or_404(project_id)
     
     if project.status != 'pending':
-        flash('This project is no longer accepting applications.', 'error')
+        flash(_('This project is no longer accepting applications.'), 'error')
         return redirect(url_for('developer.dashboard'))
     
     if current_user.developer_profile in project.developers:
-        flash('You have already applied to this project.', 'info')
+        flash(_('You have already applied to this project.'), 'info')
     else:
         project.developers.append(current_user.developer_profile)
         db.session.commit()
-        flash('Application submitted successfully!', 'success')
+        flash(_('Application submitted successfully!'), 'success')
     
     return redirect(url_for('developer.view_project', project_id=project.id))
 
@@ -106,19 +107,19 @@ def apply_project(project_id):
 @login_required
 def update_project_status(project_id):
     if current_user.role != 'developer':
-        flash('Access denied. Developer access only.', 'error')
+        flash(_('Access denied. Developer access only.'), 'error')
         return redirect(url_for('main.home'))
     
     project = Project.query.get_or_404(project_id)
     
     if current_user.developer_profile not in project.developers:
-        flash('Access denied. You are not assigned to this project.', 'error')
+        flash(_('Access denied. You are not assigned to this project.'), 'error')
         return redirect(url_for('developer.dashboard'))
     
     status = request.form.get('status')
     if status in ['in_progress', 'completed']:
         project.status = status
         db.session.commit()
-        flash(f'Project status updated to {status}.', 'success')
+        flash(_('Project status updated to %(status)s.', status=status), 'success')
     
     return redirect(url_for('developer.view_project', project_id=project.id))

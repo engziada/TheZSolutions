@@ -23,7 +23,7 @@
                     {{ project_request.project_name }}
                 </h3>
                 <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                    Submitted on {{ project_request.submission_date.strftime('%B %d, %Y') }}
+                    Submitted on {{ project_request.created_at.strftime('%B %d, %Y') }}
                 </p>
             </div>
             <div class="flex space-x-3">

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify, request, abort, redirect, url_for, flash, current_app
+from flask import Blueprint, render_template, jsonify, request, abort, redirect, url_for, flash, current_app, session
 from flask_login import current_user
 from app.forms.contact import ContactForm
 from app.utils.email import send_contact_notification, test_smtp_connection
@@ -8,6 +8,7 @@ from app import db
 import logging
 from logging.handlers import RotatingFileHandler
 import os
+from flask_babel import _
 
 main_bp = Blueprint('main', __name__)
 
@@ -110,15 +111,15 @@ def contact():
                 logger.info("Attempting to send notification email")
                 send_contact_notification(contact)
                 logger.info("Notification email sent successfully")
-                flash('Your message has been sent successfully! We will get back to you soon.', 'success')
+                flash(_('Your message has been sent successfully! We will get back to you soon.'), 'success')
             except Exception as e:
                 logger.error(f"Failed to send notification email: {str(e)}")
-                flash('Your message was received but there was an issue sending the notification. Our team will still contact you soon.', 'warning')
+                flash(_('Your message was received but there was an issue sending the notification. Our team will still contact you soon.'), 'warning')
             
         except Exception as e:
             db.session.rollback()
             logger.error(f"Database error: {str(e)}")
-            flash('An error occurred while saving your message. Please try again.', 'error')
+            flash(_('An error occurred while saving your message. Please try again.'), 'error')
             
     else:
         logger.warning("Form validation failed")
@@ -135,8 +136,14 @@ def test_email():
     
     success, message = test_smtp_connection()
     if success:
-        flash('Email configuration test successful!', 'success')
+        flash(_('Email configuration test successful!'), 'success')
     else:
-        flash(f'Email configuration test failed: {message}', 'error')
+        flash(_('Email configuration test failed: %s') % message, 'error')
     
     return redirect(url_for('main.home'))
+
+@main_bp.route('/language/<lang>')
+def set_language(lang):
+    if lang in ['en', 'ar']:
+        session['language'] = lang
+    return redirect(request.referrer or url_for('main.index'))

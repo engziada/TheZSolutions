@@ -6,6 +6,7 @@ from app import db
 from datetime import datetime
 import os
 from werkzeug.utils import secure_filename
+from flask_babel import _
 
 customer_bp = Blueprint('customer', __name__)
 
@@ -17,7 +18,7 @@ def allowed_file(filename):
 @login_required
 def dashboard():
     if current_user.role != 'customer':
-        flash('Access denied. Customer access only.', 'error')
+        flash(_('Access denied. Customer access only.'), 'error')
         return redirect(url_for('main.home'))
     
     projects = Project.query.filter_by(customer_id=current_user.customer_profile.id).all()
@@ -29,7 +30,7 @@ def dashboard():
 @login_required
 def new_project():
     if current_user.role != 'customer':
-        flash('Access denied. Customer access only.', 'error')
+        flash(_('Access denied. Customer access only.'), 'error')
         return redirect(url_for('main.home'))
     
     if request.method == 'POST':
@@ -79,7 +80,7 @@ def new_project():
         db.session.add(project)
         db.session.commit()
         
-        flash('Project created successfully!', 'success')
+        flash(_('Project created successfully!'), 'success')
         return redirect(url_for('customer.dashboard'))
     
     return render_template('customer/new_project.html', title='New Project')
@@ -88,12 +89,12 @@ def new_project():
 @login_required
 def view_project(project_id):
     if current_user.role != 'customer':
-        flash('Access denied. Customer access only.', 'error')
+        flash(_('Access denied. Customer access only.'), 'error')
         return redirect(url_for('main.home'))
     
     project = Project.query.get_or_404(project_id)
     if project.customer_id != current_user.customer_profile.id:
-        flash('Access denied. This project belongs to another customer.', 'error')
+        flash(_('Access denied. This project belongs to another customer.'), 'error')
         return redirect(url_for('customer.dashboard'))
     
     return render_template('customer/view_project.html',
@@ -104,12 +105,12 @@ def view_project(project_id):
 @login_required
 def edit_project(project_id):
     if current_user.role != 'customer':
-        flash('Access denied. Customer access only.', 'error')
+        flash(_('Access denied. Customer access only.'), 'error')
         return redirect(url_for('main.home'))
     
     project = Project.query.get_or_404(project_id)
     if project.customer_id != current_user.customer_profile.id:
-        flash('Access denied. This project belongs to another customer.', 'error')
+        flash(_('Access denied. This project belongs to another customer.'), 'error')
         return redirect(url_for('customer.dashboard'))
     
     if request.method == 'POST':
@@ -120,7 +121,7 @@ def edit_project(project_id):
         project.budget_max = float(request.form.get('budget_max', 0))
         
         db.session.commit()
-        flash('Project updated successfully!', 'success')
+        flash(_('Project updated successfully!'), 'success')
         return redirect(url_for('customer.view_project', project_id=project.id))
     
     return render_template('customer/edit_project.html',
@@ -131,21 +132,21 @@ def edit_project(project_id):
 @login_required
 def upload_file(project_id):
     if current_user.role != 'customer':
-        flash('Access denied. Customer access only.', 'error')
+        flash(_('Access denied. Customer access only.'), 'error')
         return redirect(url_for('main.home'))
     
     project = Project.query.get_or_404(project_id)
     if project.customer_id != current_user.customer_profile.id:
-        flash('Access denied. This project belongs to another customer.', 'error')
+        flash(_('Access denied. This project belongs to another customer.'), 'error')
         return redirect(url_for('customer.dashboard'))
     
     if 'file' not in request.files:
-        flash('No file selected', 'error')
+        flash(_('No file selected'), 'error')
         return redirect(url_for('customer.view_project', project_id=project.id))
     
     file = request.files['file']
     if file.filename == '':
-        flash('No file selected', 'error')
+        flash(_('No file selected'), 'error')
         return redirect(url_for('customer.view_project', project_id=project.id))
     
     if file and allowed_file(file.filename):
@@ -164,8 +165,8 @@ def upload_file(project_id):
         db.session.add(project_file)
         db.session.commit()
         
-        flash('File uploaded successfully!', 'success')
+        flash(_('File uploaded successfully!'), 'success')
     else:
-        flash('Invalid file type', 'error')
+        flash(_('Invalid file type'), 'error')
     
     return redirect(url_for('customer.view_project', project_id=project.id))

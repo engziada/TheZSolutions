@@ -4,16 +4,16 @@
 <!-- Hero Section -->
 <section class="hero-section">
     <div class="hero-content">
-        <h2 class="hero-title">Your Vision, Precisely Coded</h2>
-        <p class="hero-subtitle">Why settle for off-the-shelf when you can have tailor-made?</p>
+        <h2 class="hero-title">{{ _('Your Vision, Precisely Coded') }}</h2>
+        <p class="hero-subtitle">{{ _('Why settle for off-the-shelf when you can have tailor-made?') }}</p>
         <div class="hero-buttons">
             <a href="{{ url_for('careers.apply') }}" class="btn btn-primary btn-hero">
                 <i class="fas fa-code"></i>
-                Apply as Developer
+                {{ _('Join Our Developers') }}
             </a>
             <a href="{{ url_for('requests.new_request') }}" class="btn btn-primary btn-hero">
                 <i class="fas fa-project-diagram"></i>
-                Submit Project
+                {{ _('Submit New Project') }}
             </a>
         </div>
     </div>
@@ -22,39 +22,39 @@
 <!-- Services Overview -->
 <section id="services" class="py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold text-center mb-12">Our Services</h2>
+        <h2 class="text-3xl font-bold text-center mb-12">{{ _('Our Services') }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform">
                 <i class="fas fa-globe text-4xl text-accent mb-4"></i>
-                <h3 class="text-xl font-bold mb-4">Web Development</h3>
-                <p class="text-gray-600">Custom web applications tailored to your business needs. Specializing in:</p>
+                <h3 class="text-xl font-bold mb-4">{{ _('Web Development') }}</h3>
+                <p class="text-gray-600">{{ _('Custom web applications tailored to your business needs. Specializing in:') }}</p>
                 <ul class="mt-3 text-gray-600 list-disc list-inside">
-                    <li>Flask-based enterprise solutions</li>
-                    <li>E-commerce platforms</li>
-                    <li>Content Management Systems</li>
-                    <li>RESTful API Development</li>
+                    <li>{{ _('Flask-based enterprise solutions') }}</li>
+                    <li>{{ _('E-commerce platforms') }}</li>
+                    <li>{{ _('Content Management Systems') }}</li>
+                    <li>{{ _('RESTful API Development') }}</li>
                 </ul>
             </div>
             <div class="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform">
                 <i class="fas fa-desktop text-4xl text-accent mb-4"></i>
-                <h3 class="text-xl font-bold mb-4">Desktop Applications</h3>
-                <p class="text-gray-600">Powerful desktop solutions featuring:</p>
+                <h3 class="text-xl font-bold mb-4">{{ _('Desktop Applications') }}</h3>
+                <p class="text-gray-600">{{ _('Powerful desktop solutions featuring:') }}</p>
                 <ul class="mt-3 text-gray-600 list-disc list-inside">
-                    <li>Cross-platform compatibility</li>
-                    <li>Real-time data processing</li>
-                    <li>Custom UI/UX design</li>
-                    <li>Offline functionality</li>
+                    <li>{{ _('Cross-platform compatibility') }}</li>
+                    <li>{{ _('Real-time data processing') }}</li>
+                    <li>{{ _('Custom UI/UX design') }}</li>
+                    <li>{{ _('Offline functionality') }}</li>
                 </ul>
             </div>
             <div class="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform">
                 <i class="fas fa-mobile-alt text-4xl text-accent mb-4"></i>
-                <h3 class="text-xl font-bold mb-4">Mobile Development</h3>
-                <p class="text-gray-600">Cross-platform mobile solutions with:</p>
+                <h3 class="text-xl font-bold mb-4">{{ _('Mobile Development') }}</h3>
+                <p class="text-gray-600">{{ _('Cross-platform mobile solutions with:') }}</p>
                 <ul class="mt-3 text-gray-600 list-disc list-inside">
-                    <li>Native performance</li>
-                    <li>Responsive design</li>
-                    <li>Push notifications</li>
-                    <li>Offline-first architecture</li>
+                    <li>{{ _('Native performance') }}</li>
+                    <li>{{ _('Responsive design') }}</li>
+                    <li>{{ _('Push notifications') }}</li>
+                    <li>{{ _('Offline-first architecture') }}</li>
                 </ul>
             </div>
         </div>
@@ -64,13 +64,13 @@
 <!-- Recent Projects -->
 <section id="projects" class="bg-gray-50 py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold text-center mb-12">Recent Projects</h2>
+        <h2 class="text-3xl font-bold text-center mb-12">{{ _('Recent Projects') }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <img src="{{ url_for('static', filename='img/projects/teleo-platform.jpg') }}" alt="Unified Teleo Platform" class="w-full h-48 object-cover">
+                <img src="{{ url_for('static', filename='img/projects/teleo-platform.jpg') }}" alt="{{ _('Unified Network Management') }}" class="w-full h-48 object-cover">
                 <div class="p-6">
-                    <h3 class="font-bold text-xl mb-2">Unified Network Management</h3>
-                    <p class="text-gray-600">Enterprise-grade platform for unified telecom network management and monitoring</p>
+                    <h3 class="font-bold text-xl mb-2">{{ _('Unified Network Management') }}</h3>
+                    <p class="text-gray-600">{{ _('Enterprise-grade platform for unified telecom network management and monitoring') }}</p>
                     <div class="mt-4 flex flex-wrap gap-2">
                         <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">Python</span>
                         <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">Flask</span>
@@ -79,10 +79,10 @@
                 </div>
             </div>
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <img src="{{ url_for('static', filename='img/projects/enterprise-integration.jpg') }}" alt="Enterprise Integration" class="w-full h-48 object-cover">
+                <img src="{{ url_for('static', filename='img/projects/enterprise-integration.jpg') }}" alt="{{ _('Enterprise Integration') }}" class="w-full h-48 object-cover">
                 <div class="p-6">
-                    <h3 class="font-bold text-xl mb-2">Enterprise Systems Integration</h3>
-                    <p class="text-gray-600">Seamless integration platform connecting various enterprise systems and databases</p>
+                    <h3 class="font-bold text-xl mb-2">{{ _('Enterprise Systems Integration') }}</h3>
+                    <p class="text-gray-600">{{ _('Seamless integration platform connecting various enterprise systems and databases') }}</p>
                     <div class="mt-4 flex flex-wrap gap-2">
                         <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">Python</span>
                         <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">API</span>
@@ -91,10 +91,10 @@
                 </div>
             </div>
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <img src="{{ url_for('static', filename='img/projects/yourspace.jpg') }}" alt="YourSpace Platform" class="w-full h-48 object-cover">
+                <img src="{{ url_for('static', filename='img/projects/yourspace.jpg') }}" alt="{{ _('YourSpace Platform') }}" class="w-full h-48 object-cover">
                 <div class="p-6">
-                    <h3 class="font-bold text-xl mb-2">YourSpace Platform</h3>
-                    <p class="text-gray-600">Modern workspace management solution with advanced booking features</p>
+                    <h3 class="font-bold text-xl mb-2">{{ _('YourSpace Platform') }}</h3>
+                    <p class="text-gray-600">{{ _('Modern workspace management solution with advanced booking features') }}</p>
                     <div class="mt-4 flex flex-wrap gap-2">
                         <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">Python</span>
                         <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">React</span>
@@ -105,7 +105,7 @@
         </div>
         <div class="mt-8 text-center">
             <a href="{{ url_for('main.portfolio') }}" class="inline-flex items-center text-accent hover:text-accent-dark">
-                View More Projects
+                {{ _('View More Projects') }}
                 <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
@@ -117,7 +117,7 @@
 <!-- Client Testimonials -->
 <section class="py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold text-center mb-12">What Our Clients Say</h2>
+        <h2 class="text-3xl font-bold text-center mb-12">{{ _('What Our Clients Say') }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div class="testimonial-card bg-white p-6 rounded-lg shadow-lg">
                 <div class="flex items-center mb-4">
@@ -125,8 +125,8 @@
                         <i class="fas fa-user text-gray-400"></i>
                     </div>
                     <div class="ml-4">
-                        <h4 class="font-bold">Karim F.</h4>
-                        <p class="text-gray-600">Project Owner • 3 years 8 months</p>
+                        <h4 class="font-bold">{{ _('Karim F.') }}</h4>
+                        <p class="text-gray-600">{{ _('Project Owner • 3 years 8 months') }}</p>
                     </div>
                 </div>
                 <p class="testimonial-text text-gray-700">"بارك الله فيك باشمهندس زيادة، انصح الكل بالتعامل معه، لنا تعاملات مستمرة بأذن الله"</p>
@@ -144,8 +144,8 @@
                         <i class="fas fa-user text-gray-400"></i>
                     </div>
                     <div class="ml-4">
-                        <h4 class="font-bold">Ali I.</h4>
-                        <p class="text-gray-600">Project Owner • 1 year 11 months</p>
+                        <h4 class="font-bold">{{ _('Ali I.') }}</h4>
+                        <p class="text-gray-600">{{ _('Project Owner • 1 year 11 months') }}</p>
                     </div>
                 </div>
                 <p class="testimonial-text text-gray-700">"جودة عالية في المخرجات ، تواصل باحترافية سرعه في الانجاز"</p>
@@ -163,8 +163,8 @@
                         <i class="fas fa-user text-gray-400"></i>
                     </div>
                     <div class="ml-4">
-                        <h4 class="font-bold">Abdulaziz A.</h4>
-                        <p class="text-gray-600">Project Owner • 1 year 11 months</p>
+                        <h4 class="font-bold">{{ _('Abdulaziz A.') }}</h4>
+                        <p class="text-gray-600">{{ _('Project Owner • 1 year 11 months') }}</p>
                     </div>
                 </div>
                 <p class="testimonial-text text-gray-700">"المهندس محمد شخص رائع جداً... انجز عمل كان فوق توقعاتي وفي وقت ممتاز وبجودة عالية... لم اكن اتوقع ان يخرج العمل بهذا المستوى الرائع واتمنى له التوفيق وانصح بالتعامل معه حيث ان عمله مكتمل ومبهر."</p>
@@ -182,8 +182,8 @@
                         <i class="fas fa-user text-gray-400"></i>
                     </div>
                     <div class="ml-4">
-                        <h4 class="font-bold">Nasser I.</h4>
-                        <p class="text-gray-600">Project Owner • 7 months 13 days</p>
+                        <h4 class="font-bold">{{ _('Nasser I.') }}</h4>
+                        <p class="text-gray-600">{{ _('Project Owner • 7 months 13 days') }}</p>
                     </div>
                 </div>
                 <p class="testimonial-text text-gray-700">"قام المهندس محمد بعمل مشروع متكامل من الباك اند حتى الفرونت اند وتصميم الويب وتصميم قواعد البيانات واختيار الاستضافة والاشتراك المناسب. اثناء مناقشة المشروع في بداياته اضاف لي الكثير من الافكار والحلول التي طورت من نموذج العمل ويتعامل باحترافية ويستحق الثقة في التعامل معه"</p>
@@ -201,8 +201,8 @@
                         <i class="fas fa-user text-gray-400"></i>
                     </div>
                     <div class="ml-4">
-                        <h4 class="font-bold">Adel I.</h4>
-                        <p class="text-gray-600">Project Owner • 5 months 25 days</p>
+                        <h4 class="font-bold">{{ _('Adel I.') }}</h4>
+                        <p class="text-gray-600">{{ _('Project Owner • 5 months 25 days') }}</p>
                     </div>
                 </div>
                 <p class="testimonial-text text-gray-700">"يعطيك الف عافية على الاحترافية"</p>
@@ -221,39 +221,39 @@
 <!-- Team Highlights -->
 <section class="bg-gray-50 py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold text-center mb-12">Our Team</h2>
+        <h2 class="text-3xl font-bold text-center mb-12">{{ _('Our Team') }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
             <div class="bg-white rounded-lg shadow-lg p-6 text-center">
-                <img src="{{ url_for('static', filename='img/team/ziada.jpg') }}" alt="Muhammad Ziada" class="w-32 h-32 rounded-full mx-auto mb-4">
-                <h3 class="font-bold text-xl">Muhammad Ziada</h3>
-                <p class="text-gray-600">Lead Developer</p>
+                <img src="{{ url_for('static', filename='img/team/ziada.jpg') }}" alt="{{ _('Muhammad Ziada') }}" class="w-32 h-32 rounded-full mx-auto mb-4">
+                <h3 class="font-bold text-xl">{{ _('Muhammad Ziada') }}</h3>
+                <p class="text-gray-600">{{ _('Lead Developer') }}</p>
                 <div class="mt-4 flex justify-center space-x-3">
                     <a href="#" class="text-accent hover:text-accent-dark"><i class="fab fa-github"></i></a>
                     <a href="#" class="text-accent hover:text-accent-dark"><i class="fab fa-linkedin"></i></a>
                 </div>
             </div>
             <div class="bg-white rounded-lg shadow-lg p-6 text-center">
-                <img src="{{ url_for('static', filename='img/team/omar.jpg') }}" alt="Omar Khalil" class="w-32 h-32 rounded-full mx-auto mb-4">
-                <h3 class="font-bold text-xl">Omar Khalil</h3>
-                <p class="text-gray-600">Frontend Architect</p>
+                <img src="{{ url_for('static', filename='img/team/omar.jpg') }}" alt="{{ _('Omar Khalil') }}" class="w-32 h-32 rounded-full mx-auto mb-4">
+                <h3 class="font-bold text-xl">{{ _('Omar Khalil') }}</h3>
+                <p class="text-gray-600">{{ _('Frontend Architect') }}</p>
                 <div class="mt-4 flex justify-center space-x-3">
                     <a href="#" class="text-accent hover:text-accent-dark"><i class="fab fa-github"></i></a>
                     <a href="#" class="text-accent hover:text-accent-dark"><i class="fab fa-linkedin"></i></a>
                 </div>
             </div>
             <div class="bg-white rounded-lg shadow-lg p-6 text-center">
-                <img src="{{ url_for('static', filename='img/team/layla.jpg') }}" alt="Layla Hassan" class="w-32 h-32 rounded-full mx-auto mb-4">
-                <h3 class="font-bold text-xl">Layla Hassan</h3>
-                <p class="text-gray-600">Backend Developer</p>
+                <img src="{{ url_for('static', filename='img/team/layla.jpg') }}" alt="{{ _('Layla Hassan') }}" class="w-32 h-32 rounded-full mx-auto mb-4">
+                <h3 class="font-bold text-xl">{{ _('Layla Hassan') }}</h3>
+                <p class="text-gray-600">{{ _('Backend Developer') }}</p>
                 <div class="mt-4 flex justify-center space-x-3">
                     <a href="#" class="text-accent hover:text-accent-dark"><i class="fab fa-github"></i></a>
                     <a href="#" class="text-accent hover:text-accent-dark"><i class="fab fa-linkedin"></i></a>
                 </div>
             </div>
             <div class="bg-white rounded-lg shadow-lg p-6 text-center">
-                <img src="{{ url_for('static', filename='img/team/kareem.jpg') }}" alt="Kareem Mahmoud" class="w-32 h-32 rounded-full mx-auto mb-4">
-                <h3 class="font-bold text-xl">Kareem Mahmoud</h3>
-                <p class="text-gray-600">UI/UX Designer</p>
+                <img src="{{ url_for('static', filename='img/team/kareem.jpg') }}" alt="{{ _('Kareem Mahmoud') }}" class="w-32 h-32 rounded-full mx-auto mb-4">
+                <h3 class="font-bold text-xl">{{ _('Kareem Mahmoud') }}</h3>
+                <p class="text-gray-600">{{ _('UI/UX Designer') }}</p>
                 <div class="mt-4 flex justify-center space-x-3">
                     <a href="#" class="text-accent hover:text-accent-dark"><i class="fab fa-github"></i></a>
                     <a href="#" class="text-accent hover:text-accent-dark"><i class="fab fa-linkedin"></i></a>
@@ -266,36 +266,36 @@
 <!-- Contact Section -->
 <section id="contact" class="py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold text-center mb-12">Get in Touch</h2>
+        <h2 class="text-3xl font-bold text-center mb-12">{{ _('Get in Touch') }}</h2>
         <div class="max-w-3xl mx-auto">
             {% include 'components/loading_overlay.html' %}
             <form method="POST" action="{{ url_for('main.contact') }}" class="space-y-6" id="contactForm">
                 {{ form.csrf_token if form }}
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                        <label for="name" class="block text-sm font-medium text-gray-700">{{ _('Name') }}</label>
                         <input type="text" name="name" id="name" required 
                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-accent focus:ring-accent">
                     </div>
                     <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <label for="email" class="block text-sm font-medium text-gray-700">{{ _('Email') }}</label>
                         <input type="email" name="email" id="email" required 
                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-accent focus:ring-accent">
                     </div>
                 </div>
                 <div>
-                    <label for="subject" class="block text-sm font-medium text-gray-700">Subject</label>
+                    <label for="subject" class="block text-sm font-medium text-gray-700">{{ _('Subject') }}</label>
                     <input type="text" name="subject" id="subject" required 
                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-accent focus:ring-accent">
                 </div>
                 <div>
-                    <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                    <label for="message" class="block text-sm font-medium text-gray-700">{{ _('Message') }}</label>
                     <textarea name="message" id="message" rows="4" required 
                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-accent focus:ring-accent"></textarea>
                 </div>
                 <div class="flex justify-center">
                     <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-paper-plane mr-2"></i>Send Message
+                        <i class="fas fa-paper-plane mr-2"></i>{{ _('Send Message') }}
                     </button>
                 </div>
             </form>

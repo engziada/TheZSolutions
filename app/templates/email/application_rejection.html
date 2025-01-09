@@ -3,18 +3,18 @@
 {% block content %}
 <tr>
     <td class="content-cell">
-        <p>Dear {{ application.first_name }} {{ application.last_name }},</p>
+        <p>{{ _('Dear') }} {{ application.first_name }} {{ application.last_name }},</p>
 
-        <p>Thank you for your interest in joining The Z Solutions and for taking the time to apply for the {{ application.position }} position.</p>
+        <p>{{ _('Thank you for your interest in joining The Z Solutions and for taking the time to apply for the') }} {{ application.position }} {{ _('position') }}.</p>
 
-        <p>After careful consideration of your application, we regret to inform you that we have decided to move forward with other candidates whose qualifications more closely match our current needs.</p>
+        <p>{{ _('After careful consideration of your application, we regret to inform you that we have decided to move forward with other candidates whose qualifications more closely match our current needs.') }}</p>
 
-        <p>Please note that this decision does not reflect on your qualifications or experience. We were impressed by many aspects of your profile, and we encourage you to apply for future positions that match your skills and experience.</p>
+        <p>{{ _('Please note that this decision does not reflect on your qualifications or experience. We were impressed by many aspects of your profile, and we encourage you to apply for future positions that match your skills and experience.') }}</p>
 
-        <p>We wish you the best in your career search and future endeavors.</p>
+        <p>{{ _('We wish you the best in your career search and future endeavors.') }}</p>
 
-        <p>Best regards,<br>
-        The Z Solutions Team</p>
+        <p>{{ _('Best regards') }},<br>
+        {{ _('The Z Solutions Team') }}</p>
     </td>
 </tr>
 {% endblock %}

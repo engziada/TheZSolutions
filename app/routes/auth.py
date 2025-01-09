@@ -3,6 +3,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from app.models.user import User, CustomerProfile, DeveloperProfile
 from app import db, bcrypt
 from datetime import datetime
+from flask_babel import _
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -22,7 +23,7 @@ def login():
             next_page = request.args.get('next')
             return redirect(next_page if next_page else url_for('main.home'))
         else:
-            flash('Invalid email or password', 'error')
+            flash(_('Invalid email or password'), 'error')
     
     return render_template('auth/login.html', title='Login')
 
@@ -39,15 +40,15 @@ def register():
         role = request.form.get('role', 'customer')
         
         if User.query.filter_by(email=email).first():
-            flash('Email already registered', 'error')
+            flash(_('Email already registered'), 'error')
             return redirect(url_for('auth.register'))
         
         if User.query.filter_by(username=username).first():
-            flash('Username already taken', 'error')
+            flash(_('Username already taken'), 'error')
             return redirect(url_for('auth.register'))
         
         if password != confirm_password:
-            flash('Passwords do not match', 'error')
+            flash(_('Passwords do not match'), 'error')
             return redirect(url_for('auth.register'))
         
         user = User(email=email, username=username, role=role)
@@ -64,7 +65,7 @@ def register():
         db.session.add(profile)
         db.session.commit()
         
-        flash('Registration successful! Please login.', 'success')
+        flash(_('Registration successful! Please login.'), 'success')
         return redirect(url_for('auth.login'))
     
     return render_template('auth/register.html', title='Register')
@@ -98,7 +99,7 @@ def profile():
             profile.availability_status = request.form.get('availability_status')
         
         db.session.commit()
-        flash('Profile updated successfully!', 'success')
+        flash(_('Profile updated successfully!'), 'success')
         return redirect(url_for('auth.profile'))
     
     return render_template('auth/profile.html', title='Profile')

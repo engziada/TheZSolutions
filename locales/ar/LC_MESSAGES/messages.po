@@ -1,0 +1,1138 @@
+# Arabic translations for PROJECT.
+# Copyright (C) 2025 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2025-01-09 02:32+0200\n"
+"PO-Revision-Date: 2025-01-09 02:33+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ar\n"
+"Language-Team: ar <LL@li.org>\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : "
+"n%100>=3 && n%100<=10 ? 3 : n%100>=0 && n%100<=2 ? 4 : 5);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.16.0\n"
+
+#: app/routes/admin.py:81
+msgid "File not found."
+msgstr ""
+
+#: app/routes/admin.py:87
+msgid "Invalid file access attempt."
+msgstr ""
+
+#: app/routes/auth.py:26
+msgid "Invalid email or password"
+msgstr ""
+
+#: app/routes/auth.py:43
+msgid "Email already registered"
+msgstr ""
+
+#: app/routes/auth.py:47
+msgid "Username already taken"
+msgstr ""
+
+#: app/routes/auth.py:51
+msgid "Passwords do not match"
+msgstr ""
+
+#: app/routes/auth.py:68
+msgid "Registration successful! Please login."
+msgstr ""
+
+#: app/routes/auth.py:102
+msgid "Profile updated successfully!"
+msgstr ""
+
+#: app/routes/careers.py:28 app/routes/project_requests.py:29
+#, python-format
+msgid "Please fill in all required fields: %s"
+msgstr ""
+
+#: app/routes/careers.py:33
+msgid "Resume file is required"
+msgstr ""
+
+#: app/routes/careers.py:38
+msgid "No file selected"
+msgstr ""
+
+#: app/routes/careers.py:68
+msgid ""
+"Your application has been submitted successfully! We will review it and "
+"get back to you soon."
+msgstr ""
+
+#: app/routes/careers.py:70
+msgid ""
+"Your application was received but there was an issue sending the "
+"notification. Our team will still contact you soon."
+msgstr ""
+
+#: app/routes/careers.py:74
+msgid "Please upload a valid resume file (PDF, DOC, DOCX)"
+msgstr ""
+
+#: app/routes/careers.py:80
+msgid "An error occurred while submitting your application. Please try again."
+msgstr ""
+
+#: app/routes/careers.py:83 app/templates/careers/apply.html:8
+msgid "Join Our Development Team"
+msgstr ""
+
+#: app/routes/downloads.py:16 app/routes/downloads.py:25
+msgid "No CV file found for this application."
+msgstr ""
+
+#: app/routes/downloads.py:37
+msgid "Error downloading the file. Please try again."
+msgstr ""
+
+#: app/routes/downloads.py:42
+msgid "An unexpected error occurred."
+msgstr ""
+
+#: app/routes/main.py:114
+msgid "Your message has been sent successfully! We will get back to you soon."
+msgstr ""
+
+#: app/routes/main.py:117
+msgid ""
+"Your message was received but there was an issue sending the "
+"notification. Our team will still contact you soon."
+msgstr ""
+
+#: app/routes/main.py:122
+msgid "An error occurred while saving your message. Please try again."
+msgstr ""
+
+#: app/routes/main.py:139
+msgid "Email configuration test successful!"
+msgstr ""
+
+#: app/routes/main.py:141
+#, python-format
+msgid "Email configuration test failed: %s"
+msgstr ""
+
+#: app/routes/project_requests.py:72
+msgid ""
+"Your project request has been submitted successfully! We will contact you"
+" soon."
+msgstr ""
+
+#: app/routes/project_requests.py:74
+msgid ""
+"Your project request was received but there was an issue sending the "
+"notification. Our team will still contact you soon."
+msgstr ""
+
+#: app/routes/project_requests.py:81
+msgid "An error occurred while submitting your project request. Please try again."
+msgstr ""
+
+#: app/routes/project_requests.py:84 app/templates/requests/new.html:6
+msgid "Submit Your Project Request"
+msgstr ""
+
+#: app/templates/base.html:8 app/templates/base.html:16
+#: app/templates/base.html:27
+msgid "Z Solutions - Custom Software Development"
+msgstr ""
+
+#: app/templates/base.html:9
+msgid ""
+"Z Solutions - Where Code Meets Custom. Professional software development "
+"services including web applications, desktop solutions, and custom "
+"software development."
+msgstr ""
+
+#: app/templates/base.html:17 app/templates/base.html:28
+msgid "Professional software development services tailored to your business needs"
+msgstr ""
+
+#: app/templates/base.html:37
+msgid "Professional software development services"
+msgstr ""
+
+#: app/templates/base.html:168 app/templates/base.html:186
+#: app/templates/components/footer.html:28
+msgid "Home"
+msgstr ""
+
+#: app/templates/base.html:169 app/templates/base.html:187
+#: app/templates/components/footer.html:29
+msgid "Services"
+msgstr ""
+
+#: app/templates/base.html:170 app/templates/base.html:188
+#: app/templates/components/footer.html:30
+msgid "Projects"
+msgstr ""
+
+#: app/templates/admin/project_requests.html:56 app/templates/base.html:171
+#: app/templates/base.html:189
+msgid "Contact"
+msgstr ""
+
+#: app/templates/base.html:191 app/templates/components/footer.html:56
+msgid "Dashboard"
+msgstr ""
+
+#: app/templates/base.html:192 app/templates/components/footer.html:57
+msgid "Logout"
+msgstr ""
+
+#: app/templates/base.html:194
+msgid "Admin"
+msgstr ""
+
+#: app/templates/admin/application_detail.html:17
+msgid "Back to Applications"
+msgstr ""
+
+#: app/templates/admin/application_detail.html:50
+msgid "Applied on"
+msgstr ""
+
+#: app/templates/admin/application_detail.html:58
+#: app/templates/admin/request_detail.html:58
+msgid "Start Review"
+msgstr ""
+
+#: app/templates/admin/application_detail.html:63
+#: app/templates/admin/request_detail.html:63
+msgid "Accept"
+msgstr ""
+
+#: app/templates/admin/application_detail.html:67
+#: app/templates/admin/request_detail.html:67
+msgid "Reject"
+msgstr ""
+
+#: app/templates/admin/application_detail.html:81
+msgid "Applicant Information"
+msgstr ""
+
+#: app/templates/admin/application_detail.html:84
+msgid "Personal details and application."
+msgstr ""
+
+#: app/templates/admin/application_detail.html:91
+#: app/templates/admin/applications.html:56
+msgid "Position"
+msgstr ""
+
+#: app/templates/admin/application_detail.html:99
+msgid "Experience"
+msgstr ""
+
+#: app/templates/admin/application_detail.html:107
+msgid "Current Location"
+msgstr ""
+
+#: app/templates/admin/application_detail.html:115
+msgid "Expected Salary"
+msgstr ""
+
+#: app/templates/admin/application_detail.html:123
+msgid "Skills"
+msgstr ""
+
+#: app/templates/admin/application_detail.html:131
+msgid "Cover Letter"
+msgstr ""
+
+#: app/templates/admin/application_detail.html:140
+msgid "Portfolio Link"
+msgstr ""
+
+#: app/templates/admin/application_detail.html:152
+msgid "GitHub Link"
+msgstr ""
+
+#: app/templates/admin/application_detail.html:164
+#: app/templates/admin/application_detail.html:178
+msgid "Resume"
+msgstr ""
+
+#: app/templates/admin/application_detail.html:184
+#: app/templates/admin/request_detail.html:171
+msgid "Download"
+msgstr ""
+
+#: app/templates/admin/application_detail.html:200
+msgid "Application Status"
+msgstr ""
+
+#: app/templates/admin/application_detail.html:246
+#: app/templates/admin/application_detail.html:251
+#: app/templates/admin/request_detail.html:234
+#: app/templates/admin/request_detail.html:239
+msgid "Failed to update status"
+msgstr ""
+
+#: app/templates/admin/applications.html:11
+msgid "Job Applications"
+msgstr ""
+
+#: app/templates/admin/applications.html:18
+#: app/templates/admin/project_requests.html:18
+msgid "All"
+msgstr ""
+
+#: app/templates/admin/applications.html:23
+#: app/templates/admin/project_requests.html:23
+msgid "Pending"
+msgstr ""
+
+#: app/templates/admin/applications.html:28
+#: app/templates/admin/project_requests.html:28
+msgid "Reviewing"
+msgstr ""
+
+#: app/templates/admin/applications.html:33
+#: app/templates/admin/project_requests.html:33
+msgid "Accepted"
+msgstr ""
+
+#: app/templates/admin/applications.html:38
+#: app/templates/admin/project_requests.html:38
+msgid "Rejected"
+msgstr ""
+
+#: app/templates/admin/applications.html:53
+msgid "Applicant"
+msgstr ""
+
+#: app/templates/admin/applications.html:59
+#: app/templates/admin/project_requests.html:59
+msgid "Status"
+msgstr ""
+
+#: app/templates/admin/applications.html:62
+msgid "Applied Date"
+msgstr ""
+
+#: app/templates/admin/applications.html:65
+#: app/templates/admin/project_requests.html:65
+msgid "Actions"
+msgstr ""
+
+#: app/templates/admin/applications.html:106
+#: app/templates/admin/project_requests.html:107
+msgid "View"
+msgstr ""
+
+#: app/templates/admin/applications.html:124
+#: app/templates/admin/applications.html:151
+#: app/templates/admin/project_requests.html:125
+#: app/templates/admin/project_requests.html:152
+msgid "Previous"
+msgstr ""
+
+#: app/templates/admin/applications.html:130
+#: app/templates/admin/applications.html:172
+#: app/templates/admin/project_requests.html:131
+#: app/templates/admin/project_requests.html:173
+msgid "Next"
+msgstr ""
+
+#: app/templates/admin/applications.html:137
+#: app/templates/admin/project_requests.html:138
+msgid "Showing"
+msgstr ""
+
+#: app/templates/admin/applications.html:139
+#: app/templates/admin/project_requests.html:140
+msgid "to"
+msgstr ""
+
+#: app/templates/admin/applications.html:141
+#: app/templates/admin/project_requests.html:142
+msgid "of"
+msgstr ""
+
+#: app/templates/admin/applications.html:143
+#: app/templates/admin/project_requests.html:144
+msgid "results"
+msgstr ""
+
+#: app/templates/admin/project_requests.html:11
+msgid "Project Requests"
+msgstr ""
+
+#: app/templates/admin/project_requests.html:53
+msgid "Project"
+msgstr ""
+
+#: app/templates/admin/project_requests.html:62
+msgid "Submitted"
+msgstr ""
+
+#: app/templates/admin/request_detail.html:17
+msgid "Back to Project Requests"
+msgstr ""
+
+#: app/templates/admin/request_detail.html:50
+msgid "Submitted on"
+msgstr ""
+
+#: app/templates/admin/request_detail.html:81
+msgid "Project Information"
+msgstr ""
+
+#: app/templates/admin/request_detail.html:84
+msgid "Project details and requirements."
+msgstr ""
+
+#: app/templates/admin/request_detail.html:91
+#: app/templates/requests/new.html:21
+msgid "Project Type"
+msgstr ""
+
+#: app/templates/admin/request_detail.html:99
+msgid "Timeline"
+msgstr ""
+
+#: app/templates/admin/request_detail.html:107
+#: app/templates/requests/new.html:62
+msgid "Budget Range"
+msgstr ""
+
+#: app/templates/admin/request_detail.html:115
+#: app/templates/requests/new.html:96
+msgid "Company Name"
+msgstr ""
+
+#: app/templates/admin/request_detail.html:118
+msgid "Not specified"
+msgstr ""
+
+#: app/templates/admin/request_detail.html:123
+msgid "Description"
+msgstr ""
+
+#: app/templates/admin/request_detail.html:131
+msgid "Features"
+msgstr ""
+
+#: app/templates/admin/request_detail.html:140
+#: app/templates/requests/new.html:122
+msgid "Additional Information"
+msgstr ""
+
+#: app/templates/admin/request_detail.html:150
+msgid "Attached Files"
+msgstr ""
+
+#: app/templates/admin/request_detail.html:188
+msgid "Request Status"
+msgstr ""
+
+#: app/templates/careers/apply.html:15
+msgid "Personal Information"
+msgstr ""
+
+#: app/templates/careers/apply.html:19
+msgid "First Name"
+msgstr ""
+
+#: app/templates/careers/apply.html:24
+msgid "Last Name"
+msgstr ""
+
+#: app/templates/careers/apply.html:30 app/templates/requests/new.html:102
+msgid "Email Address"
+msgstr ""
+
+#: app/templates/careers/apply.html:35 app/templates/requests/new.html:107
+msgid "Phone Number"
+msgstr ""
+
+#: app/templates/careers/apply.html:42
+msgid "Professional Information"
+msgstr ""
+
+#: app/templates/careers/apply.html:45
+msgid "Position Applying For"
+msgstr ""
+
+#: app/templates/careers/apply.html:47
+msgid "Select a position"
+msgstr ""
+
+#: app/templates/careers/apply.html:48
+msgid "Frontend Developer"
+msgstr ""
+
+#: app/templates/careers/apply.html:49 app/templates/main/home.html:247
+msgid "Backend Developer"
+msgstr ""
+
+#: app/templates/careers/apply.html:50
+msgid "Full Stack Developer"
+msgstr ""
+
+#: app/templates/careers/apply.html:51
+msgid "Mobile Developer"
+msgstr ""
+
+#: app/templates/careers/apply.html:52
+msgid "DevOps Engineer"
+msgstr ""
+
+#: app/templates/careers/apply.html:57
+msgid "Years of Experience"
+msgstr ""
+
+#: app/templates/careers/apply.html:59
+msgid "Select years of experience"
+msgstr ""
+
+#: app/templates/careers/apply.html:60
+msgid "0-2 years"
+msgstr ""
+
+#: app/templates/careers/apply.html:61
+msgid "2-5 years"
+msgstr ""
+
+#: app/templates/careers/apply.html:62
+msgid "5-10 years"
+msgstr ""
+
+#: app/templates/careers/apply.html:63
+msgid "10+ years"
+msgstr ""
+
+#: app/templates/careers/apply.html:68
+msgid "Key Skills"
+msgstr ""
+
+#: app/templates/careers/apply.html:70
+msgid "e.g., Python, JavaScript, React, Docker..."
+msgstr ""
+
+#: app/templates/careers/apply.html:74
+msgid "Portfolio URL"
+msgstr ""
+
+#: app/templates/careers/apply.html:76
+msgid "https://your-portfolio.com"
+msgstr ""
+
+#: app/templates/careers/apply.html:80
+msgid "GitHub Profile"
+msgstr ""
+
+#: app/templates/careers/apply.html:82
+msgid "https://github.com/username"
+msgstr ""
+
+#: app/templates/careers/apply.html:88
+msgid "Documents"
+msgstr ""
+
+#: app/templates/careers/apply.html:91
+msgid "Resume/CV"
+msgstr ""
+
+#: app/templates/careers/apply.html:94
+msgid "Accepted formats: PDF, DOC, DOCX (Max 5MB)"
+msgstr ""
+
+#: app/templates/careers/apply.html:98
+msgid "Cover Letter (Optional)"
+msgstr ""
+
+#: app/templates/careers/apply.html:100
+msgid "Tell us why you'd be a great fit for our team..."
+msgstr ""
+
+#: app/templates/careers/apply.html:101
+msgid "Optional but recommended"
+msgstr ""
+
+#: app/templates/careers/apply.html:106
+msgid "Submit Application"
+msgstr ""
+
+#: app/templates/components/footer.html:6 app/templates/email/base.html:6
+#: app/templates/email/base.html:13 app/templates/email/base.html:23
+msgid "The Z Solutions"
+msgstr ""
+
+#: app/templates/components/footer.html:7 app/templates/main/home.html:7
+msgid "Your Vision, Precisely Coded"
+msgstr ""
+
+#: app/templates/components/footer.html:26
+msgid "Quick Links"
+msgstr ""
+
+#: app/templates/components/footer.html:31
+msgid "Team"
+msgstr ""
+
+#: app/templates/components/footer.html:37
+msgid "Contact Us"
+msgstr ""
+
+#: app/templates/components/footer.html:41
+msgid "Madinety, Cairo, Egypt"
+msgstr ""
+
+#: app/templates/components/footer.html:59
+msgid "Admin Login"
+msgstr ""
+
+#: app/templates/components/footer.html:66
+msgid "The Z Solutions. All rights reserved."
+msgstr ""
+
+#: app/templates/components/terms_modal.html:5
+msgid "Please read carefully before applying"
+msgstr ""
+
+#: app/templates/components/terms_modal.html:9
+msgid "Projects and Payments"
+msgstr ""
+
+#: app/templates/components/terms_modal.html:10
+msgid "Kindly note that:"
+msgstr ""
+
+#: app/templates/components/terms_modal.html:12
+msgid "You'll be contacted based on project availability and required skill sets."
+msgstr ""
+
+#: app/templates/components/terms_modal.html:13
+msgid "Submitting an application doesn't guarantee immediate project assignment."
+msgstr ""
+
+#: app/templates/components/terms_modal.html:14
+msgid "Project terms will be agreed directly with an HR representative."
+msgstr ""
+
+#: app/templates/components/terms_modal.html:15
+#, python-format
+msgid ""
+"Payment structure: 50%% at project midpoint, 50%% upon completion and "
+"client payment."
+msgstr ""
+
+#: app/templates/components/terms_modal.html:16
+msgid "No upfront payments will be made for any project."
+msgstr ""
+
+#: app/templates/components/terms_modal.html:17
+msgid "Payment methods: InstaPay, Vodafone Cash, Bank Transfer, or PayPal."
+msgstr ""
+
+#: app/templates/components/terms_modal.html:18
+msgid "You must have the legal right to work as an independent contractor."
+msgstr ""
+
+#: app/templates/components/terms_modal.html:23
+msgid "General Terms"
+msgstr ""
+
+#: app/templates/components/terms_modal.html:24
+msgid "By submitting this application, you agree to the following terms:"
+msgstr ""
+
+#: app/templates/components/terms_modal.html:26
+msgid "All information provided in this application must be true and accurate."
+msgstr ""
+
+#: app/templates/components/terms_modal.html:27
+msgid "You authorize us to verify any information provided in your application."
+msgstr ""
+
+#: app/templates/components/terms_modal.html:28
+msgid ""
+"Your personal data will be processed in accordance with our privacy "
+"policy."
+msgstr ""
+
+#: app/templates/components/terms_modal.html:29
+msgid "We may retain your application information for future opportunities."
+msgstr ""
+
+#: app/templates/components/terms_modal.html:30
+msgid "Any false statements or omissions may result in disqualification."
+msgstr ""
+
+#: app/templates/components/terms_modal.html:31
+msgid "All documents submitted become the property of the company."
+msgstr ""
+
+#: app/templates/components/terms_modal.html:35
+msgid "Data Protection"
+msgstr ""
+
+#: app/templates/components/terms_modal.html:36
+msgid "We will:"
+msgstr ""
+
+#: app/templates/components/terms_modal.html:38
+msgid "Keep your data secure and confidential"
+msgstr ""
+
+#: app/templates/components/terms_modal.html:39
+msgid "Only use your data for recruitment purposes"
+msgstr ""
+
+#: app/templates/components/terms_modal.html:40
+msgid "Not share your data with third parties without consent"
+msgstr ""
+
+#: app/templates/components/terms_modal.html:41
+msgid "Retain your data for a maximum of 2 years"
+msgstr ""
+
+#: app/templates/components/terms_modal.html:49
+msgid "I have read and accept the terms and conditions"
+msgstr ""
+
+#: app/templates/components/terms_modal.html:54
+msgid "Continue"
+msgstr ""
+
+#: app/templates/email/application_confirmation.html:5
+msgid "Application Received"
+msgstr ""
+
+#: app/templates/email/application_confirmation.html:7
+#: app/templates/email/project_request_confirmation.html:7
+#, python-format
+msgid "Dear %(name)s,"
+msgstr ""
+
+#: app/templates/email/application_confirmation.html:9
+#, python-format
+msgid "Thank you for applying for the %(position)s position at The Z Solutions."
+msgstr ""
+
+#: app/templates/email/application_confirmation.html:11
+msgid ""
+"We have received your application and will review it carefully. Our team "
+"will contact you soon regarding the next steps in the application "
+"process."
+msgstr ""
+
+#: app/templates/email/application_confirmation.html:13
+msgid ""
+"If you have any questions in the meantime, please don't hesitate to "
+"contact us."
+msgstr ""
+
+#: app/templates/email/application_confirmation.html:15
+#: app/templates/email/project_request_confirmation.html:15
+msgid "Best regards,"
+msgstr ""
+
+#: app/templates/email/application_confirmation.html:16
+#: app/templates/email/project_request_confirmation.html:16
+msgid "The Z Solutions Team"
+msgstr ""
+
+#: app/templates/email/base.html:24
+msgid "This is an automated message, please do not reply directly to this email."
+msgstr ""
+
+#: app/templates/email/project_request_confirmation.html:5
+msgid "Project Request Received"
+msgstr ""
+
+#: app/templates/email/project_request_confirmation.html:9
+#, python-format
+msgid ""
+"Thank you for submitting your project request \"%(project)s\" to The Z "
+"Solutions."
+msgstr ""
+
+#: app/templates/email/project_request_confirmation.html:11
+msgid ""
+"We have received your project request and will review it carefully. Our "
+"team will contact you soon to discuss your project requirements in "
+"detail."
+msgstr ""
+
+#: app/templates/email/project_request_confirmation.html:13
+msgid ""
+"If you have any questions or would like to provide additional "
+"information, please don't hesitate to contact us."
+msgstr ""
+
+#: app/templates/main/home.html:8
+msgid "Why settle for off-the-shelf when you can have tailor-made?"
+msgstr ""
+
+#: app/templates/main/home.html:12
+msgid "Apply as Developer"
+msgstr ""
+
+#: app/templates/main/home.html:16
+msgid "Submit Project"
+msgstr ""
+
+#: app/templates/main/home.html:25
+msgid "Our Services"
+msgstr ""
+
+#: app/templates/main/home.html:29
+msgid "Web Development"
+msgstr ""
+
+#: app/templates/main/home.html:30
+msgid "Custom web applications tailored to your business needs. Specializing in:"
+msgstr ""
+
+#: app/templates/main/home.html:32
+msgid "Flask-based enterprise solutions"
+msgstr ""
+
+#: app/templates/main/home.html:33
+msgid "E-commerce platforms"
+msgstr ""
+
+#: app/templates/main/home.html:34
+msgid "Content Management Systems"
+msgstr ""
+
+#: app/templates/main/home.html:35
+msgid "RESTful API Development"
+msgstr ""
+
+#: app/templates/main/home.html:40
+msgid "Desktop Applications"
+msgstr ""
+
+#: app/templates/main/home.html:41
+msgid "Powerful desktop solutions featuring:"
+msgstr ""
+
+#: app/templates/main/home.html:43
+msgid "Cross-platform compatibility"
+msgstr ""
+
+#: app/templates/main/home.html:44
+msgid "Real-time data processing"
+msgstr ""
+
+#: app/templates/main/home.html:45
+msgid "Custom UI/UX design"
+msgstr ""
+
+#: app/templates/main/home.html:46
+msgid "Offline functionality"
+msgstr ""
+
+#: app/templates/main/home.html:51
+msgid "Mobile Development"
+msgstr ""
+
+#: app/templates/main/home.html:52
+msgid "Cross-platform mobile solutions with:"
+msgstr ""
+
+#: app/templates/main/home.html:54
+msgid "Native performance"
+msgstr ""
+
+#: app/templates/main/home.html:55
+msgid "Responsive design"
+msgstr ""
+
+#: app/templates/main/home.html:56
+msgid "Push notifications"
+msgstr ""
+
+#: app/templates/main/home.html:57
+msgid "Offline-first architecture"
+msgstr ""
+
+#: app/templates/main/home.html:67
+msgid "Recent Projects"
+msgstr ""
+
+#: app/templates/main/home.html:70 app/templates/main/home.html:72
+msgid "Unified Network Management"
+msgstr ""
+
+#: app/templates/main/home.html:73
+msgid ""
+"Enterprise-grade platform for unified telecom network management and "
+"monitoring"
+msgstr ""
+
+#: app/templates/main/home.html:82
+msgid "Enterprise Integration"
+msgstr ""
+
+#: app/templates/main/home.html:84
+msgid "Enterprise Systems Integration"
+msgstr ""
+
+#: app/templates/main/home.html:85
+msgid ""
+"Seamless integration platform connecting various enterprise systems and "
+"databases"
+msgstr ""
+
+#: app/templates/main/home.html:94 app/templates/main/home.html:96
+msgid "YourSpace Platform"
+msgstr ""
+
+#: app/templates/main/home.html:97
+msgid "Modern workspace management solution with advanced booking features"
+msgstr ""
+
+#: app/templates/main/home.html:108
+msgid "View More Projects"
+msgstr ""
+
+#: app/templates/main/home.html:120
+msgid "What Our Clients Say"
+msgstr ""
+
+#: app/templates/main/home.html:128
+msgid "Karim F."
+msgstr ""
+
+#: app/templates/main/home.html:129
+msgid "Project Owner • 3 years 8 months"
+msgstr ""
+
+#: app/templates/main/home.html:147
+msgid "Ali I."
+msgstr ""
+
+#: app/templates/main/home.html:148 app/templates/main/home.html:167
+msgid "Project Owner • 1 year 11 months"
+msgstr ""
+
+#: app/templates/main/home.html:166
+msgid "Abdulaziz A."
+msgstr ""
+
+#: app/templates/main/home.html:185
+msgid "Nasser I."
+msgstr ""
+
+#: app/templates/main/home.html:186
+msgid "Project Owner • 7 months 13 days"
+msgstr ""
+
+#: app/templates/main/home.html:204
+msgid "Adel I."
+msgstr ""
+
+#: app/templates/main/home.html:205
+msgid "Project Owner • 5 months 25 days"
+msgstr ""
+
+#: app/templates/main/home.html:224
+msgid "Our Team"
+msgstr ""
+
+#: app/templates/main/home.html:227 app/templates/main/home.html:228
+msgid "Muhammad Ziada"
+msgstr ""
+
+#: app/templates/main/home.html:229
+msgid "Lead Developer"
+msgstr ""
+
+#: app/templates/main/home.html:236 app/templates/main/home.html:237
+msgid "Omar Khalil"
+msgstr ""
+
+#: app/templates/main/home.html:238
+msgid "Frontend Architect"
+msgstr ""
+
+#: app/templates/main/home.html:245 app/templates/main/home.html:246
+msgid "Layla Hassan"
+msgstr ""
+
+#: app/templates/main/home.html:254 app/templates/main/home.html:255
+msgid "Kareem Mahmoud"
+msgstr ""
+
+#: app/templates/main/home.html:256
+msgid "UI/UX Designer"
+msgstr ""
+
+#: app/templates/main/home.html:269
+msgid "Get in Touch"
+msgstr ""
+
+#: app/templates/main/home.html:276
+msgid "Name"
+msgstr ""
+
+#: app/templates/main/home.html:281 app/templates/requests/new.html:114
+msgid "Email"
+msgstr ""
+
+#: app/templates/main/home.html:287
+msgid "Subject"
+msgstr ""
+
+#: app/templates/main/home.html:292
+msgid "Message"
+msgstr ""
+
+#: app/templates/main/home.html:298
+msgid "Send Message"
+msgstr ""
+
+#: app/templates/requests/new.html:13
+msgid "Project Overview"
+msgstr ""
+
+#: app/templates/requests/new.html:16
+msgid "Project Name"
+msgstr ""
+
+#: app/templates/requests/new.html:23
+msgid "Select project type"
+msgstr ""
+
+#: app/templates/requests/new.html:24
+msgid "Web Application"
+msgstr ""
+
+#: app/templates/requests/new.html:25
+msgid "Mobile Application"
+msgstr ""
+
+#: app/templates/requests/new.html:26
+msgid "Desktop Application"
+msgstr ""
+
+#: app/templates/requests/new.html:27
+msgid "API Development"
+msgstr ""
+
+#: app/templates/requests/new.html:28
+msgid "Automation Solution"
+msgstr ""
+
+#: app/templates/requests/new.html:29
+msgid "Other"
+msgstr ""
+
+#: app/templates/requests/new.html:34
+msgid "Project Description"
+msgstr ""
+
+#: app/templates/requests/new.html:36
+msgid "Please provide a detailed description of your project..."
+msgstr ""
+
+#: app/templates/requests/new.html:42
+msgid "Project Requirements"
+msgstr ""
+
+#: app/templates/requests/new.html:45
+msgid "Key Features"
+msgstr ""
+
+#: app/templates/requests/new.html:47
+msgid "List the main features you want in your project..."
+msgstr ""
+
+#: app/templates/requests/new.html:51
+msgid "Expected Timeline"
+msgstr ""
+
+#: app/templates/requests/new.html:53
+msgid "Select timeline"
+msgstr ""
+
+#: app/templates/requests/new.html:54
+msgid "1-3 months"
+msgstr ""
+
+#: app/templates/requests/new.html:55
+msgid "3-6 months"
+msgstr ""
+
+#: app/templates/requests/new.html:56
+msgid "6-12 months"
+msgstr ""
+
+#: app/templates/requests/new.html:57
+msgid "More than 12 months"
+msgstr ""
+
+#: app/templates/requests/new.html:64
+msgid "Select budget range"
+msgstr ""
+
+#: app/templates/requests/new.html:65
+msgid "$5,000 - $10,000"
+msgstr ""
+
+#: app/templates/requests/new.html:66
+msgid "$10,000 - $25,000"
+msgstr ""
+
+#: app/templates/requests/new.html:67
+msgid "$25,000 - $50,000"
+msgstr ""
+
+#: app/templates/requests/new.html:68
+msgid "$50,000+"
+msgstr ""
+
+#: app/templates/requests/new.html:75
+msgid "Project Files"
+msgstr ""
+
+#: app/templates/requests/new.html:78
+msgid "Additional Files"
+msgstr ""
+
+#: app/templates/requests/new.html:81
+msgid ""
+"Upload any relevant files (documentation, mockups, etc.). Accepted "
+"formats: PDF, DOC, DOCX, TXT, ZIP, RAR, 7Z (Max 5MB per file)"
+msgstr ""
+
+#: app/templates/requests/new.html:87
+msgid "Contact Information"
+msgstr ""
+
+#: app/templates/requests/new.html:91
+msgid "Contact Name"
+msgstr ""
+
+#: app/templates/requests/new.html:112
+msgid "Preferred Contact Method"
+msgstr ""
+
+#: app/templates/requests/new.html:115
+msgid "Phone"
+msgstr ""
+
+#: app/templates/requests/new.html:124
+msgid "Any other details you'd like to share..."
+msgstr ""
+
+#: app/templates/requests/new.html:128
+msgid "Submit Project Request"
+msgstr ""
+

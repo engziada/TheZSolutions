@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ session.get('language', 'en') }}" dir="{{ 'rtl' if session.get('language') == 'ar' else 'ltr' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO Meta Tags -->
-    <title>{% block title %}Z Solutions - Custom Software Development{% endblock %}</title>
-    <meta name="description" content="{% block meta_description %}Z Solutions - Where Code Meets Custom. Professional software development services including web applications, desktop solutions, and custom software development.{% endblock %}">
+    <title>{% block title %}{{ _('Z Solutions - Custom Software Development') }}{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}{{ _('Z Solutions - Where Code Meets Custom. Professional software development services including web applications, desktop solutions, and custom software development.') }}{% endblock %}">
     <meta name="keywords" content="software development, web development, custom software, Python development, Flask applications">
     <meta name="author" content="Muhammad Ziada">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="{{ request.url }}">
     
     <!-- Open Graph Tags for Social Media -->
-    <meta property="og:title" content="{% block og_title %}Z Solutions - Custom Software Development{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}Professional software development services tailored to your business needs{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}{{ _('Z Solutions - Custom Software Development') }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{{ _('Professional software development services tailored to your business needs') }}{% endblock %}">
     <meta property="og:image" content="{{ url_for('static', filename='img/og-image.png', _external=True) }}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -24,8 +24,8 @@
     
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{% block twitter_title %}Z Solutions - Custom Software Development{% endblock %}">
-    <meta name="twitter:description" content="{% block twitter_description %}Professional software development services tailored to your business needs{% endblock %}">
+    <meta name="twitter:title" content="{% block twitter_title %}{{ _('Z Solutions - Custom Software Development') }}{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}{{ _('Professional software development services tailored to your business needs') }}{% endblock %}">
     <meta name="twitter:image" content="{{ url_for('static', filename='img/og-image.svg', _external=True) }}">
     
     <!-- Schema.org Markup -->
@@ -34,7 +34,7 @@
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "Z Solutions",
-        "description": "Professional software development services",
+        "description": "{{ _('Professional software development services') }}",
         "url": "{{ request.url_root }}",
         "logo": "{{ url_for('static', filename='img/logo.svg', _external=True) }}",
         "contactPoint": {
@@ -79,9 +79,75 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- RTL Support -->
+    <style>
+        /* RTL specific styles */
+        html[dir="rtl"] {
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        html[dir="rtl"] * {
+            letter-spacing: 0;
+        }
+        
+        html[dir="rtl"] .ltr-text {
+            direction: ltr;
+            display: inline-block;
+        }
+
+        html[dir="rtl"] .nav-content,
+        html[dir="rtl"] .footer-content {
+            direction: rtl;
+        }
+
+        /* Fix navigation padding in RTL */
+        html[dir="rtl"] .nav-content .space-x-8 > * + * {
+            margin-right: 2rem;
+            margin-left: 0;
+        }
+
+        html[dir="rtl"] .nav-content .space-x-4 > * + * {
+            margin-right: 1rem;
+            margin-left: 0;
+        }
+
+        html[dir="rtl"] .nav-content .ml-3 {
+            margin-right: 0.75rem;
+            margin-left: 0;
+        }
+
+        html[dir="rtl"] .nav-content .mr-2 {
+            margin-left: 0.5rem;
+            margin-right: 0;
+        }
+
+        html[dir="rtl"] .nav-content .ml-4 {
+            margin-right: 1rem;
+            margin-left: 0;
+        }
+
+        /* Fix footer spacing in RTL */
+        html[dir="rtl"] .footer-content .space-x-4 > * + * {
+            margin-right: 1rem;
+            margin-left: 0;
+        }
+
+        /* Fix general spacing classes in RTL */
+        html[dir="rtl"] .space-x-4 > * + * {
+            margin-right: 1rem;
+            margin-left: 0;
+        }
+
+        html[dir="rtl"] .space-x-8 > * + * {
+            margin-right: 2rem;
+            margin-left: 0;
+        }
+    </style>
     
     {% block extra_css %}{% endblock %}
 </head>
@@ -91,18 +157,19 @@
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="nav-content flex items-center justify-between">
 
-<!-- Left side - Logo -->
-<div class="logo-container">
-    <a href="{{ url_for('main.home') }}" data-home>
-        <img src="{{ url_for('static', filename='img/logo_dark.svg') }}" alt="Z Solutions" class="logo">
-    </a>
-</div>
+                <!-- Left side - Logo -->
+                <div class="logo-container">
+                    <a href="{{ url_for('main.home') }}" data-home>
+                        <img src="{{ url_for('static', filename='img/logo_dark.svg') }}" alt="Z Solutions" class="logo">
+                    </a>
+                </div>
                 <!-- Right Nav -->
                 <div class="flex items-center space-x-8 custom:flex hidden">
-                    <a href="{{ url_for('main.home') }}" class="nav-link" data-home>Home</a>
-                    <a href="#services" class="nav-link" data-scroll>Services</a>
-                    <a href="#projects" class="nav-link" data-scroll>Projects</a>
-                    <a href="#contact" class="nav-link" data-scroll>Contact</a>
+                    <a href="{{ url_for('main.home') }}" class="nav-link" data-home>{{ _('Home') }}</a>
+                    <a href="#services" class="nav-link" data-scroll>{{ _('Services') }}</a>
+                    <a href="#projects" class="nav-link" data-scroll>{{ _('Projects') }}</a>
+                    <a href="#contact" class="nav-link" data-scroll>{{ _('Contact') }}</a>
+                    {% include 'components/nav.html' %}
                 </div>
                 
                 <!-- Mobile menu button -->
@@ -116,15 +183,15 @@
     <!-- Mobile menu -->
     <div class="mobile-menu" data-mobile-menu style="display: none;">
         <div class="space-y-4 p-4">
-            <a href="{{ url_for('main.home') }}" class="nav-link block" data-home>Home</a>
-            <a href="#services" class="nav-link block" data-scroll>Services</a>
-            <a href="#projects" class="nav-link block" data-scroll>Projects</a>
-            <a href="#contact" class="nav-link block" data-scroll>Contact</a>
+            <a href="{{ url_for('main.home') }}" class="nav-link block" data-home>{{ _('Home') }}</a>
+            <a href="#services" class="nav-link block" data-scroll>{{ _('Services') }}</a>
+            <a href="#projects" class="nav-link block" data-scroll>{{ _('Projects') }}</a>
+            <a href="#contact" class="nav-link block" data-scroll>{{ _('Contact') }}</a>
             {% if current_user.is_authenticated and current_user.role == 'admin' %}
-                <a href="{{ url_for('admin.dashboard') }}" class="btn btn-primary block">Dashboard</a>
-                <a href="{{ url_for('auth.logout') }}" class="btn btn-menu block">Logout</a>
+                <a href="{{ url_for('admin.dashboard') }}" class="btn btn-primary block">{{ _('Dashboard') }}</a>
+                <a href="{{ url_for('auth.logout') }}" class="btn btn-menu block">{{ _('Logout') }}</a>
             {% else %}
-                <a href="{{ url_for('auth.login') }}" class="btn btn-primary block">Admin</a>
+                <a href="{{ url_for('auth.login') }}" class="btn btn-primary block">{{ _('Admin') }}</a>
             {% endif %}
         </div>
     </div>
@@ -149,74 +216,9 @@
     <main class="relative z-10 py-20">
         {% block content %}{% endblock %}
     </main>
-
+    
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <!-- Company Info -->
-                <div class="col-span-1 md:col-span-2">
-                    <h3 class="footer-title">The Z Solutions</h3>
-                    <p class="text-gray-300 mb-4">Your Vision, Precisely Coded</p>
-                    <div class="footer-social">
-                        <a href="#" class="footer-link">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="footer-link">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="footer-link">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a href="#" class="footer-link">
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Quick Links -->
-                <div>
-                    <h4 class="footer-title">Quick Links</h4>
-                    <!-- <ul class="space-y-2">
-                        <li><a href="{{ url_for('main.home') }}" class="footer-link">Home</a></li>
-                        <li><a href="{{ url_for('main.services') }}" class="footer-link">Services</a></li>
-                        <li><a href="{{ url_for('main.projects') }}" class="footer-link">Projects</a></li>
-                        <li><a href="{{ url_for('main.team') }}" class="footer-link">Team</a></li>
-                        <li><a href="#contact" class="footer-link" data-scroll>Contact</a></li>
-                    </ul> -->
-                    {% if current_user.is_authenticated and current_user.role == 'admin' %}
-                        <a href="{{ url_for('admin.dashboard') }}" class="btn btn-primary">Dashboard</a>
-                        <a href="{{ url_for('auth.logout') }}" class="btn btn-menu">Logout</a>
-                    {% else %}
-                        <a href="{{ url_for('auth.login') }}" class="btn btn-primary">Admin</a>
-                    {% endif %}
-                </div>
-
-                <!-- Contact Info -->
-                <div>
-                    <h4 class="footer-title">Contact Us</h4>
-                    <ul class="space-y-2">
-                        <li class="flex items-center">
-                            <i class="fas fa-map-marker-alt w-5"></i>
-                            <span class="text-gray-300">Madinety, Cairo, Egypt</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-phone w-5"></i>
-                            <span class="text-gray-300">+20 1026655008</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-envelope w-5"></i>
-                            <span class="text-gray-300">info@thez.solutions</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; {{ now.year }} The Z Solutions. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+    {% include 'components/footer.html' %}
 
     <!-- Scripts -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>

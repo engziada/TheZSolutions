@@ -1,24 +1,18 @@
-{% extends "email/base_email.html" %}
+{% extends "email/base.html" %}
 
 {% block content %}
 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-    <h2 style="color: #333;">Project Request Received</h2>
+    <h2 style="color: #333;">{{ _('Project Request Received') }}</h2>
     
-    <p>Dear {{ contact_name }},</p>
+    <p>{{ _('Dear %(name)s,', name=contact_name) }}</p>
     
-    <p>Thank you for submitting your project request to The Z Solutions! We have received your request for the project "{{ project_name }}".</p>
+    <p>{{ _('Thank you for submitting your project request "%(project)s" to The Z Solutions.', project=project_name) }}</p>
     
-    <p>Project Details:</p>
-    <ul>
-        <li>Project Type: {{ project_type }}</li>
-        <li>Timeline: {{ timeline }}</li>
-        <li>Budget Range: {{ budget_range }}</li>
-        <li>Submission Date: {{ submission_date.strftime('%Y-%m-%d %H:%M') }}</li>
-    </ul>
+    <p>{{ _('We have received your project request and will review it carefully. Our team will contact you soon to discuss your project requirements in detail.') }}</p>
     
-    <p>Our team will carefully review your request and get back to you soon. If you have any questions in the meantime, please don't hesitate to contact us.</p>
+    <p>{{ _('If you have any questions or would like to provide additional information, please don\'t hesitate to contact us.') }}</p>
     
-    <p>Best regards,<br>
-    The Z Solutions Team</p>
+    <p>{{ _('Best regards,') }}<br>
+    {{ _('The Z Solutions Team') }}</p>
 </div>
 {% endblock %}
