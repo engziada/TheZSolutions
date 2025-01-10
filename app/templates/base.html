@@ -183,15 +183,44 @@
     <!-- Mobile menu -->
     <div class="mobile-menu" data-mobile-menu style="display: none;">
         <div class="space-y-4 p-4">
-            <a href="{{ url_for('main.home') }}" class="nav-link block" data-home>{{ _('Home') }}</a>
-            <a href="#services" class="nav-link block" data-scroll>{{ _('Services') }}</a>
-            <a href="#projects" class="nav-link block" data-scroll>{{ _('Projects') }}</a>
-            <a href="#contact" class="nav-link block" data-scroll>{{ _('Contact') }}</a>
-            {% if current_user.is_authenticated and current_user.role == 'admin' %}
-                <a href="{{ url_for('admin.dashboard') }}" class="btn btn-primary block">{{ _('Dashboard') }}</a>
-                <a href="{{ url_for('auth.logout') }}" class="btn btn-menu block">{{ _('Logout') }}</a>
+            <a href="{{ url_for('main.home') }}" class="nav-link block" data-home>
+                <i class="fas fa-home mx-2"></i>{{ _('Home') }}
+            </a>
+            <a href="#services" class="nav-link block" data-scroll>
+                <i class="fas fa-cogs mx-2"></i>{{ _('Services') }}
+            </a>
+            <a href="#projects" class="nav-link block" data-scroll>
+                <i class="fas fa-project-diagram mx-2"></i>{{ _('Projects') }}
+            </a>
+            <a href="#contact" class="nav-link block" data-scroll>
+                <i class="fas fa-envelope mx-2"></i>{{ _('Contact') }}
+            </a>
+            <div class="px-4 my-2">
+                <hr class="border-t border-gray-300 border-opacity-50 shadow-sm">
+            </div>
+            {% if session.get('language') == 'ar' %}
+                <a href="{{ url_for('main.set_language', lang='en') }}" class="nav-link block">
+                    <i class="fas fa-language mx-2"></i>{{ _('English version') }}
+                </a>
             {% else %}
-                <a href="{{ url_for('auth.login') }}" class="btn btn-primary block">{{ _('Admin') }}</a>
+                <a href="{{ url_for('main.set_language', lang='ar') }}" class="nav-link block">
+                    <i class="fas fa-language mx-2"></i>{{ _('النسخة العربية') }}
+                </a>
+            {% endif %}
+            <div class="px-4 my-2">
+                <hr class="border-t border-gray-300 border-opacity-50 shadow-sm">
+            </div>
+            {% if current_user.is_authenticated and current_user.role == 'admin' %}
+                <a href="{{ url_for('admin.dashboard') }}" class="btn btn-primary block">
+                    <i class="fas fa-tachometer-alt mx-2"></i>{{ _('Dashboard') }}
+                </a>
+                <a href="{{ url_for('auth.logout') }}" class="btn btn-menu block">
+                    <i class="fas fa-sign-out-alt mx-2"></i>{{ _('Logout') }}
+                </a>
+            {% else %}
+                <a href="{{ url_for('auth.login') }}" class="btn btn-primary block">
+                    <i class="fas fa-user-shield mx-2"></i>{{ _('Admin') }}
+                </a>
             {% endif %}
         </div>
     </div>
