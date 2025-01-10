@@ -158,6 +158,10 @@ git checkout tags/checkpoint-3
 git checkout $(git rev-list -n 1 --before="2025-01-10 01:19:24" main)
 ```
 
+### Checkpoint 1
+- Date: 2025-01-10 15:26:16
+- Description: Updated mobile navbar to include language switcher with icons and improved styling.
+
 ## Getting Started
 1. Clone the repository
 2. Install dependencies: `pip install -r requirements.txt`
