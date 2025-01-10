@@ -1098,7 +1098,7 @@ msgstr "إدارة الشبكات الموحدة"
 msgid ""
 "Enterprise-grade platform for unified telecom network management and "
 "monitoring"
-msgstr "منصة احترافية لإدارة ومراقبة شبكات الاتصالات الموحدة"
+msgstr "منصة من الدرجة Enterprise لإدارة ومراقبة الشبكات الموحدة"
 
 #: app/templates/main/home.html:82
 #, fuzzy
@@ -1113,7 +1113,7 @@ msgstr "تكامل أنظمة المؤسسات"
 msgid ""
 "Seamless integration platform connecting various enterprise systems and "
 "databases"
-msgstr "منصة تكامل سلسة تربط مختلف أنظمة وقواعد بيانات المؤسسات"
+msgstr "منصة دمج سلسة وآمنة للأنظمة المؤسسية المختلفة"
 
 #: app/templates/main/home.html:94 app/templates/main/home.html:96
 msgid "YourSpace Platform"
@@ -1470,3 +1470,156 @@ msgstr "تحديث بخصوص طلبك - The Z Solutions"
 #: app/templates/email/base.html:60
 msgid "Your Application Has Been Shortlisted - The Z Solutions"
 msgstr "تم اختيار طلبك للقائمة المختصرة - The Z Solutions"
+
+#: app/templates/main/portfolio.html:4
+msgid "Our Projects"
+msgstr "مشاريعنا"
+
+#: app/templates/main/portfolio.html:14
+msgid "Unified Teleo Platform"
+msgstr "منصة تيليو الموحدة"
+
+#: app/templates/main/portfolio.html:16
+msgid "Unified Network Management"
+msgstr "إدارة الشبكة الموحدة"
+
+#: app/templates/main/portfolio.html:17
+msgid ""
+"Enterprise-grade platform for unified telecom network management and "
+"monitoring"
+msgstr "منصة من الدرجة Enterprise لإدارة ومراقبة الشبكات الموحدة"
+
+#: app/templates/main/portfolio.html:34
+msgid "Enterprise Integration"
+msgstr "دمج الأنظمة المؤسسية"
+
+#: app/templates/main/portfolio.html:36
+msgid "Enterprise Systems Integration"
+msgstr "دمج الأنظمة المؤسسية"
+
+#: app/templates/main/portfolio.html:37
+msgid ""
+"Seamless integration platform connecting various enterprise systems and "
+"databases"
+msgstr "منصة دمج سلسة وآمنة للأنظمة المؤسسية المختلفة"
+
+#: app/templates/main/portfolio.html:59
+msgid "YourSpace Platform"
+msgstr "منصة يور سبايس"
+
+#: app/templates/main/portfolio.html:61
+msgid "Modern workspace management solution with advanced booking features"
+msgstr "حل إدارة مساحات العمل الحديث مع ميزات حجز متقدمة"
+
+#: app/templates/main/portfolio.html:84
+msgid "Event Registration System"
+msgstr "نظام تسجيل الحضور"
+
+#: app/templates/main/portfolio.html:86
+msgid "Event Registration & Prize Draw"
+msgstr "نظام تسجيل الحضور والجائزة"
+
+#: app/templates/main/portfolio.html:87
+msgid ""
+"Automated event registration system with integrated prize draw functionality"
+msgstr "نظام تسجيل الحضور الآلي مع وظيفة سحب الجائزة"
+
+#: app/templates/main/portfolio.html:108
+msgid "Celebrity Monitoring System"
+msgstr "نظام مراقبة المشاهير"
+
+#: app/templates/main/portfolio.html:110
+msgid "Celebrity Monitoring Platform"
+msgstr "نظام مراقبة المشاهير"
+
+#: app/templates/main/portfolio.html:111
+msgid "Advanced social media monitoring and analytics for celebrity profiles"
+msgstr "نظام متقدم لمراقبة وتحليل وسائل التواصل الاجتماعي للمشاهير"
+
+#: app/templates/main/portfolio.html:134
+msgid "Data Office Management"
+msgstr "إدارة مكتب البيانات"
+
+#: app/templates/main/portfolio.html:135
+msgid "Comprehensive system for managing data office operations and analytics"
+msgstr "نظام شامل لإدارة عمليات مكتب البيانات والتحليلات"
+
+#: app/templates/main/portfolio.html:159
+msgid "Enhanced Clipboard Manager"
+msgstr "مدير الحافظة المحسّن"
+
+#: app/templates/main/portfolio.html:160
+msgid "Advanced clipboard management tool with smart features and organization"
+msgstr "أداة إدارة حافظة متقدمة مع ميزات ذكية وتنظيم"
+
+#: app/templates/main/portfolio.html:183
+msgid "Jaber Border Center"
+msgstr "مركز جابر الحدودي"
+
+#: app/templates/main/portfolio.html:185
+msgid "Jaber Border Center Management"
+msgstr "إدارة مركز جابر الحدودي"
+
+#: app/templates/main/portfolio.html:186
+msgid "Comprehensive border crossing management and monitoring system"
+msgstr "نظام شامل لإدارة عبور الحدود والمراقبة"
+
+#: app/templates/main/portfolio.html:209
+msgid "YouTube Downloader"
+msgstr "مُحمل فيديوهات يوتيوب"
+
+#: app/templates/main/portfolio.html:211
+msgid "Efficient YouTube video downloader with format selection and batch processing"
+msgstr "مُحمل فيديوهات يوتيوب فعال مع اختيار الصيغة ومعالجة الدُفعات"
+
+#: app/templates/main/portfolio.html:16
+msgid "Python"
+msgstr "بايثون"
+
+#: app/templates/main/portfolio.html:17
+msgid "Flask"
+msgstr "فلاسك"
+
+#: app/templates/main/portfolio.html:18
+msgid "WebSocket"
+msgstr "ويب سوكت"
+
+#: app/templates/main/portfolio.html:27
+msgid "API"
+msgstr "واجهة برمجة التطبيقات"
+
+#: app/templates/main/portfolio.html:28
+msgid "Database"
+msgstr "قاعدة البيانات"
+
+#: app/templates/main/portfolio.html:40
+msgid "React"
+msgstr "رياكت"
+
+#: app/templates/main/portfolio.html:53
+msgid "SQLite"
+msgstr "إس كيو لايت"
+
+#: app/templates/main/portfolio.html:66
+msgid "AI/ML"
+msgstr "الذكاء الاصطناعي/تعلم الآلة"
+
+#: app/templates/main/portfolio.html:79
+msgid "Data Analysis"
+msgstr "تحليل البيانات"
+
+#: app/templates/main/portfolio.html:80
+msgid "ML"
+msgstr "تعلم الآلة"
+
+#: app/templates/main/portfolio.html:92
+msgid "Qt"
+msgstr "كيو تي"
+
+#: app/templates/main/portfolio.html:105
+msgid "MySQL"
+msgstr "ماي إس كيو إل"
+
+#: app/templates/main/portfolio.html:118
+msgid "PyQt"
+msgstr "باي كيو تي"

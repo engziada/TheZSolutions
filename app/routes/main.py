@@ -70,7 +70,9 @@ def project_detail(project_id):
 
 @main_bp.route('/portfolio')
 def portfolio():
-    return render_template('main/portfolio.html', title='Portfolio')
+    # Ensure the language is set based on the session variable
+    current_language = session.get('language', 'en')  # Default to English if not set
+    return render_template('main/portfolio.html', title='Portfolio', language=current_language)
 
 @main_bp.route('/contact', methods=['GET'])
 def contact_page():

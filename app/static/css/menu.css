@@ -99,6 +99,15 @@ body {
     display: none;
 }
 
+/* Adjustments for RTL layout */
+html[dir="rtl"] .nav-content {
+    flex-direction: row-reverse; /* Switch the order of items */
+}
+
+html[dir="rtl"] .mobile-menu-button {
+    margin-left: auto; /* Align the mobile menu button to the left */
+}
+
 /* Mobile styles */
 @media (max-width: 1080px) {
     .logo {

@@ -3,131 +3,131 @@
 {% block content %}
 <section class="portfolio-section">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 class="text-4xl font-bold text-center mb-12">Our Portfolio</h1>
+        <h1 class="text-4xl font-bold text-center mb-12">{{ _('Our Projects') }}</h1>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Unified Network Management -->
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <img src="{{ url_for('static', filename='img/projects/teleo-platform.jpg') }}" alt="Unified Teleo Platform" class="w-full h-48 object-cover">
+                <img src="{{ url_for('static', filename='img/projects/teleo-platform.jpg') }}" alt="{{ _('Unified Teleo Platform') }}" class="w-full h-48 object-cover">
                 <div class="p-6">
-                    <h3 class="font-bold text-xl mb-2">Unified Network Management</h3>
-                    <p class="text-gray-600">Enterprise-grade platform for unified telecom network management and monitoring</p>
+                    <h3 class="font-bold text-xl mb-2">{{ _('Unified Network Management') }}</h3>
+                    <p class="text-gray-600">{{ _('Enterprise-grade platform for unified telecom network management and monitoring') }}</p>
                     <div class="mt-4 flex flex-wrap gap-2">
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">Python</span>
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">Flask</span>
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">WebSocket</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('Python') }}</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('Flask') }}</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('WebSocket') }}</span>
                     </div>
                 </div>
             </div>
 
             <!-- Enterprise Integration -->
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <img src="{{ url_for('static', filename='img/projects/enterprise-integration.jpg') }}" alt="Enterprise Integration" class="w-full h-48 object-cover">
+                <img src="{{ url_for('static', filename='img/projects/enterprise-integration.jpg') }}" alt="{{ _('Enterprise Integration') }}" class="w-full h-48 object-cover">
                 <div class="p-6">
-                    <h3 class="font-bold text-xl mb-2">Enterprise Systems Integration</h3>
-                    <p class="text-gray-600">Seamless integration platform connecting various enterprise systems and databases</p>
+                    <h3 class="font-bold text-xl mb-2">{{ _('Enterprise Systems Integration') }}</h3>
+                    <p class="text-gray-600">{{ _('Seamless integration platform connecting various enterprise systems and databases') }}</p>
                     <div class="mt-4 flex flex-wrap gap-2">
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">Python</span>
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">API</span>
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">SQL</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('Python') }}</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('API') }}</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('Database') }}</span>
                     </div>
                 </div>
             </div>
 
-            <!-- YourSpace -->
+            <!-- YourSpace Platform -->
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <img src="{{ url_for('static', filename='img/projects/yourspace.jpg') }}" alt="YourSpace Platform" class="w-full h-48 object-cover">
+                <img src="{{ url_for('static', filename='img/projects/yourspace.jpg') }}" alt="{{ _('YourSpace Platform') }}" class="w-full h-48 object-cover">
                 <div class="p-6">
-                    <h3 class="font-bold text-xl mb-2">YourSpace Platform</h3>
-                    <p class="text-gray-600">Modern workspace management solution with advanced booking features</p>
+                    <h3 class="font-bold text-xl mb-2">{{ _('YourSpace Platform') }}</h3>
+                    <p class="text-gray-600">{{ _('Modern workspace management solution with advanced booking features') }}</p>
                     <div class="mt-4 flex flex-wrap gap-2">
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">Python</span>
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">React</span>
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">MongoDB</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('Python') }}</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('React') }}</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('API') }}</span>
                     </div>
                 </div>
             </div>
 
             <!-- Event Registration System -->
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <img src="{{ url_for('static', filename='img/projects/event-system.jpg') }}" alt="Event Registration System" class="w-full h-48 object-cover">
+                <img src="{{ url_for('static', filename='img/projects/event-system.jpg') }}" alt="{{ _('Event Registration System') }}" class="w-full h-48 object-cover">
                 <div class="p-6">
-                    <h3 class="font-bold text-xl mb-2">Event Registration & Prize Draw</h3>
-                    <p class="text-gray-600">Automated event registration system with integrated prize draw functionality</p>
+                    <h3 class="font-bold text-xl mb-2">{{ _('Event Registration & Prize Draw') }}</h3>
+                    <p class="text-gray-600">{{ _('Automated event registration system with integrated prize draw functionality') }}</p>
                     <div class="mt-4 flex flex-wrap gap-2">
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">Python</span>
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">Flask</span>
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">SQLite</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('Python') }}</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('Flask') }}</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('SQLite') }}</span>
                     </div>
                 </div>
             </div>
 
             <!-- Celebrity Monitoring -->
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <img src="{{ url_for('static', filename='img/projects/celebrity-monitor.jpg') }}" alt="Celebrity Monitoring System" class="w-full h-48 object-cover">
+                <img src="{{ url_for('static', filename='img/projects/celebrity-monitor.jpg') }}" alt="{{ _('Celebrity Monitoring System') }}" class="w-full h-48 object-cover">
                 <div class="p-6">
-                    <h3 class="font-bold text-xl mb-2">Celebrity Monitoring Platform</h3>
-                    <p class="text-gray-600">Advanced social media monitoring and analytics for celebrity profiles</p>
+                    <h3 class="font-bold text-xl mb-2">{{ _('Celebrity Monitoring Platform') }}</h3>
+                    <p class="text-gray-600">{{ _('Advanced social media monitoring and analytics for celebrity profiles') }}</p>
                     <div class="mt-4 flex flex-wrap gap-2">
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">Python</span>
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">AI/ML</span>
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">APIs</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('Python') }}</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('AI/ML') }}</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('API') }}</span>
                     </div>
                 </div>
             </div>
 
             <!-- Data Office Management -->
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <img src="{{ url_for('static', filename='img/projects/data-office.jpg') }}" alt="Data Office Management" class="w-full h-48 object-cover">
+                <img src="{{ url_for('static', filename='img/projects/data-office.jpg') }}" alt="{{ _('Data Office Management') }}" class="w-full h-48 object-cover">
                 <div class="p-6">
-                    <h3 class="font-bold text-xl mb-2">Data Office Management</h3>
-                    <p class="text-gray-600">Comprehensive system for managing data office operations and analytics</p>
+                    <h3 class="font-bold text-xl mb-2">{{ _('Data Office Management') }}</h3>
+                    <p class="text-gray-600">{{ _('Comprehensive system for managing data office operations and analytics') }}</p>
                     <div class="mt-4 flex flex-wrap gap-2">
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">Python</span>
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">Data Analysis</span>
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">Dashboard</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('Python') }}</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('Data Analysis') }}</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('ML') }}</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Enhanced Clipboard -->
+            <!-- Enhanced Clipboard Manager -->
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <img src="{{ url_for('static', filename='img/projects/clipboard-manager.jpg') }}" alt="Enhanced Clipboard Manager" class="w-full h-48 object-cover">
+                <img src="{{ url_for('static', filename='img/projects/clipboard-manager.jpg') }}" alt="{{ _('Enhanced Clipboard Manager') }}" class="w-full h-48 object-cover">
                 <div class="p-6">
-                    <h3 class="font-bold text-xl mb-2">Enhanced Clipboard Manager</h3>
-                    <p class="text-gray-600">Advanced clipboard management tool with smart features and organization</p>
+                    <h3 class="font-bold text-xl mb-2">{{ _('Enhanced Clipboard Manager') }}</h3>
+                    <p class="text-gray-600">{{ _('Advanced clipboard management tool with smart features and organization') }}</p>
                     <div class="mt-4 flex flex-wrap gap-2">
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">Python</span>
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">Qt</span>
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">SQLite</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('Python') }}</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('Qt') }}</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('SQLite') }}</span>
                     </div>
                 </div>
             </div>
 
             <!-- Jaber Border Center -->
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <img src="{{ url_for('static', filename='img/projects/border-center.jpg') }}" alt="Jaber Border Center" class="w-full h-48 object-cover">
+                <img src="{{ url_for('static', filename='img/projects/border-center.jpg') }}" alt="{{ _('Jaber Border Center') }}" class="w-full h-48 object-cover">
                 <div class="p-6">
-                    <h3 class="font-bold text-xl mb-2">Jaber Border Center Management</h3>
-                    <p class="text-gray-600">Comprehensive border crossing management and monitoring system</p>
+                    <h3 class="font-bold text-xl mb-2">{{ _('Jaber Border Center Management') }}</h3>
+                    <p class="text-gray-600">{{ _('Comprehensive border crossing management and monitoring system') }}</p>
                     <div class="mt-4 flex flex-wrap gap-2">
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">Python</span>
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">Flask</span>
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">PostgreSQL</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('Python') }}</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('Flask') }}</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('MySQL') }}</span>
                     </div>
                 </div>
             </div>
 
             <!-- YouTube Downloader -->
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <img src="{{ url_for('static', filename='img/projects/youtube-dl.jpg') }}" alt="YouTube Downloader" class="w-full h-48 object-cover">
+                <img src="{{ url_for('static', filename='img/projects/youtube-dl.jpg') }}" alt="{{ _('YouTube Downloader') }}" class="w-full h-48 object-cover">
                 <div class="p-6">
-                    <h3 class="font-bold text-xl mb-2">YouTube Downloader</h3>
-                    <p class="text-gray-600">Efficient YouTube video downloader with format selection and batch processing</p>
+                    <h3 class="font-bold text-xl mb-2">{{ _('YouTube Downloader') }}</h3>
+                    <p class="text-gray-600">{{ _('Efficient YouTube video downloader with format selection and batch processing') }}</p>
                     <div class="mt-4 flex flex-wrap gap-2">
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">Python</span>
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">PyQt</span>
-                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">yt-dlp</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('Python') }}</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('PyQt') }}</span>
+                        <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">{{ _('API') }}</span>
                     </div>
                 </div>
             </div>
