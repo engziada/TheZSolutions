@@ -201,114 +201,101 @@ msgstr "تسجيل الخروج"
 
 #: app/templates/base.html:194
 msgid "Admin"
-msgstr "المدير"
+msgstr "مدير النظام"
 
 #: app/templates/admin/application_detail.html:17
-#, fuzzy
 msgid "Back to Applications"
-msgstr "تطبيقات سطح المكتب"
+msgstr "رجوع إلى التطبيقات"
 
 #: app/templates/admin/application_detail.html:50
 msgid "Applied on"
-msgstr ""
+msgstr "تم التقديم في"
 
 #: app/templates/admin/application_detail.html:58
 #: app/templates/admin/request_detail.html:58
 msgid "Start Review"
-msgstr ""
+msgstr "ابدأ المراجعة"
 
 #: app/templates/admin/application_detail.html:63
 #: app/templates/admin/request_detail.html:63
 msgid "Accept"
-msgstr ""
+msgstr "قبول"
 
 #: app/templates/admin/application_detail.html:67
 #: app/templates/admin/request_detail.html:67
-#, fuzzy
 msgid "Reject"
-msgstr "المشاريع"
+msgstr "رفض"
 
 #: app/templates/admin/application_detail.html:81
-#, fuzzy
 msgid "Applicant Information"
 msgstr "معلومات الاتصال"
 
 #: app/templates/admin/application_detail.html:84
-#, fuzzy
 msgid "Personal details and application."
 msgstr "المعلومات الشخصية"
 
 #: app/templates/admin/application_detail.html:91
 #: app/templates/admin/applications.html:56
-#, fuzzy
 msgid "Position"
 msgstr "وظيفة"
 
 #: app/templates/admin/application_detail.html:99
-#, fuzzy
 msgid "Experience"
 msgstr "سنوات الخبرة"
 
 #: app/templates/admin/application_detail.html:107
 msgid "Current Location"
-msgstr ""
+msgstr "العنوان الحالي" 
 
 #: app/templates/admin/application_detail.html:115
-#, fuzzy
 msgid "Expected Salary"
-msgstr "الجدول الزمني المتوقع"
+msgstr "الراتب المتوقع"
 
 #: app/templates/admin/application_detail.html:123
 msgid "Skills"
-msgstr ""
+msgstr "المهارات"
 
 #: app/templates/admin/application_detail.html:131
-#, fuzzy
 msgid "Cover Letter"
 msgstr "خطاب التقديم اختياري"
 
 #: app/templates/admin/application_detail.html:140
-#, fuzzy
 msgid "Portfolio Link"
 msgstr "رابط معرض الأعمال"
 
 #: app/templates/admin/application_detail.html:152
-#, fuzzy
 msgid "GitHub Link"
 msgstr "حساب GitHub"
 
 #: app/templates/admin/application_detail.html:164
 #: app/templates/admin/application_detail.html:178
-#, fuzzy
 msgid "Resume"
 msgstr "السيرة الذاتية"
 
 #: app/templates/admin/application_detail.html:184
 #: app/templates/admin/request_detail.html:171
 msgid "Download"
-msgstr ""
+msgstr "تحميل"
 
 #: app/templates/admin/application_detail.html:200
-#, fuzzy
 msgid "Application Status"
-msgstr "تطبيق ويب"
+msgstr "حالة الطلب"
 
 #: app/templates/admin/application_detail.html:246
 #: app/templates/admin/application_detail.html:251
 #: app/templates/admin/request_detail.html:234
 #: app/templates/admin/request_detail.html:239
 msgid "Failed to update status"
-msgstr ""
+msgstr "فشل تحديث الحالة"
 
 #: app/templates/admin/applications.html:11
-#, fuzzy
 msgid "Job Applications"
-msgstr "تطبيق ويب"
+msgstr "طلبات الوظيفة"
 
 #: app/templates/admin/applications.html:18
 #: app/templates/admin/project_requests.html:18
 msgid "All"
-msgstr ""
+msgstr "الكل"
 
 #: app/templates/admin/applications.html:23
 #: app/templates/admin/dashboard.html:53 app/templates/admin/dashboard.html:87
@@ -320,161 +307,149 @@ msgstr "قيد الانتظار"
 #: app/templates/admin/dashboard.html:57 app/templates/admin/dashboard.html:91
 #: app/templates/admin/project_requests.html:28
 msgid "Reviewing"
-msgstr ""
+msgstr "قيد المراجعة"
 
 #: app/templates/admin/applications.html:33
 #: app/templates/admin/dashboard.html:61 app/templates/admin/dashboard.html:95
 #: app/templates/admin/project_requests.html:33
 msgid "Accepted"
-msgstr ""
+msgstr "مقبولة"
 
 #: app/templates/admin/applications.html:38
 #: app/templates/admin/dashboard.html:65 app/templates/admin/dashboard.html:99
 #: app/templates/admin/project_requests.html:38
-#, fuzzy
 msgid "Rejected"
-msgstr "المشاريع"
+msgstr "مرفوضة"
 
 #: app/templates/admin/applications.html:53
-#, fuzzy
 msgid "Applicant"
-msgstr "تطبيق ويب"
+msgstr "المتقدم"
 
 #: app/templates/admin/applications.html:59
 #: app/templates/admin/project_requests.html:59
 msgid "Status"
-msgstr ""
+msgstr "الحالة"
 
 #: app/templates/admin/applications.html:62
 msgid "Applied Date"
-msgstr ""
+msgstr "تاريخ التقديم"
 
 #: app/templates/admin/applications.html:65
 #: app/templates/admin/project_requests.html:65
 msgid "Actions"
-msgstr ""
+msgstr "العمليات"
 
 #: app/templates/admin/applications.html:106
 #: app/templates/admin/project_requests.html:107
 msgid "View"
-msgstr ""
+msgstr "عرض"
 
 #: app/templates/admin/applications.html:124
 #: app/templates/admin/applications.html:151
 #: app/templates/admin/project_requests.html:125
 #: app/templates/admin/project_requests.html:152
 msgid "Previous"
-msgstr ""
+msgstr "السابق"
 
 #: app/templates/admin/applications.html:130
 #: app/templates/admin/applications.html:172
 #: app/templates/admin/project_requests.html:131
 #: app/templates/admin/project_requests.html:173
 msgid "Next"
-msgstr ""
+msgstr "التالي"
 
 #: app/templates/admin/applications.html:137
 #: app/templates/admin/project_requests.html:138
 msgid "Showing"
-msgstr ""
+msgstr "عرض"
 
 #: app/templates/admin/applications.html:139
 #: app/templates/admin/project_requests.html:140
 msgid "to"
-msgstr ""
+msgstr "الي"
 
 #: app/templates/admin/applications.html:141
 #: app/templates/admin/project_requests.html:142
 msgid "of"
-msgstr ""
+msgstr "من"
 
 #: app/templates/admin/applications.html:143
 #: app/templates/admin/project_requests.html:144
 msgid "results"
-msgstr ""
+msgstr "النتائج"
 
 #: app/templates/admin/dashboard.html:11
-#, fuzzy
 msgid "Admin Dashboard"
 msgstr "لوحة التحكم"
 
 #: app/templates/admin/dashboard.html:21
 msgid "User Statistics"
-msgstr ""
+msgstr "احصائيات المستخدمين"
 
 #: app/templates/admin/dashboard.html:24
 msgid "Total Users"
-msgstr ""
+msgstr "العدد الإجمالي للمستخدمين"
 
 #: app/templates/admin/dashboard.html:28
 msgid "Customers"
-msgstr ""
+msgstr "العملاء"
 
 #: app/templates/admin/dashboard.html:32
-#, fuzzy
 msgid "Developers"
-msgstr "مطور رئيسي"
+msgstr "المطورين"
 
 #: app/templates/admin/dashboard.html:36
 msgid "Active Users"
-msgstr ""
+msgstr "المستخدمين الحاليين"
 
 #: app/templates/admin/dashboard.html:46
-#, fuzzy
 msgid "Applications"
-msgstr "تطبيق ويب"
+msgstr "الطلبات"
 
 #: app/templates/admin/dashboard.html:49 app/templates/admin/dashboard.html:83
 msgid "Total"
-msgstr ""
+msgstr "العدد الإجمالي"
 
 #: app/templates/admin/dashboard.html:72
-#, fuzzy
 msgid "View all applications"
-msgstr "تطبيق ويب"
+msgstr "عرض كل الطلبات"
 
 #: app/templates/admin/dashboard.html:80
 #: app/templates/admin/project_requests.html:11
-#, fuzzy
 msgid "Project Requests"
-msgstr "متطلبات المشروع"
+msgstr "طلبات المشروع"
 
 #: app/templates/admin/dashboard.html:106
 msgid "View all requests"
-msgstr ""
+msgstr "عرض كل الطلبات"
 
 #: app/templates/admin/dashboard.html:117
-#, fuzzy
 msgid "Total Projects"
-msgstr "المشاريع"
+msgstr "إجمالي المشاريع"
 
 #: app/templates/admin/dashboard.html:121
 msgid "Active"
-msgstr ""
+msgstr "الحالي"
 
 #: app/templates/admin/dashboard.html:125
 msgid "Completed"
-msgstr ""
+msgstr "المكتمل"
 
 #: app/templates/admin/dashboard.html:139
-#, fuzzy
 msgid "Recent Applications"
-msgstr "تطبيقات سطح المكتب"
+msgstr "الطلبات الحديثة"
 
 #: app/templates/admin/dashboard.html:169
-#, fuzzy
 msgid "No recent applications"
-msgstr "تطبيقات سطح المكتب"
+msgstr "لا يوجد طلبات حديثة"
 
 #: app/templates/admin/dashboard.html:177
-#, fuzzy
 msgid "Recent Project Requests"
-msgstr "المشاريع الحديثة"
+msgstr "طلبات المشاريع الحديثة"
 
 #: app/templates/admin/dashboard.html:207
-#, fuzzy
 msgid "No recent project requests"
-msgstr "المشاريع الحديثة"
+msgstr "لا يوجد طلبات مشاريع حديثة"
 
 #: app/templates/admin/dashboard.html:215 app/templates/main/home.html:67
 msgid "Recent Projects"
@@ -482,39 +457,33 @@ msgstr "المشاريع الحديثة"
 
 #: app/templates/admin/dashboard.html:227
 msgid "Client"
-msgstr ""
+msgstr "العميل"
 
 #: app/templates/admin/dashboard.html:244
-#, fuzzy
 msgid "No recent projects"
-msgstr "المشاريع الحديثة"
+msgstr "لا يوجد مشاريع حديثة"
 
 #: app/templates/admin/project_requests.html:53
-#, fuzzy
 msgid "Project"
 msgstr "المشاريع"
 
 #: app/templates/admin/project_requests.html:62
 msgid "Created"
-msgstr ""
+msgstr "تم الانشاء"
 
 #: app/templates/admin/request_detail.html:17
-#, fuzzy
 msgid "Back to Project Requests"
 msgstr "تقديم طلب المشروع"
 
 #: app/templates/admin/request_detail.html:50
-#, fuzzy
 msgid "Submitted on"
 msgstr "تقديم الطلب"
 
 #: app/templates/admin/request_detail.html:81
-#, fuzzy
 msgid "Project Information"
 msgstr "معلومات الاتصال"
 
 #: app/templates/admin/request_detail.html:84
-#, fuzzy
 msgid "Project details and requirements."
 msgstr "متطلبات المشروع"
 
@@ -524,12 +493,12 @@ msgid "Project Type"
 msgstr "نوع المشروع"
 
 #: app/templates/admin/request_detail.html:99
-#, fuzzy
+#: app/templates/requests/new.html:62
 msgid "Timeline"
 msgstr "اختر الجدول الزمني"
 
 #: app/templates/admin/request_detail.html:107
-#: app/templates/requests/new.html:62
+#: app/templates/requests/new.html:103
 msgid "Budget Range"
 msgstr "نطاق الميزانية"
 
@@ -540,15 +509,13 @@ msgstr "اسم الشركة"
 
 #: app/templates/admin/request_detail.html:118
 msgid "Not specified"
-msgstr ""
+msgstr "لم يتم التحديد"
 
 #: app/templates/admin/request_detail.html:123
-#, fuzzy
 msgid "Description"
 msgstr "وصف المشروع"
 
 #: app/templates/admin/request_detail.html:131
-#, fuzzy
 msgid "Features"
 msgstr "الميزات الرئيسية"
 
@@ -559,11 +526,11 @@ msgstr "معلومات إضافية"
 
 #: app/templates/admin/request_detail.html:150
 msgid "Attached Files"
-msgstr ""
+msgstr "الملفات المرفقة"
 
 #: app/templates/admin/request_detail.html:188
 msgid "Request Status"
-msgstr ""
+msgstr "حالة الطلب"
 
 #: app/templates/careers/apply.html:15
 msgid "Personal Information"
@@ -603,7 +570,7 @@ msgstr "مطور واجهات أمامية"
 
 #: app/templates/careers/apply.html:49 app/templates/main/home.html:247
 msgid "Backend Developer"
-msgstr "مطور خلفي"
+msgstr "مطور سيرفرات"
 
 #: app/templates/careers/apply.html:50
 msgid "Full Stack Developer"
@@ -643,7 +610,7 @@ msgstr "أكثر من 10 سنوات"
 
 #: app/templates/careers/apply.html:68
 msgid "Key Skills"
-msgstr ""
+msgstr "أهم المهارات"
 
 #: app/templates/careers/apply.html:70
 msgid "e.g., Python, JavaScript, React, Docker..."
@@ -695,41 +662,36 @@ msgstr "تقديم الطلب"
 
 #: app/templates/components/footer.html:6 app/templates/email/base.html:6
 #: app/templates/email/base.html:13 app/templates/email/base.html:23
-#, fuzzy
 msgid "The Z Solutions"
 msgstr "فريق The Z Solutions"
 
 #: app/templates/components/footer.html:7 app/templates/main/home.html:7
 msgid "Your Vision, Precisely Coded"
-msgstr "رؤيتك مبرمجة بدقة"
+msgstr "من الفكرة إلى الواقع، برمجيات مخصصة لإحتياجاتك"
 
 #: app/templates/components/footer.html:26
 msgid "Quick Links"
-msgstr ""
+msgstr "روابط سريعة"
 
 #: app/templates/components/footer.html:31
-#, fuzzy
 msgid "Team"
 msgstr "فريقنا"
 
 #: app/templates/components/footer.html:37
-#, fuzzy
 msgid "Contact Us"
 msgstr "اتصل بنا"
 
 #: app/templates/components/footer.html:41
 msgid "Madinety, Cairo, Egypt"
-msgstr ""
+msgstr "مصر - القاهرة - مدينتي"
 
 #: app/templates/components/footer.html:59
-#, fuzzy
 msgid "Admin Login"
 msgstr "المدير"
 
 #: app/templates/components/footer.html:66
-#, fuzzy
 msgid "The Z Solutions. All rights reserved."
-msgstr "فريق The Z Solutions"
+msgstr "The Z Solutions جميع الحقوق محفوظة لـ"
 
 #: app/templates/components/terms_modal.html:5
 msgid "Please read carefully before applying"
@@ -741,7 +703,7 @@ msgstr "المشاريع والمدفوعات"
 
 #: app/templates/components/terms_modal.html:10
 msgid "Kindly note that:"
-msgstr "يرجى ملاحظة ما يلي"
+msgstr ":يرجى ملاحظة ما يلي"
 
 #: app/templates/components/terms_modal.html:12
 msgid "You'll be contacted based on project availability and required skill sets."
@@ -760,7 +722,7 @@ msgstr "سيتم الاتفاق على شروط المشروع مباشرة مع
 msgid ""
 "Payment structure: 50%% at project midpoint, 50%% upon completion and "
 "client payment."
-msgstr "هيكل الدفع: 50%% عند منتصف المشروع، 50%% عند الإكمال والدفع من العميل"
+msgstr "هيكل الدفع: 50%% عند منتصف المشروع، 50%% عند الإكمال وإتمام الدفع من قبل العميل"
 
 #: app/templates/components/terms_modal.html:16
 msgid "No upfront payments will be made for any project."
@@ -768,7 +730,7 @@ msgstr "لن يتم إجراء أي دفعات مقدمة لأي مشروع"
 
 #: app/templates/components/terms_modal.html:17
 msgid "Payment methods: InstaPay, Vodafone Cash, Bank Transfer, or PayPal."
-msgstr "طرق الدفع انستا باي فودافون كاش تحويل بنكي باي بال"
+msgstr "طرق الدفع: انستا باي - فودافون كاش - تحويل بنكي - باي بال"
 
 #: app/templates/components/terms_modal.html:18
 msgid "You must have the legal right to work as an independent contractor."
@@ -814,7 +776,7 @@ msgstr "حماية البيانات"
 
 #: app/templates/components/terms_modal.html:36
 msgid "We will:"
-msgstr "سنقوم بـ"
+msgstr ":سنقوم بـ"
 
 #: app/templates/components/terms_modal.html:38
 msgid "Keep your data secure and confidential"
@@ -834,7 +796,7 @@ msgstr "الاحتفاظ ببياناتك لمدة أقصاها سنتين"
 
 #: app/templates/components/terms_modal.html:49
 msgid "I have read and accept the terms and conditions"
-msgstr "لقد قرأت وأوافق على الشروط والأحكام"
+msgstr " لقد قرأت وأوافق على الشروط والأحكام "
 
 #: app/templates/components/terms_modal.html:54
 msgid "Continue"
@@ -1028,7 +990,7 @@ msgstr "تطبيقات ويب مخصصة مصممة لتلبية احتياجا�
 
 #: app/templates/main/home.html:32
 msgid "Flask-based enterprise solutions"
-msgstr "حلول المؤسسات المبنية على فلاسك"
+msgstr "حلول المؤسسات المبنية على Flask"
 
 #: app/templates/main/home.html:33
 msgid "E-commerce platforms"
@@ -1098,10 +1060,9 @@ msgstr "إدارة الشبكات الموحدة"
 msgid ""
 "Enterprise-grade platform for unified telecom network management and "
 "monitoring"
-msgstr "منصة من الدرجة Enterprise لإدارة ومراقبة الشبكات الموحدة"
+msgstr "منصة موحدة لإدارة ومراقبة الشبكات داخل المؤسسة"
 
 #: app/templates/main/home.html:82
-#, fuzzy
 msgid "Enterprise Integration"
 msgstr "تكامل أنظمة المؤسسات"
 
@@ -1149,26 +1110,23 @@ msgstr "مالك مشروع - سنة و 11 شهر"
 
 #: app/templates/main/home.html:166
 msgid "Abdulaziz A."
-msgstr ""
+msgstr "عبد العزيز ا"
 
 #: app/templates/main/home.html:185
 msgid "Nasser I."
-msgstr ""
+msgstr "ناصر إ"
 
 #: app/templates/main/home.html:186
-#, fuzzy
 msgid "Project Owner • 7 months 13 days"
-msgstr "مالك مشروع - 3 سنوات و 8 أشهر"
+msgstr "مالك مشروع - 7 شهور و 13 يوم"
 
 #: app/templates/main/home.html:204
-#, fuzzy
 msgid "Adel I."
-msgstr "علي إ"
+msgstr "عادل إ"
 
 #: app/templates/main/home.html:205
-#, fuzzy
 msgid "Project Owner • 5 months 25 days"
-msgstr "مالك مشروع - 3 سنوات و 8 أشهر"
+msgstr "مالك مشروع - 5 شهور و 25 يوم"
 
 #: app/templates/main/home.html:224
 msgid "Our Team"
@@ -1441,7 +1399,7 @@ msgstr "تحديث حالة المشروع: %(title)s"
 
 #: app/templates/email/base.html:53
 msgid "Milestone Completed: %(title)s"
-msgstr "تم إكمال المعلم: %(title)s"
+msgstr "تم إكمال المرحلة: %(title)s"
 
 #: app/templates/email/base.html:54
 msgid "Payment Confirmation"
@@ -1487,7 +1445,7 @@ msgstr "إدارة الشبكة الموحدة"
 msgid ""
 "Enterprise-grade platform for unified telecom network management and "
 "monitoring"
-msgstr "منصة من الدرجة Enterprise لإدارة ومراقبة الشبكات الموحدة"
+msgstr "منصة موحدة لإدارة ومراقبة الشبكات داخل المؤسسة"
 
 #: app/templates/main/portfolio.html:34
 msgid "Enterprise Integration"
