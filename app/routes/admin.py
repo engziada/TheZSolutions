@@ -64,7 +64,8 @@ def applications():
     
     return render_template('admin/applications.html', 
                          applications=applications,
-                         current_status=status)
+                         current_status=status,
+                         min=min)
 
 @admin_bp.route('/application/<int:id>')
 @admin_required
