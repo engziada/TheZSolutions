@@ -14,14 +14,15 @@ class Config:
     SECURITY_PASSWORD_SALT = os.environ.get('SECURITY_PASSWORD_SALT') or 'your-salt-here'
     
     # Database
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'sqlite:///' + os.path.join(BASE_DIR, 'zsolutions.db')
+    # SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+    #     'sqlite:///' + os.path.join(BASE_DIR, 'zsolutions.db')
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'sqlite:///zsolutions.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
     # Upload folders
-    UPLOAD_FOLDER = os.path.join(BASE_DIR, 'uploads')
-    RESUMES_FOLDER = os.path.join(UPLOAD_FOLDER, 'resumes')
-    PROJECT_FILES_FOLDER = os.path.join(UPLOAD_FOLDER, 'project_files')
+    UPLOAD_FOLDER = os.getenv('UPLOAD_FOLDER', os.path.join(BASE_DIR, 'uploads'))
+    RESUMES_FOLDER = os.getenv('RESUMES_FOLDER', os.path.join(UPLOAD_FOLDER, 'resumes'))
+    PROJECT_FILES_FOLDER = os.getenv('PROJECT_FILES_FOLDER', os.path.join(UPLOAD_FOLDER, 'project_files'))
     LOG_FOLDER = os.path.join(BASE_DIR, 'logs')
     
     # Ensure upload directories exist
