@@ -55,6 +55,15 @@ class Config:
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SAMESITE = 'Lax'
     
-    # Rate Limiting
-    RATELIMIT_DEFAULT = "100 per day"
-    RATELIMIT_STORAGE_URL = "memory://"
+    # ReCAPTCHA Configuration
+    RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
+    RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
+    RECAPTCHA_DATA_ATTRS = {'size': 'normal'}
+    
+    # Rate Limiting with in-memory storage
+    RATELIMIT_DEFAULT = "1 per hour"
+    RATELIMIT_STORAGE_URL = "memory://"  # Use in-memory storage instead of Redis
+    RATELIMIT_HEADERS_ENABLED = True
+
+
+

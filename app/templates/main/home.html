@@ -167,7 +167,7 @@
                         <p class="text-gray-600">{{ _('Project Owner • 1 year 11 months') }}</p>
                     </div>
                 </div>
-                <p class="testimonial-text text-gray-700">"المهندس محمد شخص رائع جداً... انجز عمل كان فوق توقعاتي وفي وقت ممتاز وبجودة عالية... لم اكن اتوقع ان يخرج العمل بهذا المستوى الرائع واتمنى له التوفيق وانصح بالتعامل معه حيث ان عمله مكتمل ومبهر."</p>
+                <p class="testimonial-text text-gray-700">"المهندس محمد شخص رائع <... انجز عمل كان فوق توقعاتي وفي وقت ممتاز وبجودة عالية... لم اكن اتوقع ان يخرج العمل بهذا المستوى الرائع واتمنى له التوفيق وانصح بالتعامل معه حيث ان عمله مكتمل ومبهر."</p>
                 <div class="mt-4 flex text-accent">
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
@@ -293,6 +293,9 @@
                     <textarea name="message" id="message" rows="4" required 
                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-accent focus:ring-accent"></textarea>
                 </div>
+                <div class="mt-4">
+                    {{ form.recaptcha }}
+                </div>
                 <div class="flex justify-center">
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-paper-plane mr-2"></i>{{ _('Send Message') }}
@@ -308,11 +311,53 @@
 
 {% block extra_js %}
 <script>
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-        // Show loading overlay
-        showLoadingOverlay();
-        // Disable submit button
-        document.querySelector('#contactForm button[type="submit"]').disabled = true;
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevent default form submission
+    
+    showLoadingOverlay();
+    const submitButton = this.querySelector('button[type="submit"]');
+    submitButton.disabled = true;
+    
+    fetch(this.action, {
+        method: 'POST',
+        body: new FormData(this),
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            if (response.status === 429) {
+                throw new Error('Please wait before submitting another message.');
+            }
+            return response.json().then(data => {
+                throw new Error(data.message || 'An error occurred');
+            });
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.status === 'success') {
+            window.location.href = '{{ url_for("main.home") }}';
+        }
+    })
+    .catch(error => {
+        hideLoadingOverlay();
+        submitButton.disabled = false;
+        const flashContainer = document.querySelector('.flash-container');
+        const flashMessage = document.createElement('div');
+        flashMessage.className = 'flash-message error';
+        flashMessage.innerHTML = `
+            ${error.message}
+            <button type="button" class="close-flash" onclick="this.parentElement.remove()">
+                <span>&times;</span>
+            </button>
+        `;
+        flashContainer.appendChild(flashMessage);
     });
+});
 </script>
 {% endblock %}
+
+
+

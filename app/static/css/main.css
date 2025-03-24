@@ -139,6 +139,111 @@ section:first-of-type {
     }
 }
 
+/* Mobile Optimizations */
+@media screen and (max-width: 768px) {
+    /* Adjust root variables for mobile */
+    :root {
+        --spacing-lg: 1.5rem;
+        --spacing-xl: 2.5rem;
+    }
+
+    /* Mobile body adjustments */
+    body {
+        padding-top: 60px; /* Reduced top padding for mobile */
+    }
+
+    /* Mobile hero section */
+    .hero-section {
+        min-height: calc(100vh - 60px);
+        padding: 2rem 1rem;
+        background-attachment: scroll; /* Better performance on mobile */
+    }
+
+    .hero-content {
+        padding: 1rem;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.125rem;
+        margin-bottom: 2rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .btn-hero {
+        width: 100%;
+        min-width: unset;
+        padding: 0.875rem 1.5rem;
+        font-size: 1.125rem;
+    }
+
+    /* Mobile navigation adjustments */
+    .nav-content {
+        padding: 0.5rem 0;
+    }
+
+    /* Mobile form improvements */
+    input, select, textarea {
+        font-size: 16px !important; /* Prevents iOS zoom on focus */
+    }
+
+    /* Mobile grid adjustments */
+    .grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem;
+    }
+
+    /* Mobile card adjustments */
+    .card {
+        margin: 0.5rem 0;
+        padding: 1rem;
+    }
+
+    /* Mobile table adjustments */
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Mobile spacing utilities */
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    /* Better touch targets */
+    button, 
+    [role="button"],
+    .clickable {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* Tablet Optimizations */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .hero-title {
+        font-size: 3rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+    }
+
+    .container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
 /* Services Section */
 .services-section {
     padding: 4rem 0;

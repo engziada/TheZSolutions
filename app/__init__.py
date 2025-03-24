@@ -1,11 +1,15 @@
-from flask import Flask
+from flask import Flask, render_template, flash, redirect, url_for, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail
-from flask_babel import Babel
+from flask_babel import Babel, _  # Add _ here
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+from flask_limiter.errors import RateLimitExceeded
 from config import Config
+from app.forms.contact import ContactForm  # Add this import
 import logging
 from logging.handlers import RotatingFileHandler
 import os
@@ -19,6 +23,10 @@ migrate = Migrate()
 login_manager = LoginManager()
 bcrypt = Bcrypt()
 mail = Mail()
+limiter = Limiter(
+    key_func=get_remote_address,
+    storage_uri="memory://"
+)
 
 def compile_translations():
     """Compile translation files"""
@@ -37,9 +45,8 @@ def create_app(config_class=Config):
     login_manager.init_app(app)
     bcrypt.init_app(app)
     mail.init_app(app)
-    
-    # Initialize Babel and compile translations
     babel = init_babel(app)
+    limiter.init_app(app)  # Initialize the limiter
     app.jinja_env.add_extension('jinja2.ext.i18n')
     compile_translations()  # Compile translations at startup
 
@@ -94,4 +101,20 @@ def create_app(config_class=Config):
     from app.commands.create_admin import create_admin_command
     app.cli.add_command(create_admin_command)
 
+    # Register rate limit error handler
+    @app.errorhandler(RateLimitExceeded)
+    def handle_ratelimit_error(e):
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return jsonify({
+                'status': 'error',
+                'message': _('Please wait before submitting another message.')
+            }), 429
+        flash(_('Please wait before submitting another message.'), 'error')
+        return render_template('main/home.html', form=ContactForm(), title='Home')
+
     return app
+
+
+
+
+

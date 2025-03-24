@@ -2,6 +2,7 @@ from app import create_app, db
 from app.models.project import Project, ProjectRequirement, ProjectMilestone, ProjectFile
 
 app = create_app()
+#Comment
 
 def init_db():
     with app.app_context():

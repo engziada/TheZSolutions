@@ -9,6 +9,10 @@ import logging
 from logging.handlers import RotatingFileHandler
 import os
 from flask_babel import _
+from app import limiter
+from flask_limiter.util import get_remote_address
+import re
+from datetime import datetime, timedelta
 
 main_bp = Blueprint('main', __name__)
 
@@ -80,56 +84,64 @@ def contact_page():
     return render_template('main/contact.html', title='Contact Us', form=form)
 
 @main_bp.route('/contact', methods=['POST'])
+@limiter.limit("1 per hour", key_func=get_remote_address)
 def contact():
     form = ContactForm()
     logger = configure_logging()
     
-    logger.info("Processing contact form submission")
-    logger.debug(f"Form data: {request.form}")
-    
-    if form.validate_on_submit():
+    # If the request is AJAX/Fetch
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         try:
-            # Log form data
-            logger.info(f"Form validated successfully")
-            logger.info(f"Name: {form.name.data}")
-            logger.info(f"Email: {form.email.data}")
-            logger.info(f"Subject: {form.subject.data}")
-            
-            # Create contact record
+            if not form.validate_on_submit():
+                return jsonify({'status': 'error', 'message': _('Invalid form data')}), 400
+                
             contact = Contact(
                 name=form.name.data,
                 email=form.email.data,
                 subject=form.subject.data,
-                message=form.message.data
+                message=form.message.data,
+                ip_address=request.remote_addr
             )
-            
-            logger.info("Saving contact to database")
             db.session.add(contact)
             db.session.commit()
-            logger.info(f"Contact saved successfully with ID: {contact.id}")
             
-            # Send notification email
-            try:
-                logger.info("Attempting to send notification email")
-                send_contact_notification(contact)
-                logger.info("Notification email sent successfully")
-                flash(_('Your message has been sent successfully! We will get back to you soon.'), 'success')
-            except Exception as e:
-                logger.error(f"Failed to send notification email: {str(e)}")
-                flash(_('Your message was received but there was an issue sending the notification. Our team will still contact you soon.'), 'warning')
+            send_contact_notification(contact)
+            return jsonify({
+                'status': 'success',
+                'message': _('Your message has been sent! We will get back to you soon.')
+            })
             
         except Exception as e:
+            logger.error(f"Error processing contact form: {str(e)}")
             db.session.rollback()
-            logger.error(f"Database error: {str(e)}")
-            flash(_('An error occurred while saving your message. Please try again.'), 'error')
-            
-    else:
-        logger.warning("Form validation failed")
-        for field, errors in form.errors.items():
-            logger.warning(f"Validation error in {field}: {', '.join(errors)}")
-            flash(f"{field}: {', '.join(errors)}", 'error')
+            return jsonify({
+                'status': 'error',
+                'message': _('An error occurred. Please try again later.')
+            }), 500
     
-    return redirect(url_for('main.home', _anchor='contact'))
+    # If the request is regular form submission
+    try:
+        if form.validate_on_submit():
+            contact = Contact(
+                name=form.name.data,
+                email=form.email.data,
+                subject=form.subject.data,
+                message=form.message.data,
+                ip_address=request.remote_addr
+            )
+            db.session.add(contact)
+            db.session.commit()
+            
+            send_contact_notification(contact)
+            flash(_('Your message has been sent! We will get back to you soon.'), 'success')
+            return redirect(url_for('main.home'))
+            
+    except Exception as e:
+        logger.error(f"Error processing contact form: {str(e)}")
+        db.session.rollback()
+        flash(_('An error occurred. Please try again later.'), 'error')
+            
+    return render_template('main/home.html', form=form)
 
 @main_bp.route('/test_email')
 def test_email():
@@ -149,3 +161,8 @@ def set_language(lang):
     if lang in ['en', 'ar']:
         session['language'] = lang
     return redirect(request.referrer or url_for('main.index'))
+
+
+
+
+

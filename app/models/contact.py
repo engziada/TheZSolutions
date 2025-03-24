@@ -10,6 +10,9 @@ class Contact(db.Model):
     subject = db.Column(db.String(200), nullable=False)
     message = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    ip_address = db.Column(db.String(45))  # Support for IPv6
+    is_spam = db.Column(db.Boolean, default=False)
     
     def __repr__(self):
         return f'<Contact {self.name}>'
+
