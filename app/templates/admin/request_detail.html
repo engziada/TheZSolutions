@@ -22,7 +22,7 @@
     <div class="md:flex md:items-center md:justify-between">
         <div class="flex-1 min-w-0">
             <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
-                {{ request.project_name }}
+                {{ request.title }}
             </h2>
             <div class="mt-1 flex flex-col sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-6">
                 <div class="mt-2 flex items-center text-sm text-gray-500">
@@ -47,7 +47,7 @@
                             d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
                             clip-rule="evenodd" />
                     </svg>
-                    {{ _('Submitted on') }} {{ request.submission_date.strftime('%B %d, %Y') }}
+                    {{ _('Submitted on') }} {{ request.created_at.strftime('%B %d, %Y') }}
                 </div>
             </div>
         </div>
@@ -91,7 +91,7 @@
                                     {{ _('Project Type') }}
                                 </dt>
                                 <dd class="mt-1 text-sm text-gray-900">
-                                    {{ request.project_type }}
+                                    {{ request.category }}
                                 </dd>
                             </div>
                             <div class="sm:col-span-1">
@@ -107,15 +107,15 @@
                                     {{ _('Budget Range') }}
                                 </dt>
                                 <dd class="mt-1 text-sm text-gray-900">
-                                    {{ request.budget_range }}
+                                    ${{ request.budget_min }} - ${{ request.budget_max }}
                                 </dd>
                             </div>
                             <div class="sm:col-span-1">
                                 <dt class="text-sm font-medium text-gray-500">
-                                    {{ _('Company Name') }}
+                                    {{ _('Contact Name') }}
                                 </dt>
                                 <dd class="mt-1 text-sm text-gray-900">
-                                    {{ request.company_name or _('Not specified') }}
+                                    {{ request.contact_name or _('Not specified') }}
                                 </dd>
                             </div>
                             <div class="sm:col-span-2">

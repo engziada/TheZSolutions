@@ -55,16 +55,31 @@ def dashboard():
 def applications():
     page = request.args.get('page', 1, type=int)
     status = request.args.get('status', 'all')
+    search_query = request.args.get('search', '')
     
     query = Application.query
     if status != 'all':
         query = query.filter_by(status=status)
+    
+    # Apply search filter if search query is provided
+    if search_query:
+        search_term = f"%{search_query}%"
+        query = query.filter(
+            db.or_(
+                Application.first_name.ilike(search_term),
+                Application.last_name.ilike(search_term),
+                Application.email.ilike(search_term),
+                Application.position.ilike(search_term),
+                Application.skills.ilike(search_term)
+            )
+        )
     
     applications = query.order_by(Application.application_date.desc()).paginate(page=page, per_page=10)
     
     return render_template('admin/applications.html', 
                          applications=applications,
                          current_status=status,
+                         search_query=search_query,
                          min=min)
 
 @admin_bp.route('/application/<int:id>')

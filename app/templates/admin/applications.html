@@ -41,6 +41,24 @@
         </div>
     </div>
 
+    <!-- Search Form -->
+    <div class="mt-4">
+        <form action="{{ url_for('admin.applications') }}" method="get" class="flex w-full md:w-1/2 lg:w-1/3">
+            <input type="hidden" name="status" value="{{ current_status }}">
+            <div class="relative flex-grow">
+                <input type="text" name="search" value="{{ search_query }}" placeholder="{{ _('Search by name, email, position, or skills') }}" 
+                       class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                <div class="absolute inset-y-0 right-0 flex items-center">
+                    <button type="submit" class="h-full px-3 text-gray-500 hover:text-gray-700 focus:outline-none">
+                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
     <!-- Applications List -->
     <div class="mt-8 flex flex-col">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -119,13 +137,13 @@
     <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6 mt-4">
         <div class="flex-1 flex justify-between sm:hidden">
             {% if applications.has_prev %}
-            <a href="{{ url_for('admin.applications', status=current_status, page=applications.prev_num) }}"
+            <a href="{{ url_for('admin.applications', status=current_status, page=applications.prev_num, search=search_query) }}"
                 class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
                 {{ _('Previous') }}
             </a>
             {% endif %}
             {% if applications.has_next %}
-            <a href="{{ url_for('admin.applications', status=current_status, page=applications.next_num) }}"
+            <a href="{{ url_for('admin.applications', status=current_status, page=applications.next_num, search=search_query) }}"
                 class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
                 {{ _('Next') }}
             </a>
@@ -146,7 +164,7 @@
             <div>
                 <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
                     {% if applications.has_prev %}
-                    <a href="{{ url_for('admin.applications', status=current_status, page=applications.prev_num) }}"
+                    <a href="{{ url_for('admin.applications', status=current_status, page=applications.prev_num, search=search_query) }}"
                         class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
                         <span class="sr-only">{{ _('Previous') }}</span>
                         <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -155,19 +173,16 @@
                     </a>
                     {% endif %}
 
-                    {% for page_num in applications.iter_pages(left_edge=2, left_current=2, right_current=2, right_edge=2) %}
-                        {% if page_num %}
-                            <a href="{{ url_for('admin.applications', status=current_status, page=page_num) }}"
-                                class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium {% if page_num == applications.page %}text-indigo-600 bg-indigo-50{% else %}text-gray-700 hover:bg-gray-50{% endif %}">
-                                {{ page_num }}
-                            </a>
-                        {% else %}
-                            <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">...</span>
-                        {% endif %}
+                    {% for page_num in range(max(1, applications.page - 2), min(applications.pages + 1, applications.page + 3)) %}
+                    <a href="{{ url_for('admin.applications', status=current_status, page=page_num, search=search_query) }}"
+                        class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium 
+                        {% if page_num == applications.page %}text-indigo-600 bg-indigo-50{% else %}text-gray-700 hover:bg-gray-50{% endif %}">
+                        {{ page_num }}
+                    </a>
                     {% endfor %}
 
                     {% if applications.has_next %}
-                    <a href="{{ url_for('admin.applications', status=current_status, page=applications.next_num) }}"
+                    <a href="{{ url_for('admin.applications', status=current_status, page=applications.next_num, search=search_query) }}"
                         class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
                         <span class="sr-only">{{ _('Next') }}</span>
                         <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
