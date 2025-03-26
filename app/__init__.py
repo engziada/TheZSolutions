@@ -25,7 +25,8 @@ bcrypt = Bcrypt()
 mail = Mail()
 limiter = Limiter(
     key_func=get_remote_address,
-    storage_uri="memory://"
+    storage_uri="memory://",
+    default_limits=[]  # Remove default limits to prevent global rate limiting
 )
 
 def compile_translations():
@@ -101,20 +102,20 @@ def create_app(config_class=Config):
     from app.commands.create_admin import create_admin_command
     app.cli.add_command(create_admin_command)
 
-    # Register rate limit error handler
+    # Register rate limit error handler - only for contact form
     @app.errorhandler(RateLimitExceeded)
     def handle_ratelimit_error(e):
-        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            return jsonify({
-                'status': 'error',
-                'message': _('Please wait before submitting another message.')
-            }), 429
-        flash(_('Please wait before submitting another message.'), 'error')
-        return render_template('main/home.html', form=ContactForm(), title='Home')
+        # Check if the request is for the contact form
+        if request.path == '/contact' or request.endpoint == 'main.contact':
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return jsonify({
+                    'status': 'error',
+                    'message': _('Please wait before submitting another message.')
+                }), 429
+            flash(_('Please wait before submitting another message.'), 'error')
+            return redirect(url_for('main.home'))
+        
+        # For other routes, just return a simple error message
+        return _('Too many requests. Please try again later.'), 429
 
     return app
-
-
-
-
-

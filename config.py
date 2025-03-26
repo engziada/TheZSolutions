@@ -61,9 +61,6 @@ class Config:
     RECAPTCHA_DATA_ATTRS = {'size': 'normal'}
     
     # Rate Limiting with in-memory storage
-    RATELIMIT_DEFAULT = "1 per hour"
+    # RATELIMIT_DEFAULT = "1 per hour"  # Removed default rate limit
     RATELIMIT_STORAGE_URL = "memory://"  # Use in-memory storage instead of Redis
     RATELIMIT_HEADERS_ENABLED = True
-
-
-
