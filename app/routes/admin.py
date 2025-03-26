@@ -80,7 +80,8 @@ def applications():
                          applications=applications,
                          current_status=status,
                          search_query=search_query,
-                         min=min)
+                         min=min,
+                         max=max)
 
 @admin_bp.route('/application/<int:id>')
 @admin_required
