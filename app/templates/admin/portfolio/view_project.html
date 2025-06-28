@@ -1,0 +1,300 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<style>
+    /* Carousel Styles */
+    .carousel {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        height: 400px;
+        border-radius: 0.5rem;
+    }
+    
+    .carousel-inner {
+        display: flex;
+        transition: transform 0.5s ease;
+        height: 100%;
+    }
+    
+    .carousel-item {
+        flex: 0 0 100%;
+        height: 100%;
+    }
+    
+    .carousel-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        background-color: #f3f4f6;
+    }
+    
+    .carousel-control {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 10;
+    }
+    
+    .carousel-control-prev {
+        left: 10px;
+    }
+    
+    .carousel-control-next {
+        right: 10px;
+    }
+    
+    .carousel-indicators {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 8px;
+    }
+    
+    .carousel-indicator {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+    }
+    
+    .carousel-indicator.active {
+        background-color: white;
+    }
+    
+    /* Description content styles */
+    .project-description {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+    
+    .project-description img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    .project-description h1 {
+        font-size: 1.875rem;
+        font-weight: 600;
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .project-description h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-top: 1.25rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .project-description h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .project-description p {
+        margin-bottom: 1rem;
+    }
+    
+    .project-description ul, 
+    .project-description ol {
+        margin-left: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .project-description ul {
+        list-style-type: disc;
+    }
+    
+    .project-description ol {
+        list-style-type: decimal;
+    }
+    
+    .project-description a {
+        color: #4f46e5;
+        text-decoration: underline;
+    }
+    
+    .project-description blockquote {
+        border-left: 4px solid #e5e7eb;
+        padding-left: 1rem;
+        margin-left: 0;
+        margin-right: 0;
+        font-style: italic;
+    }
+    
+    .project-description pre {
+        background-color: #f3f4f6;
+        padding: 1rem;
+        border-radius: 0.375rem;
+        overflow-x: auto;
+        margin-bottom: 1rem;
+    }
+    
+    .project-description code {
+        font-family: monospace;
+        background-color: #f3f4f6;
+        padding: 0.125rem 0.25rem;
+        border-radius: 0.25rem;
+    }
+</style>
+{% endblock extra_head %}
+
+{% block content %}
+<!-- Include Admin Navigation -->
+{% include 'admin/nav.html' %}
+
+<div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <!-- Page header -->
+    <div class="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between">
+        <h3 class="text-2xl leading-6 font-medium text-gray-900">
+            {{ project.title }}
+        </h3>
+        <div class="mt-3 sm:mt-0 sm:ml-4 flex space-x-3">
+            <a href="{{ url_for('admin.portfolio.projects') }}"
+                class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <i class="fas fa-arrow-left mr-2"></i>
+                {{ _('Back to Projects') }}
+            </a>
+            <a href="{{ url_for('admin.portfolio.edit_project', id=project.id) }}"
+                class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <i class="fas fa-edit mr-2"></i>
+                {{ _('Edit Project') }}
+            </a>
+        </div>
+    </div>
+
+    <!-- Project details -->
+    <div class="mt-8 bg-white shadow overflow-hidden sm:rounded-lg">
+        <!-- Project metadata -->
+        <div class="px-4 py-5 sm:px-6 bg-gray-50">
+            <dl class="grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-3">
+                <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">{{ _('Date Added') }}</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ project.created_at.strftime('%Y-%m-%d') }}</dd>
+                </div>
+                <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">{{ _('Added By') }}</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ project.user.username }}</dd>
+                </div>
+                <div class="sm:col-span-1">
+                    <dt class="text-sm font-medium text-gray-500">{{ _('Status') }}</dt>
+                    <dd class="mt-1 text-sm text-gray-900">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ 'bg-green-100 text-green-800' if project.is_active else 'bg-red-100 text-red-800' }}">
+                            {{ _('Active') if project.is_active else _('Inactive') }}
+                        </span>
+                    </dd>
+                </div>
+            </dl>
+        </div>
+
+        <!-- Project content -->
+        <div class="px-4 py-5 sm:p-6">
+            <!-- Image carousel -->
+            {% if project.images %}
+            <div class="mb-8">
+                <h4 class="text-lg font-medium text-gray-900 mb-4">{{ _('Project Images') }}</h4>
+                <div class="carousel">
+                    <div class="carousel-inner" id="carousel-inner">
+                        {% for image in project.images %}
+                        <div class="carousel-item" id="slide-{{ loop.index0 }}">
+                            <img src="{{ url_for('static', filename=image.file_path) }}" alt="{{ project.title }} - {{ loop.index }}">
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Carousel controls -->
+                    {% if project.images|length > 1 %}
+                    <div class="carousel-control carousel-control-prev" onclick="prevSlide()">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                    <div class="carousel-control carousel-control-next" onclick="nextSlide()">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    
+                    <!-- Carousel indicators -->
+                    <div class="carousel-indicators" id="carousel-indicators">
+                        {% for image in project.images %}
+                        <div class="carousel-indicator {{ 'active' if loop.first else '' }}" data-slide="{{ loop.index0 }}" onclick="goToSlide({{ loop.index0 }})"></div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Project description -->
+            <div>
+                <h4 class="text-lg font-medium text-gray-900 mb-4">{{ _('Project Description') }}</h4>
+                <div class="project-description prose prose-indigo max-w-none">
+                    {{ project.description|safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<script>
+    // Carousel functionality
+    let currentSlide = 0;
+    const totalSlides = {{ project.images|length }};
+    
+    // Initialize carousel on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        updateCarousel();
+    });
+    
+    function updateCarousel() {
+        const carouselInner = document.getElementById('carousel-inner');
+        if (!carouselInner) return;
+        
+        carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
+        
+        // Update indicators
+        const indicators = document.querySelectorAll('.carousel-indicator');
+        indicators.forEach((indicator, index) => {
+            if (index === currentSlide) {
+                indicator.classList.add('active');
+            } else {
+                indicator.classList.remove('active');
+            }
+        });
+    }
+    
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateCarousel();
+    }
+    
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        updateCarousel();
+    }
+    
+    function goToSlide(slideIndex) {
+        currentSlide = slideIndex;
+        updateCarousel();
+    }
+    
+    // Auto-advance carousel every 5 seconds if there's more than one image
+    if (totalSlides > 1) {
+        setInterval(nextSlide, 5000);
+    }
+</script>
+{% endblock extra_js %}

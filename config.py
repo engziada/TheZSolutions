@@ -31,7 +31,7 @@ class Config:
     os.makedirs(LOG_FOLDER, exist_ok=True)
     
     # File Upload Settings
-    MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB max file size
+    MAX_CONTENT_LENGTH = 64 * 1024 * 1024  # 64MB max file size for all requests
     ALLOWED_RESUME_EXTENSIONS = {'pdf', 'doc', 'docx'}
     ALLOWED_PROJECT_FILE_EXTENSIONS = {'pdf', 'doc', 'docx', 'txt', 'zip', 'rar', '7z', 'png', 'jpg', 'jpeg'}
     

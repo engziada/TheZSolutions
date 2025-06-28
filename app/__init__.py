@@ -60,7 +60,7 @@ def create_app(config_class=Config):
     # Create logs directory if it doesn't exist
     if not os.path.exists('logs'):
         os.mkdir('logs')
-    
+
     # Setup logging
     file_handler = RotatingFileHandler('logs/zsolutions.log', maxBytes=10240, backupCount=10)
     file_handler.setFormatter(logging.Formatter(
@@ -81,7 +81,7 @@ def create_app(config_class=Config):
     from app.routes.auth import auth_bp
     from app.routes.customer import customer_bp
     from app.routes.developer import developer_bp
-    from app.routes.admin import admin_bp
+    from app.routes.admin import admin_bp  # This now imports from the admin package
     from app.routes.careers import careers_bp
     from app.routes.project_requests import requests_bp
     from app.routes.seo import seo_bp
@@ -114,7 +114,7 @@ def create_app(config_class=Config):
                 }), 429
             flash(_('Please wait before submitting another message.'), 'error')
             return redirect(url_for('main.home'))
-        
+
         # For other routes, just return a simple error message
         return _('Too many requests. Please try again later.'), 429
 

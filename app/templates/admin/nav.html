@@ -19,11 +19,15 @@
                         class="{% if request.endpoint == 'admin.applications' %}border-indigo-500 text-white{% else %}border-transparent text-indigo-200 hover:text-white hover:border-white{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                         Job Applications
                     </a>
+                    <a href="{{ url_for('admin.portfolio.projects') }}"
+                        class="{% if request.endpoint == 'admin.portfolio.projects' %}border-indigo-500 text-white{% else %}border-transparent text-indigo-200 hover:text-white hover:border-white{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        Projects
+                    </a>
                 </div>
             </div>
             <!-- Mobile menu button -->
             <div class="flex items-center sm:hidden">
-                <button type="button" 
+                <button type="button"
                         class="inline-flex items-center justify-center p-2 rounded-md text-indigo-200 hover:text-white hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
                         onclick="toggleMobileMenu()">
                     <span class="sr-only">Open main menu</span>
@@ -49,6 +53,10 @@
             <a href="{{ url_for('admin.applications', status='pending') }}"
                 class="{% if request.endpoint == 'admin.applications' %}bg-indigo-700 text-white{% else %}text-indigo-200 hover:bg-indigo-500 hover:text-white{% endif %} block pl-3 pr-4 py-2 text-base font-medium">
                 Job Applications
+            </a>
+            <a href="{{ url_for('admin.portfolio.projects') }}"
+                class="{% if request.endpoint == 'admin.portfolio.projects' %}bg-indigo-700 text-white{% else %}text-indigo-200 hover:bg-indigo-500 hover:text-white{% endif %} block pl-3 pr-4 py-2 text-base font-medium">
+                Projects
             </a>
         </div>
     </div>
